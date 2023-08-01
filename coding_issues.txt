@@ -1,0 +1,19 @@
+
+
+I believe your browser is caching your js
+you could power refresh your browser, or clear browser cache?
+
+chrome control+f5 or shift + f5
+firefox it is control + shift + r
+
+
+
+
+
+
+
+A more simple solution just type 
+
+sudo fuser -k 8000/tcp 
+
+This should kill all the processes associated with port 8000.
