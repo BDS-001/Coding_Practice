@@ -1,0 +1,64 @@
+textarea {
+    min-height: 400px;
+}
+
+.msg {
+    text-align: center;
+}
+
+.empty {
+    margin-bottom: 5%;
+}
+
+.email {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    width: 100%;
+    text-align: left;
+    background-color: white;
+    display:flex;
+}
+
+.email-read {
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    width: 100%;
+    text-align: left;
+    background-color: lightgrey;
+    display:flex;
+}
+
+.email:hover {
+    background-color: lightblue;
+}
+
+.email-read:hover {
+    background-color: lightblue;
+}
+
+
+.divider {
+    height: 1px;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
+}
+
+.e-header {
+    margin-bottom: 0%;
+}
+
+.e-list {
+    margin-bottom: 0%;
+    flex:33.33%
+}
+
+.e-time {
+    margin-bottom: 0%;
+    color:  darkgrey;
+}
+
+.single-body {
+    min-height: 500px;
+}

@@ -1,0 +1,26 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+{% if message %}
+    <div id="user-does-not-exist">{{message}}</div>
+{% else %}
+    <h1>{{ profile_user.username }}</h1>
+    <div class="all-posts">
+    {% if user.is_authenticated %}
+    {% endif %}
+
+    {% for post in posts %}
+    <div class="post">
+        <h2 class="post-username">{{ post.user }}</h2>
+        <div class="time">{{ post.timestamp }}</div>
+        <p> {{ post.post_body }}</p>
+        <div>{{ post.likes }} likes</div>
+    </div>
+    <div class="post-margin"></div>
+    {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

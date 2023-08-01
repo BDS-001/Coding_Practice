@@ -1,0 +1,71 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <h1>All Posts</h1>
+    <div class="all-posts">
+    {% if user.is_authenticated %}
+        <div class="post">
+            <h3>New Post</h3>
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                <textarea id="new-post-body" name="body"></textarea>
+                <input type="submit" value="post" class="btn btn-primary"></input>
+                {% if message %}
+                    {{ message }}
+                {% endif %}
+            </form>
+        </div>
+        <div class="post-margin"></div>
+    {% endif %}
+    {% for post in posts %}
+    <div class="post">
+        <h2 class="post-username">{{ post.user }}</h2>
+        <div class="time">{{ post.timestamp }}</div>
+        <p> {{ post.post_body }}</p>
+        <button id="like" data-post_id="{{post.id}}"></button>
+    </div>
+    <div class="post-margin"></div>
+    {% endfor %}
+    </div>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+        {% if prev %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{prev}}">Previous</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+          {% endif %}
+
+
+        {% for num in p.page_range %}
+            {% if posts.number == num %}
+                <li class="page-item active"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+            {% elif num > posts.number|add:'-3' and num < posts.number|add:'3' %}
+            <li class="page-item"><a class="page-link" href="?page={{num}}">{{num}}</a></li>
+            {% endif %}
+        {% endfor %}
+
+
+          {% if next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{next}}">Next</a>
+          </li>
+          {% else %}
+          <li class="page-item disabled">
+            <a class="page-link" href="#">Next</a>
+          </li>
+          {% endif %}
+        </ul>
+      </nav>
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/index.js' %}"></script>
+{% endblock %}

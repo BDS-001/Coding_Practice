@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+    <h2>Bid on {{listing.title}}</h2>
+    <h2>Current Bid: ${{listing.starting_bid}}</h2>
+    <img src="/{{ listing.image }}" style="width: auto; height: 375px;">
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'new_bid' listing.id %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <input required class="form-control" type="number" step=".01" name="bid" placeholder="Enter Bid">
+        </div>
+        
+        <input class="btn btn-primary" type="submit" value="Submit Bid">
+    </form>
+
+{% endblock %}

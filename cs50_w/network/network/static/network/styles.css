@@ -1,0 +1,45 @@
+h1 {
+    margin: 15px;
+}
+
+.all-posts {
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.post-margin {
+    margin:15px;
+}
+.post {
+    padding: 30px;
+    border: 1px solid black;
+}
+
+#new-post-body {
+    width: 100%;
+}
+
+.time {
+    color: grey;
+    margin-bottom: 10px;
+}
+
+.post-username {
+    line-height: 5px;
+}
+
+#user-does-not-exist {
+    width:100%;
+    height:100%;
+    text-align: center;
+    padding-top: 200px;
+    font-size: 6em;
+
+}
+
+#follow {
+    margin-left: 10px;
+}
+
+#profile-header {
+    margin: 10px;
+}

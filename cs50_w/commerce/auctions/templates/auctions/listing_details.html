@@ -1,0 +1,47 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listing Details</h2>
+    <div style="margin: 10px; border: solid black 2px; padding: 10px; width: 100%; height: 400px;">
+            <div>
+                <div style="float: right;">
+                    <h3>{{listings.title}}</h3>
+                    <h4>Price: ${{ listings.starting_bid }}</h4>
+                    <h4>Description: {{ listings.item_description }}</h4>
+                    <h4>Categories: 
+                        {% if categories == "No categories provided." %}
+                            {{categories}}
+                        {% else %}
+                            {% for category in categories %}
+                                <a href="#">{{category}}</a>.
+                            {% endfor %}
+                        {% endif %}
+                    </h4>
+                    <a href="{% url 'new_bid' listings.id %}"><button type="button" class="btn btn-primary">Make a Bid...</button></a>
+                </div>
+            </div>
+            <img src="/{{ listings.image }}" style="width: auto; height: 375px;">
+    </div>
+    <h2>Bids:</h2>
+    <div style="overflow-y: scroll; width:fit-content; height:100px;">
+        <ul>
+            {% for bid in bid_history %}
+                <li>{{bid}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <h2>Comments:</h2>
+    <div style="overflow-y: scroll; width:fit-content; height:200px;">
+        <a href="{% url 'new_comment' listings.id %}"><button type="button" class="btn btn-primary">Add a comment</button></a>
+
+            {% for comment in comments %}
+            <div>
+                <b>{{comment.user}}</b>
+                <p>{{comment.comment}}</p>
+            </div>
+            {% endfor %}
+
+    </div>
+
+{% endblock %}

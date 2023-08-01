@@ -1,0 +1,19 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+{% if user.is_authenticated %}
+
+        <div id="profile-header">
+            <h1 id="profile_username">{{ profile_user.username }}</h1>
+        </div>
+        <div class="all-posts">
+
+        </div>
+
+{% endif %}
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/following.js' %}"></script>
+{% endblock %}
