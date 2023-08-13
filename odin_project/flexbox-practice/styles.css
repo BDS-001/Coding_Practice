@@ -1,0 +1,20 @@
+* {
+    background-color: black;
+    color: peachpuff;
+}
+
+.flex-container {
+    display: flex;
+    background-color: aquamarine;
+    border: 2px solid orange;
+    margin: 10px;
+    justify-content: space-between;
+}
+
+.flex-item {
+    background-color: pink;
+    height: 300px;
+    width: 100px;
+    border: 2px solid green;
+    margin: 10px;
+}
