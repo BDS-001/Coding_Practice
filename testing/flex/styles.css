@@ -1,0 +1,13 @@
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    height: 100vh
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+}
