@@ -1,3 +1,2 @@
 # Coding_Practice
-
-This contains some of the projects i have worked on during my learning journey.
+This contains some of the projects i have worked on during my learning journey. This ranges from full projects to practuce to small code alongs from a variety of sources. It is divided into folders named after the resources used. The testing folder is for testing personal projects and playing with concepts. 
