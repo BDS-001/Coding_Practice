@@ -5,9 +5,35 @@ body {
     height: 100vh
 }
 
-.footer {
+.footer,
+.header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: green;
+    background-color: black;
+    padding: 20px;
+    color: white;
+}
+
+.header {
+    justify-content: space-between;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.links {
+    display: flex;
+    gap: 20px;
+    margin-right: 10px;
+}
+
+.middle {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
 }
