@@ -1,0 +1,22 @@
+body {
+    height: 200vh;
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    width: 100%;
+    height: 100px;
+    background-color: tan;
+    margin-bottom: 100px;
+    position: sticky;
+    top: 0;
+}
+.sticky {
+    background-color: green;
+    width: 800px;
+    height: 200px;
+    position: sticky;
+    margin-bottom: 100px;
+    top: 5;
+}
