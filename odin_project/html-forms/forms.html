@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: black;
+            color: azure;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items:start;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form action="get">
+        <label for="name">name:</label>
+        <input type="text" name="name" id="name">
+
+        <label for="review">review:</label>
+        <textarea name="review" id="review" cols="30" rows="10"></textarea>
+
+        <select name="brand" id="brand">
+            <optgroup label="windows">
+                <option value="asus">asus</option>
+                <option value="hp">hp</option>
+                <option value="lenovo">lenovo</option>
+            </optgroup>
+            <optgroup label="apple">
+                <option value="macbook">macbook</option>
+            </optgroup>
+        </select>
+        
+
+    </form>
+</body>
+</html>
