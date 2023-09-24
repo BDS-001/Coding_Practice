@@ -29,17 +29,57 @@
         }
 
         #kitchen {
-            grid-column: 4 / 6;
+            grid-column: 2 / 4;
             grid-row: 3 / 6;
         }
 
         #bedroom {
-            grid-column: 2 / 4;
+            grid-column: 4 / 6;
             grid-row: 3 / 5;
         }
 
         #closet {
-            grid-column: 2 / 4;
+            grid-column: 4 / 6;
+        }
+
+    </style>
+    <style>
+        .container {
+            display: inline-grid;
+            grid-template: 40px 40px 40px 40px 40px / 40px 40px 40px 40px 40px;
+            background-color: lightblue; 
+            grid-template-areas:
+                "living-room living-room living-room living-room living-room"
+                "living-room living-room living-room living-room living-room"
+                "bedroom bedroom bathroom kitchen kitchen"
+                "bedroom bedroom bathroom kitchen kitchen"
+                "closet closet . . ."    
+        }
+
+        .room {
+            border: 1px solid;
+            font-size: 50%;
+            text-align: center;
+        }
+
+        #living-room {
+            grid-area:  living-room;
+        }
+
+        #kitchen {
+            grid-area: kitchen;
+        }
+
+        #bedroom {
+            grid-area: bedroom;
+        }
+
+        #bathroom {
+            grid-area: bathroom;
+        }
+
+        #closet {
+            grid-area: closet;
         }
 
     </style>
