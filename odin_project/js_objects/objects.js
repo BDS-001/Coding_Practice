@@ -22,7 +22,23 @@ function Movie(title, author) {
     this.author = author
 }
 
-Movie.prototype = Book.prototype
+// Movie.prototype = Book.prototype
+Object.setPrototypeOf(Movie.prototype, Book.prototype)
 
+// before making changes the movie prototype inherits the baic function
 const lionKing = new Movie('Lion King', 'Disney')
 console.log(lionKing.basic())
+
+
+
+//using Object.setPrototypeOf allows you to change prototype function individual of each constructor
+Movie.prototype.basic = function() {
+    return `The Movie ${this.title} is by ${this.author}`
+}
+
+Book.prototype.basic = function() {
+    return `The Book ${this.title} is by ${this.author}`
+}
+
+console.log(lionKing.basic())
+console.log(hobbit.basic())
