@@ -1,3 +1,17 @@
+let myModule = {
+    name: 'will',
+    age: 34,
+    sayName: function() {
+        alert(this.name)
+    },
+    setName: function(newName) {
+        this.name = newName
+    }
+}
+
+myModule.sayName()
+
+//only module can access variables
 let people = (function() {
     let name = 'will'
 
@@ -9,3 +23,5 @@ let people = (function() {
         sayName:sayName
     }
 })()
+
+
