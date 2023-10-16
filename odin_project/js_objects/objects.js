@@ -42,3 +42,6 @@ Book.prototype.basic = function() {
 
 console.log(lionKing.basic())
 console.log(hobbit.basic())
+
+
+
