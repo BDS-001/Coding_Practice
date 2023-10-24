@@ -37,3 +37,22 @@ class User {
 
   console.log(User.prototype.name) 
   console.log(User.prototype.age)
+
+
+
+  class Book {
+    constructor(author, title, pages, read) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+    }
+  
+    changeRead() {
+      if (this.read === 'no') {
+        this.read = 'yes'
+      } else {
+        this.read = 'no'
+      }
+    }
+  }
