@@ -47,7 +47,19 @@ class User {
     this.pages = pages
     this.read = read
     }
+
+    get author() {
+      return this._author
+    }
   
+    set author(value) {
+      if (value.length === 0) {
+        console.log('author cannot be blank')
+        return
+      }
+      this._author = value
+    }
+
     changeRead() {
       if (this.read === 'no') {
         this.read = 'yes'
@@ -56,3 +68,6 @@ class User {
       }
     }
   }
+
+  const testBook = new Book('', 'title', 34, false)
+  console.log(testBook.author, 'the author')
