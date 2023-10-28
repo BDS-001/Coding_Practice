@@ -60,6 +60,33 @@ class User {
       this._author = value
     }
 
+    get title() {
+      return this._title
+    }
+  
+    set title(value) {
+      if (value.length === 0) {
+        console.log('title cannot be blank')
+        return
+      }
+      this._title = value
+    }
+
+    get pages() {
+      return this._pages
+    }
+  
+    set pages(value) {
+      if (!Number.isInteger(value)) {
+        console.log('pages mnust be an integer')
+        return
+      } else if (value < 1) {
+        console.log('invalid numer of pages')
+        return
+      }
+      this._pages = value
+    }
+
     changeRead() {
       if (this.read === 'no') {
         this.read = 'yes'
@@ -67,7 +94,12 @@ class User {
         this.read = 'no'
       }
     }
+
+    basicInfo() {
+      console.log(`${this.title} by ${this.author}`)
+    }
   }
 
-  const testBook = new Book('', 'title', 34, false)
+  const testBook = new Book('', 'title', -1, false)
   console.log(testBook.author, 'the author')
+  console.log(testBook.pages, 'pages')
