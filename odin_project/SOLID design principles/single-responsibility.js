@@ -1,5 +1,5 @@
 const badCalorieTracker = function(maxCalories) {
-    const currentCalories = 0
+    let currentCalories = 0
 
     function trackCalories(calorieCount) {
         currentCalories += calorieCount
