@@ -22,3 +22,17 @@ function printQuiz(questions) {
         console.log('')
     });
 }
+
+const questions = [
+    { 
+        type: 'boolean',
+        description: 'boolean question'
+    },
+    {
+        type: 'multipleChoice',
+        description: 'best coding lang',
+        options: ['Python', 'JS', 'C', 'Rust']
+    }
+]
+
+printQuiz(questions)
