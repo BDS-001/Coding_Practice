@@ -77,6 +77,7 @@ function newPrintQuiz(questions) {
     questions.forEach(question => {
             console.log(question.description)
             question.printQuestionChoices()
+            console.log('')
     });
 }
 
