@@ -41,9 +41,9 @@ const rec1 = new Rectangle(15, 40)
 const rec2 = new Rectangle(22, 22)
 const sqr1 = new Square(22, 22)
 
-increaseRectangleWidth(rec1)
-increaseRectangleWidth(rec2)
-increaseRectangleWidth(sqr1)
+increaseShapeWidth(rec1)
+increaseShapeWidth(rec2)
+increaseShapeWidth(sqr1)
 
 console.log(rec1.area())
 console.log(rec2.area())
