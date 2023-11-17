@@ -44,10 +44,11 @@ class StripePaymentProcessor {
 //api wrapper that has the same function for all other payment wrappers
 class PaypalPaymentProcessor {
     constructor(user) {
+        this.user = user
         this.paypal = new Paypal(user)
     }
 
     pay(amountInDollars) {
-        this.paypal.makePayment(amountInDollars)
+        this.paypal.makePayment(this.user, amountInDollars)
     } 
 }
