@@ -24,7 +24,14 @@
         complete: false
     };
 
+    const myObjSerialized = JSON.stringify(myObj)
+
     console.log(myObj)
     localStorage.setItem('myObj', myObj)
     console.log(localStorage)
+    localStorage.setItem('serialized', myObjSerialized)
+    console.log(localStorage.getItem('serialized'))
+
+    const myObjDeserialized = JSON.parse(localStorage.getItem('serialized'))
+    console.log(myObjDeserialized)
 </script>
