@@ -34,4 +34,17 @@
 
     const myObjDeserialized = JSON.parse(localStorage.getItem('serialized'))
     console.log(myObjDeserialized)
+
+    class Test {
+        constructor(name, age) {
+            this.name = name
+            this.age = age
+        }
+    }
+
+    const classTest = new Test('dobby', 45)
+    const ser = JSON.stringify(classTest)
+
+    localStorage.setItem('ser', ser)
+    console.log(localStorage.getItem('ser'))
 </script>
