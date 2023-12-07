@@ -40,6 +40,10 @@
             this.name = name
             this.age = age
         }
+
+        doSomething() {
+            console.log(this,name)
+        }
     }
 
     const classTest = new Test('dobby', 45)
@@ -47,4 +51,7 @@
 
     localStorage.setItem('ser', ser)
     console.log(localStorage.getItem('ser'))
+
+    JSON.parse(localStorage.getItem('ser')).doSomething()
+
 </script>
