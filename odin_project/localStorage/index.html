@@ -64,10 +64,9 @@
             console.log('here')
         }
 
-        return ( doSomething, doAnother )
+        return { doSomething, doAnother }
     })();
 
     testModule.doSomething(JSON.parse(localStorage.getItem('ser')))
     testModule.doAnother(JSON.parse(localStorage.getItem('ser')))
-
 </script>
