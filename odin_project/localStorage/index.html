@@ -52,6 +52,13 @@
     localStorage.setItem('ser', ser)
     console.log(localStorage.getItem('ser'))
 
-    JSON.parse(localStorage.getItem('ser')).doSomething()
+    //JSON.parse(localStorage.getItem('ser')).doSomething()
+    //class become just an object, cant save functions
+
+    const testModule = (function() {
+        function doSomething(obj) {
+            console.log(obj.name)
+        }
+    })();
 
 </script>
