@@ -59,8 +59,15 @@
         function doSomething(obj) {
             console.log(obj.name)
         }
+
+        function doAnother(obj) {
+            console.log('here')
+        }
+
+        return ( doSomething, doAnother )
     })();
 
-    testModule(JSON.parse(localStorage.getItem('ser'))).doSomething()
+    testModule.doSomething(JSON.parse(localStorage.getItem('ser')))
+    testModule.doAnother(JSON.parse(localStorage.getItem('ser')))
 
 </script>
