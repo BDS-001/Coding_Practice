@@ -35,7 +35,7 @@
     const myObjDeserialized = JSON.parse(localStorage.getItem('serialized'))
     console.log(myObjDeserialized)
 
-    class Test {
+class Test {
         constructor(name, age) {
             this.name = name
             this.age = age
@@ -69,4 +69,75 @@
 
     testModule.doSomething(JSON.parse(localStorage.getItem('ser')))
     testModule.doAnother(JSON.parse(localStorage.getItem('ser')))
+
+class Project {
+    constructor(name, desc) {
+        this.name = name
+        this.desc = desc
+        this.id = this.generateUniqueId()
+        this.tasks = []
+    }
+}
+
+const projects = (function() {
+    addTask(project, title, desc) {
+        const taskId = generateUniqueId();
+        const task = new Task(taskId, title, desc, project.name);
+        project.tasks.push(task);
+        return task;
+      }
+
+      markTaskCompleted(taskId, project) {
+        const task = findTaskById(taskId);
+        if (task) {
+          task.markComplete();
+          return true; // Task marked as completed successfully
+        }
+        return false; // Task not found
+      }
+    
+      generateUniqueId() {
+          // Generate a random number and convert it to a hexadecimal string
+          const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
+
+          // Use the current timestamp to ensure uniqueness
+          const timestampPart = new Date().getTime().toString(16);
+
+          // Concatenate the random and timestamp parts
+          const uniqueId = randomPart + timestampPart;
+
+          return uniqueId;
+      }
+    
+      findTaskById(taskId) {
+        return this.tasks.find(task => task.id === taskId);
+      }
+    
+      getInProgressTasks() {
+        return this.tasks.filter(task => !task.completed);
+      }
+    
+      getCompletedTasks() {
+        return this.tasks.filter(task => task.completed);
+      }
+})
+
+class Task {
+    constructor(id, title, desc, project) {
+        this.id = id
+        this.title = title
+        this.desc = desc
+        this.date = Date.now()
+        this.project = project
+        this.completed = false
+    }
+}
+
+const Tasks = (function() {
+    function markComplete(task) {
+        task.completed = true
+    }
+
+    return { markComplete }
+})();
 </script>
