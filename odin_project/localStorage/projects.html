@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+</head>
+<style>
+    body {
+        color: whitesmoke;
+        background-color: black;
+    }
+</style>
+<body>
+    <h1>localStorage Projects</h1>
+</body>
+</html>
+
+<script>
+
+    //project object
+    class Project {
+        constructor(name, desc) {
+            this.name = name
+            this.desc = desc
+            this.id = this.generateUniqueId()
+            this.tasks = []
+        }
+    }
+
+    //project functions
+    const projects = (function() {
+        if (!localStorage.getItem('projects')) {
+            let newProjectsList = {}
+            newProjectsList = JSON.stringify(newProjectsList)
+            localStorage.setItem('projects', newProjectsList)
+        }
+
+        function addTask(project, title, desc) {
+            const taskId = generateUniqueId();
+            const task = new Task(taskId, title, desc, project.name);
+            project.tasks.push(task);
+            return task;
+        }
+
+        function markTaskCompleted(taskId) {
+            const task = findTaskById(taskId);
+            if (task) {
+            task.markComplete();
+            return true; // Task marked as completed successfully
+            }
+            return false; // Task not found
+        }
+        
+        function generateUniqueId() {
+            // Generate a random number and convert it to a hexadecimal string
+            const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
+
+            // Use the current timestamp to ensure uniqueness
+            const timestampPart = new Date().getTime().toString(16);
+
+            // Concatenate the random and timestamp parts
+            const uniqueId = randomPart + timestampPart;
+
+            return uniqueId;
+        }
+        
+        function findTaskById(taskId) {
+            const tasks = JSON.parse(localStorage.getItem('tasks'))
+            return tasks[taskId];
+        }
+        
+        function getInProgressTasks() {
+            return this.tasks.filter(task => !task.completed);
+        }
+        
+        function getCompletedTasks() {
+            return this.tasks.filter(task => task.completed);
+        }
+    })();
+
+    class Task {
+        constructor(id, title, desc, project) {
+            this.id = id
+            this.title = title
+            this.desc = desc
+            this.date = Date.now()
+            this.project = project
+            this.completed = false
+        }
+    }
+
+    const Tasks = (function() {
+        if (!localStorage.getItem('tasks')) {
+            let newTasksList = {}
+            newTasksList = JSON.stringify(newTasksList)
+            localStorage.setItem('tasks', newTasksList)
+        }
+
+        function markComplete(task) {
+            task.completed = true
+        }
+
+        return { markComplete }
+    })();
+</script>

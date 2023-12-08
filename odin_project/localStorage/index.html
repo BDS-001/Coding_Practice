@@ -71,75 +71,21 @@ class Test {
     testModule.doAnother(JSON.parse(localStorage.getItem('ser')))
 
 
-    // ------------------------------------------------------------------------------------------------------------------------------------------------
-class Project {
-    constructor(name, desc) {
-        this.name = name
-        this.desc = desc
-        this.id = this.generateUniqueId()
-        this.tasks = []
-    }
-}
-
-const projects = (function() {
-    function addTask(project, title, desc) {
-        const taskId = generateUniqueId();
-        const task = new Task(taskId, title, desc, project.name);
-        project.tasks.push(task);
-        return task;
-      }
-
-      function markTaskCompleted(taskId, project) {
-        const task = findTaskById(taskId);
-        if (task) {
-          task.markComplete();
-          return true; // Task marked as completed successfully
+    let v = {
+        10: 'ten',
+        15: 'fifteen',
+        'obj': {
+            'age': 34,
+            'name': 'joe'
         }
-        return false; // Task not found
-      }
-    
-      function generateUniqueId() {
-          // Generate a random number and convert it to a hexadecimal string
-          const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
-
-          // Use the current timestamp to ensure uniqueness
-          const timestampPart = new Date().getTime().toString(16);
-
-          // Concatenate the random and timestamp parts
-          const uniqueId = randomPart + timestampPart;
-
-          return uniqueId;
-      }
-    
-      function findTaskById(taskId) {
-        return this.tasks.find(task => task.id === taskId);
-      }
-    
-      function getInProgressTasks() {
-        return this.tasks.filter(task => !task.completed);
-      }
-    
-      function getCompletedTasks() {
-        return this.tasks.filter(task => task.completed);
-      }
-})
-
-class Task {
-    constructor(id, title, desc, project) {
-        this.id = id
-        this.title = title
-        this.desc = desc
-        this.date = Date.now()
-        this.project = project
-        this.completed = false
-    }
-}
-
-const Tasks = (function() {
-    function markComplete(task) {
-        task.completed = true
     }
 
-    return { markComplete }
-})();
+    localStorage.setItem('v', JSON.stringify(v))
+    
+    let x = JSON.parse(localStorage.getItem('v'))
+
+    console.log(x)
+    console.log(x['10'])
+    console.log(x['20'])
+    console.log(x['obj'].age)
 </script>
