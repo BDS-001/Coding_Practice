@@ -70,6 +70,8 @@ class Test {
     testModule.doSomething(JSON.parse(localStorage.getItem('ser')))
     testModule.doAnother(JSON.parse(localStorage.getItem('ser')))
 
+
+    // ------------------------------------------------------------------------------------------------------------------------------------------------
 class Project {
     constructor(name, desc) {
         this.name = name
@@ -80,14 +82,14 @@ class Project {
 }
 
 const projects = (function() {
-    addTask(project, title, desc) {
+    function addTask(project, title, desc) {
         const taskId = generateUniqueId();
         const task = new Task(taskId, title, desc, project.name);
         project.tasks.push(task);
         return task;
       }
 
-      markTaskCompleted(taskId, project) {
+      function markTaskCompleted(taskId, project) {
         const task = findTaskById(taskId);
         if (task) {
           task.markComplete();
@@ -96,7 +98,7 @@ const projects = (function() {
         return false; // Task not found
       }
     
-      generateUniqueId() {
+      function generateUniqueId() {
           // Generate a random number and convert it to a hexadecimal string
           const randomPart = Math.floor(Math.random() * Date.now()).toString(16);
 
@@ -109,15 +111,15 @@ const projects = (function() {
           return uniqueId;
       }
     
-      findTaskById(taskId) {
+      function findTaskById(taskId) {
         return this.tasks.find(task => task.id === taskId);
       }
     
-      getInProgressTasks() {
+      function getInProgressTasks() {
         return this.tasks.filter(task => !task.completed);
       }
     
-      getCompletedTasks() {
+      function getCompletedTasks() {
         return this.tasks.filter(task => task.completed);
       }
 })
