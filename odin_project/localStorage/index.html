@@ -82,10 +82,18 @@ class Test {
 
     localStorage.setItem('v', JSON.stringify(v))
     
-    let x = JSON.parse(localStorage.getItem('v'))
+    let hold = localStorage.getItem('v')
+    let x = JSON.parse(hold)
 
     console.log(x)
     console.log(x['10'])
     console.log(x['20'])
     console.log(x['obj'].age)
+
+    v[19] = 'nineteen'
+    console.log(v)
+    localStorage.setItem('v', JSON.stringify(v))
+    console.log(hold)
+
+    localStorage.clear()
 </script>

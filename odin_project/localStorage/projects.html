@@ -39,7 +39,8 @@
         function addTask(project, title, desc) {
             const taskId = generateUniqueId();
             const task = new Task(taskId, title, desc, project.name);
-            project.tasks.push(task);
+            project.tasks.push(task.taskId);
+            tasks.addTask(task)
             return task;
         }
 
@@ -71,11 +72,13 @@
         }
         
         function getInProgressTasks() {
-            return this.tasks.filter(task => !task.completed);
+            const tasks = JSON.parse(localStorage.getItem('tasks')).values()
+            return tasks.filter(task => !task.completed);
         }
         
         function getCompletedTasks() {
-            return this.tasks.filter(task => task.completed);
+            const tasks = JSON.parse(localStorage.getItem('tasks')).values()
+            return tasks.filter(task => task.completed);
         }
     })();
 
@@ -101,6 +104,12 @@
             task.completed = true
         }
 
-        return { markComplete }
+        function addTask(task) {
+            const taskList = JSON.parse(localStorage.getItem('tasks'))
+            taskList[task.taskId] = task
+            localStorage.setItem('tasks', JSON.stringify(taskList))
+        }
+
+        return { markComplete, addTask }
     })();
 </script>
