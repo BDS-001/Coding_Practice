@@ -36,18 +36,24 @@
             localStorage.setItem('projects', newProjectsList)
         }
 
+        function saveProject(project) {
+            const projectList = JSON.parse(localStorage.getItem('projects'))
+            projectList[`${project.id}`] = project
+            localStorage.setItem('projects', JSON.stringify(projectList))
+        }
+
         function addTask(project, title, desc) {
             const taskId = generateUniqueId();
             const task = new Task(taskId, title, desc, project.name);
             project.tasks.push(task.taskId);
-            tasks.addTask(task)
+            tasks.saveTask(task)
             return task;
         }
 
         function markTaskCompleted(taskId) {
             const task = findTaskById(taskId);
             if (task) {
-            task.markComplete();
+            task.markComplete(taskId);
             return true; // Task marked as completed successfully
             }
             return false; // Task not found
@@ -67,19 +73,21 @@
         }
         
         function findTaskById(taskId) {
-            const tasks = JSON.parse(localStorage.getItem('tasks'))
-            return tasks[taskId];
+            const tasksList = JSON.parse(localStorage.getItem('tasks'))
+            return tasksList[taskId];
         }
         
         function getInProgressTasks() {
-            const tasks = JSON.parse(localStorage.getItem('tasks')).values()
-            return tasks.filter(task => !task.completed);
+            const tasksList = JSON.parse(localStorage.getItem('tasks')).values()
+            return tasksList.filter(task => !task.completed);
         }
         
         function getCompletedTasks() {
-            const tasks = JSON.parse(localStorage.getItem('tasks')).values()
-            return tasks.filter(task => task.completed);
+            const tasksList = JSON.parse(localStorage.getItem('tasks')).values()
+            return tasksList.filter(task => task.completed);
         }
+
+        return { saveProject, findTaskById, getCompletedTasks, getInProgressTasks }
     })();
 
     class Task {
@@ -93,23 +101,27 @@
         }
     }
 
-    const Tasks = (function() {
+    const tasks = (function() {
         if (!localStorage.getItem('tasks')) {
             let newTasksList = {}
             newTasksList = JSON.stringify(newTasksList)
             localStorage.setItem('tasks', newTasksList)
         }
 
-        function markComplete(task) {
-            task.completed = true
+        function markComplete(taskId) {
+            const taskList = JSON.parse(localStorage.getItem('tasks'))
+            taskList[taskId].completed = true
+            localStorage.setItem('tasks', JSON.stringify(taskList))
         }
 
-        function addTask(task) {
+        function saveTask(task) {
             const taskList = JSON.parse(localStorage.getItem('tasks'))
             taskList[task.taskId] = task
             localStorage.setItem('tasks', JSON.stringify(taskList))
         }
 
-        return { markComplete, addTask }
+        return { markComplete, saveTask }
     })();
+
+
 </script>
