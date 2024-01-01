@@ -1,0 +1,37 @@
+:root {
+    --triangle-sides: 5px;
+    --triangle-top: 10px;
+}
+
+#dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.triangle-down {
+    width: 0;
+    height: 0;
+    border-left: var(--triangle-sides) solid transparent;
+    border-right: var(--triangle-sides) solid transparent;
+    border-top: var(--triangle-top) solid black;
+}
+
+#dropdownbtn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 20px;
+    width: 150px;
+    border: 1px solid black;
+    padding: 2px 10px;
+    z-index: 1;
+}
+
+#dropdown-menu {
+    display: none;
+    position: absolute;
+    border: 1px solid black;
+    min-width: 200px;
+    gap: 4px;
+    /* left: 80%; */
+}
