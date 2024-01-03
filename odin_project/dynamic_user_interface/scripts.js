@@ -39,7 +39,7 @@ function slide(interval, applyTransition = false) {
             // Start fade-in effect
             display.classList.add('fade-in');
             display.classList.remove('fade-out');
-        }, 1000); // This should match the CSS transition duration
+        }, 250);
     } else {
         // If transition not needed, just update the image source
         updateImageSource(interval);
@@ -47,7 +47,6 @@ function slide(interval, applyTransition = false) {
 }
 
 function updateImageSource(interval) {
-    // Update the pointer and image source as before
     if (pointer + interval < 0) {
         pointer = images.length - 1;
     } else if (pointer + interval >= images.length) {

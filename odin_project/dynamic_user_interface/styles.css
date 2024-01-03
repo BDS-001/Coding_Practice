@@ -52,7 +52,7 @@
 
 #display {
     width: 400px;
-    transition: opacity 1s ease;
+    transition: opacity 0.25s ease;
 }
 
 .fade-out {
