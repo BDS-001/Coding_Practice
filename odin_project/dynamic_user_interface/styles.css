@@ -52,4 +52,13 @@
 
 #display {
     width: 400px;
+    transition: opacity 1s ease;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.fade-in {
+    opacity: 1;
 }

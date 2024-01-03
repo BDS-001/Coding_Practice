@@ -26,32 +26,49 @@ let pointer = 0
 let intervalId
 const intervalDuration = 5000
 
-function slide(interval) {
-    if (pointer + interval < 0) {
-        pointer = images.length - 1
-    } else if (pointer + interval >= images.length) {
-        pointer = 0
+function slide(interval, applyTransition = false) {
+    if (applyTransition) {
+        // Start fade-out effect
+        display.classList.add('fade-out');
+        display.classList.remove('fade-in');
+
+        // Change the image source after the fade-out transition
+        setTimeout(() => {
+            updateImageSource(interval);
+
+            // Start fade-in effect
+            display.classList.add('fade-in');
+            display.classList.remove('fade-out');
+        }, 1000); // This should match the CSS transition duration
     } else {
-        pointer = pointer + interval
+        // If transition not needed, just update the image source
+        updateImageSource(interval);
     }
-    
-    display.src = `${imagePath}${images[pointer]}.png` 
+}
+
+function updateImageSource(interval) {
+    // Update the pointer and image source as before
+    if (pointer + interval < 0) {
+        pointer = images.length - 1;
+    } else if (pointer + interval >= images.length) {
+        pointer = 0;
+    } else {
+        pointer += interval;
+    }
+    display.src = `${imagePath}${images[pointer]}.png`;
 }
 
 function startSlideInterval() {
-    // Clear any existing interval
     clearInterval(intervalId);
-
-    // Set a new interval
-    intervalId = setInterval(() => slide(1), intervalDuration);
+    intervalId = setInterval(() => slide(1, true), intervalDuration);
 }
 
 leftArrow.addEventListener('click', () => {
-    slide(-1);
+    slide(-1, false);
     startSlideInterval()
 });
 rightArrow.addEventListener('click', () => {
-    slide(1);
+    slide(1, false);
     startSlideInterval()
 });
 
