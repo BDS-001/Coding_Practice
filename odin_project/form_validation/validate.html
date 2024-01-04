@@ -7,12 +7,24 @@
     <script src="./validate.js" defer></script>
 </head>
 <body>
-    <form>
+    <!-- <form>
         <label for="mail">
           I would like you to provide me with an email address:
         </label>
         <input type="email" id="mail" name="mail" />
         <button>Submit</button>
+      </form> -->
+
+      <form novalidate>
+        <p>
+          <label for="mail">
+            <span>Please enter an email address:</span>
+            <input type="email" id="mail" name="mail" required minlength="8" />
+            <span class="error" aria-live="polite"></span>
+          </label>
+        </p>
+        <button>Submit</button>
       </form>
+      
 </body>
 </html>
