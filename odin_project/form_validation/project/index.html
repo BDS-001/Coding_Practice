@@ -8,6 +8,38 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
+    <form id="registrationForm" novalidate>
+        <h2>Registration Form</h2>
+    
+        <label for="email">Email:
+            <input type="email" id="email" name="email" required>
+            <span class="error"></span>
+        </label><br>
+    
+        <label for="country">Country:
+            <input type="text" id="country" name="country" required>
+            <span class="error"></span>
+        </label><br>
+    
+        <label for="zipcode">Zip Code:
+            <input type="text" id="zipcode" name="zipcode" required>
+            <span class="error"></span>
+        </label><br>
+    
+        <label for="password">Password:
+            <input type="password" id="password" name="password" required>
+            <span class="error"></span>
+        </label><br>
+    
+        <label for="confirmPassword">Confirm Password:
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span class="error"></span>
+        </label><br>
+    
+        <button type="submit">Register</button>
+    </form>
+    
     
 </body>
 </html>

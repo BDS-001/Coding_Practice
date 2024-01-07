@@ -1,0 +1,16 @@
+input:valid {
+    border: 2px solid green;
+}
+
+.formInput:invalid {
+    border: 2px solid red;
+}
+
+#registrationForm label {
+    display: grid;
+    grid-template-columns: 180px 220px 500px;
+}
+
+label input {
+    width: 200px;
+}
