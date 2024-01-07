@@ -62,19 +62,17 @@ const countryErrors = {
 setEventListeners.setEvents(countryInput, countryError, countryErrors)
 
 const zipCodeErrors = {
-    valueMissing : 'please enter a country',
-    typeMismatch : 'please enter a valid country'
+    valueMissing : 'please enter a zip code',
+    typeMismatch : 'please enter a valid zip code'
 }
 setEventListeners.setEvents(zipCodeInput, zipCodeError, zipCodeErrors)
 
 const passwordErrors = {
-    valueMissing : 'please enter a country',
-    typeMismatch : 'please enter a valid country'
+    valueMissing : 'please enter a password'
 }
 setEventListeners.setEvents(passwordInput, passwordError, passwordErrors)
 
 const confirmPasswordErrors = {
-    valueMissing : 'please enter a country',
-    typeMismatch : 'please enter a valid country'
+    valueMissing : 'please confirm your password'
 }
 setEventListeners.setEvents(confirmPasswordInput, confirmPasswordError, confirmPasswordErrors)
