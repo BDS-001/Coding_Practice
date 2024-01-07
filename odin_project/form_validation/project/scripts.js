@@ -16,6 +16,7 @@ const confirmPasswordError = document.querySelector('#confirmPassword + .error')
 const setEventListeners = (function() {
     function updateError(input, error, errorMessages) {
         error.textContent = ''
+        console.log(input.validity.valueMissing)
     
         if (input.validity.valueMissing) {
             error.textContent = errorMessages['valueMissing'] ? errorMessages['valueMissing'] : '';
@@ -24,13 +25,14 @@ const setEventListeners = (function() {
         }
     };
     
-    function blurEventListener(input) {
+    function blurEventListener(input, error, errorMessages) {
         input.addEventListener('blur', function(event) {
             if (!input.validity.valid) {
                 input.className = 'formInput'
             } else {
                 input.className = ''
             }
+            updateError(input, error, errorMessages)
         })
     };
     
@@ -41,7 +43,7 @@ const setEventListeners = (function() {
     }
 
     function setEvents(input, error, errorMessages = {}) {
-        blurEventListener(input)
+        blurEventListener(input, error, errorMessages)
         inputEventListener(input, error, errorMessages)
     }
 
