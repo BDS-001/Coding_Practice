@@ -14,7 +14,7 @@ const confirmPasswordInput = document.getElementById('confirmPassword');
 const confirmPasswordError = document.querySelector('#confirmPassword + .error');
 
 const setEventListeners = (function() {
-    function updateError(input, error, errorMessages = {}) {
+    function updateError(input, error, errorMessages) {
         error.textContent = ''
     
         if (input.validity.valueMissing) {
