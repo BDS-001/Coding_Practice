@@ -1,9 +1,9 @@
-stack handles code in a linear path
+- stack handles code in a linear path
 
-javascript stack is only capable of doing one thing at a time
+- javascript stack is only capable of doing one thing at a time
 
-browsers have web api that can allow for asynchronous code
+- browsers have web api that can allow for asynchronous code
 
-when a funciton is called that uses a webapi it sends the function to the web api
-    webapi processes data then moves it to the tasks
-        event loops moves tasks to the stack only when the stack is currently empty so that a string of code being executed does not get corrupted
+- when a funciton is called that uses a webapi it sends the function to the web api
+    - webapi processes data then moves it to the tasks
+        - event loops moves tasks to the stack only when the stack is currently empty so that a string of code being executed does not get corrupted
