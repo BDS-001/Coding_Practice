@@ -13,3 +13,27 @@
 - callback hell is more than just nesting issues and async issues
 - if you take seperated code and combine into one function you can still become callback hell
     - code that cannot account for deviations and are hardcoded to follow a single path will be hard to maintain and update even if it account for difference scenarios
+
+
+doA( function(){
+	doB();
+
+	doC( function(){
+		doD();
+	} )
+
+	doE();
+} );
+
+doF();
+
+
+    doA()
+    doF()
+    doB()
+    doC()
+    doE()
+    doD()
+
+- is the order if the functaion are async
+- code hard to follow
