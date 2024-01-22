@@ -1,17 +1,13 @@
 img {
-    /* Maximum width and height */
-    max-width: 500px; /* Adjust this value as needed */
-    max-height: 300px; /* Adjust this value as needed */
+    max-width: 500px;
+    max-height: 300px; 
 
-    /* To maintain the aspect ratio while resizing */
     height: auto;
 
-    /* Add some style */
-    border: 3px solid #333; /* Black border */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 5px 5px 15px rgba(0,0,0,0.5); /* Shadow effect */
+    border: 3px solid #333;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
 
-    /* Center the image */
     display: block;
     margin: 0 auto;
 }
