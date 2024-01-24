@@ -15,13 +15,16 @@ var longestPalindrome = function(s) {
         let sub = s.substring(p1, p2)
         if (palindrome(sub)) {
             longest = longest.length < sub.length ? sub : longest;
+            console.log(sub, longest)
         }
 
         p2++;
-        if (p2 >= s.length) {
+        if (p2 > s.length) {
             p1++;
             p2 = p1 + 1;
         }
     }
     return longest
 };
+
+longestPalindrome('bb')
