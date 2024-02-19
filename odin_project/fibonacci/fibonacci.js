@@ -1,12 +1,12 @@
 function fibs(seq) {
     let a = 0
     let b = 1
-    let fib = [0]
-    for (let index = 0; index < seq-1; index++) {
+    let fib = []
+    for (let index = 0; index < seq; index++) {
         const temp = a
         a = b
         b = temp+b
-        fib += [a]
+        fib += [temp]
     }
     return fib
 }
@@ -14,3 +14,15 @@ function fibs(seq) {
 
 console.log(fibs(8))
 console.log(fibs(3))
+
+
+function fibRec(seq, a=0, b=1) {
+    if (seq < 1) return []
+    const temp = a
+    a = b
+    b = temp+b
+    return [temp] + fibRec(seq-1, a, b)
+}
+
+console.log(fibRec(8))
+console.log(fibRec(3))
