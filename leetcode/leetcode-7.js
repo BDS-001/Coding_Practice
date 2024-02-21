@@ -9,5 +9,5 @@ var reverse = function(x) {
         val += x%10;
         x = (x / 10) | 0;
     }
-    return val
+    return (val >= -2147483648 && val <= 2147483647) ? val : 0
 };
