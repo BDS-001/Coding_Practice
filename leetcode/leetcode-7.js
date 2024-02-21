@@ -7,7 +7,7 @@ var reverse = function(x) {
     while(x) {
         val = val*10
         val += x%10;
-        x /= 10
+        x = (x / 10) | 0;
     }
     return val
 };
