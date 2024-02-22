@@ -3,28 +3,29 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    let p1 = 0
-    let p2 = 1
+    let longest = '';
 
-    let longest = ''
-    function palindrome(str) {
-        return str === str.split('').reverse().join('');
+    function expandAroundCenter(left, right) {
+        while (left >= 0 && right < s.length && s[left] === s[right]) {
+            left--;
+            right++;
+        }
+        return s.slice(left + 1, right);
     }
 
-    while(p1 < s.length) {
-        let sub = s.substring(p1, p2)
-        if (palindrome(sub)) {
-            longest = longest.length < sub.length ? sub : longest;
-            console.log(sub, longest)
+    for (let i = 0; i < s.length; i++) {
+        let oddPalindrome = expandAroundCenter(i, i);
+        if (oddPalindrome.length > longest.length) {
+            longest = oddPalindrome;
         }
 
-        p2++;
-        if (p2 > s.length) {
-            p1++;
-            p2 = p1 + 1;
+        let evenPalindrome = expandAroundCenter(i, i + 1);
+        if (evenPalindrome.length > longest.length) {
+            longest = evenPalindrome;
         }
     }
-    return longest
+
+    return longest;
 };
 
 longestPalindrome('bb')
