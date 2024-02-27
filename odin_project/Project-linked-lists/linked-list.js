@@ -57,7 +57,15 @@ const linkedList = (function() {
         return pointer
     }
 
-    return {append, prepend, size, head, tail}
+    function at(index) {
+        let pointer = list
+        for (let i = 0; i < index; i++) {
+            pointer = pointer.nextNode
+        }
+        return pointer
+    }
+
+    return {append, prepend, size, head, tail, at}
 })
 
 
@@ -69,3 +77,5 @@ test.prepend(190)
 console.log(test.size())
 console.log(test.head())
 console.log(test.tail())
+console.log('at 0', test.at(0))
+console.log('at 3', test.at(3))
