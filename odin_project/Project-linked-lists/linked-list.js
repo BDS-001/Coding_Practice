@@ -48,7 +48,16 @@ const linkedList = (function() {
         return list
     }
 
-    return {append, prepend, size, head}
+    function tail() {
+        let pointer = list
+        while (pointer.nextNode) {
+            pointer = pointer.nextNode
+        }
+
+        return pointer
+    }
+
+    return {append, prepend, size, head, tail}
 })
 
 
@@ -59,3 +68,4 @@ test.append(9)
 test.prepend(190)
 console.log(test.size())
 console.log(test.head())
+console.log(test.tail())
