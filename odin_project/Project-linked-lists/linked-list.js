@@ -58,7 +58,7 @@ const linkedList = (function() {
     }
 
     function at(index) {
-        if (index + 1 > size()) return -1
+        if (index + 1 > size()) return null
         let pointer = list
         for (let i = 0; i < index; i++) {
             pointer = pointer.nextNode
@@ -84,7 +84,16 @@ const linkedList = (function() {
         return pointer
     }
 
-    return {append, prepend, size, head, tail, at, pop}
+    function contains(val) {
+        let pointer = list
+        while (pointer) {
+            if (pointer.value === val) return true
+            pointer = pointer.nextNode
+        }
+        return false
+    }
+
+    return {append, prepend, size, head, tail, at, pop, contains}
 })
 
 
@@ -99,3 +108,5 @@ console.log(test.tail())
 console.log('at 0', test.at(0))
 console.log('at 3', test.at(3))
 console.log(test.pop())
+console.log(test.contains(6))
+console.log(test.contains(2))
