@@ -110,7 +110,19 @@ const linkedList = (function() {
         return str
     }
 
-    return {append, prepend, size, head, tail, at, pop, contains, find, toString}
+    function removeAt(index) {
+        if (index + 1 > size()) return null
+        let prevPointer = null
+        let pointer = list
+        for (let i = 0; i < index; i++) {
+            prevPointer = pointer
+            pointer = pointer.nextNode
+        }
+
+        prevPointer.nextNode = pointer.nextNode
+    }
+
+    return {append, prepend, size, head, tail, at, pop, contains, find, toString, removeAt}
 })
 
 
@@ -119,14 +131,16 @@ test.append(3)
 test.append(6)
 test.append(9)
 test.prepend(190)
-console.log(test.size())
-console.log(test.head())
-console.log(test.tail())
-console.log('at 0', test.at(0))
-console.log('at 3', test.at(3))
-console.log(test.pop())
-console.log(test.contains(6))
-console.log(test.contains(2))
-console.log(test.find(6))
-console.log(test.find(40))
+// console.log(test.size())
+// console.log(test.head())
+// console.log(test.tail())
+// console.log('at 0', test.at(0))
+// console.log('at 3', test.at(3))
+// console.log(test.pop())
+// console.log(test.contains(6))
+// console.log(test.contains(2))
+// console.log(test.find(6))
+// console.log(test.find(40))
+console.log(test.toString())
+test.removeAt(2)
 console.log(test.toString())
