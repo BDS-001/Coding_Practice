@@ -98,7 +98,19 @@ const linkedList = (function() {
         return null
     }
 
-    return {append, prepend, size, head, tail, at, pop, contains, find}
+    function toString() {
+        let str = ''
+        let pointer = list
+        while (pointer) {
+            str += `( ${pointer.value} ) -> `
+            pointer = pointer.nextNode
+        }
+
+        str += 'null'
+        return str
+    }
+
+    return {append, prepend, size, head, tail, at, pop, contains, find, toString}
 })
 
 
@@ -117,3 +129,4 @@ console.log(test.contains(6))
 console.log(test.contains(2))
 console.log(test.find(6))
 console.log(test.find(40))
+console.log(test.toString())
