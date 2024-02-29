@@ -76,11 +76,6 @@ const linkedList = (function() {
         }
 
         prevPointer.nextNode = null
-        console.log(pointer)
-        console.log()
-        console.log(list)
-        console.log()
-        console.log(prevPointer)
         return pointer
     }
 
@@ -93,7 +88,17 @@ const linkedList = (function() {
         return false
     }
 
-    return {append, prepend, size, head, tail, at, pop, contains}
+    function find(val) {
+        let pointer = list
+        index = 0
+        for (let index = 0; pointer; index++) {
+            if (pointer.value === val) return index
+            pointer = pointer.nextNode
+        }
+        return null
+    }
+
+    return {append, prepend, size, head, tail, at, pop, contains, find}
 })
 
 
@@ -110,3 +115,5 @@ console.log('at 3', test.at(3))
 console.log(test.pop())
 console.log(test.contains(6))
 console.log(test.contains(2))
+console.log(test.find(6))
+console.log(test.find(40))
