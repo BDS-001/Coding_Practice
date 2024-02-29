@@ -1,7 +1,7 @@
-const node = (function (val=null) {
+const node = (function (val=null, nextNode=null) {
     return {
         value: val,
-        nextNode: null
+        nextNode: nextNode
     }
 })
 
@@ -122,7 +122,19 @@ const linkedList = (function() {
         prevPointer.nextNode = pointer.nextNode
     }
 
-    return {append, prepend, size, head, tail, at, pop, contains, find, toString, removeAt}
+    function insertAt(val, index) {
+        if (index + 1 > size()) return null
+        let prevPointer = null
+        let pointer = list
+        for (let i = 0; i < index; i++) {
+            prevPointer = pointer
+            pointer = pointer.nextNode
+        }
+
+        prevPointer.nextNode = node(val, pointer)
+    }
+
+    return {append, prepend, size, head, tail, at, pop, contains, find, toString, removeAt, insertAt}
 })
 
 
@@ -143,4 +155,6 @@ test.prepend(190)
 // console.log(test.find(40))
 console.log(test.toString())
 test.removeAt(2)
+console.log(test.toString())
+test.insertAt(4535, 1)
 console.log(test.toString())
