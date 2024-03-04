@@ -11,7 +11,7 @@ print(sum(x.count("O") for x in board))
 moves = [4,6,7,4,3,6,4]
 test = [0 for _ in range(len(moves))]
 print(test)
-
+print(test)
 
 
 
