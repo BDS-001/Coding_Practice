@@ -4,21 +4,19 @@
  */
 var longestCommonPrefix = function(strs) {
     if (strs.length === 1 || strs[0].length === 0) return strs[0]
-    let longestPref = ''
-    let start = 0
-    let end = 1
+    let end = strs[0].length
 
     while (true) {
-        const temp = strs[0].slice(start, end)
+        const prefix = strs[0].slice(0, end)
+        console.log(prefix, strs.every(str => str.startsWith(prefix)))
 
-        if (strs.every(str => str.includes(temp))) {
-            if (temp.length > longestPref.length) longestPref = temp;
-            end += 1
+
+        if (strs.every(str => str.startsWith(prefix))) {
+            return prefix
         } else {
-            start += 1
-            if (start === end) end += 1
-            if (end === strs[0].length + 1) break
+            end -= 1
         }
+
+        if (end < 1) return ''
     }
 };
-
