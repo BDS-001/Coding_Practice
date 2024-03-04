@@ -16,5 +16,9 @@ const hashMap = function() {
 
         return hashCode
     }
+
+    function set(key, value) {
+        
+    }
     return {}
 }
