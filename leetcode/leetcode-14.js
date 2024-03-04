@@ -11,7 +11,7 @@ var longestCommonPrefix = function(strs) {
         const temp = strs[0].slice(start, end)
 
         if (strs.every(str => str.includes(temp))) {
-            if (temp.length > longestPref) longestPref = temp;
+            if (temp.length > longestPref.length) longestPref = temp;
             end += 1
         } else {
             start += 1
@@ -20,3 +20,4 @@ var longestCommonPrefix = function(strs) {
         }
     }
 };
+
