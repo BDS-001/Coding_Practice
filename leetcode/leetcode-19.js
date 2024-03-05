@@ -11,6 +11,9 @@
  * @return {ListNode}
  */
 var removeNthFromEnd = function(head, n) {
+    if (!head.next) {
+        return null
+    }
     let pointer = head
     let size = 0
 
