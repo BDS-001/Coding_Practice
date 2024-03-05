@@ -22,6 +22,10 @@ var removeNthFromEnd = function(head, n) {
         pointer = pointer.next
     }
 
+    if (n === size) {
+        return head.next
+    }
+
     size -= n - 1;
     pointer = head
     let prev = head
