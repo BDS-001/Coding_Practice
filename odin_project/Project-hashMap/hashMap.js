@@ -16,12 +16,6 @@ const hashMap = (function() {
             }
     }
 
-    function setBucketsSize(size) {
-        for (let i = 0; i < size; i++) {
-            buckets.push(node(i))
-        }
-    }
-
     function hash(key) {
         let hashCode = 0
 
@@ -34,10 +28,23 @@ const hashMap = (function() {
     }
 
     function set(key, value) {
-        
+        const index = hash(key)
+        if (!buckets[index]) {
+            buckets[index] = node(index)
+        }
+
+        const bucket = buckets[index]
+        let pointer = bucket
+        while (true) {
+            if (pointer.nextNode) {
+                pointer = pointer.nextNode
+            } else {
+                pointer.nextNode = node(index, value)
+            }
+        }
     }
 
-    return {hash, container}
+    return {hash, buckets, set}
 })();
 
 
