@@ -1,9 +1,25 @@
-const hashMap = function() {
+const node = function(key=null, val=null, nextNode=null) {
+    return {
+        key: key,
+        val: val,
+        nextNode: nextNode
+    }
+}
+
+const hashMap = (function() {
+
+    const buckets = []
 
     function checkIndex(index) {
         if (index < 0 || index >= buckets.length) {
             throw new Error("Trying to access index out of bound");
             }
+    }
+
+    function setBucketsSize(size) {
+        for (let i = 0; i < size; i++) {
+            buckets.push(node(i))
+        }
     }
 
     function hash(key) {
@@ -20,5 +36,15 @@ const hashMap = function() {
     function set(key, value) {
         
     }
-    return {}
-}
+
+    return {hash, container}
+})();
+
+
+console.log(hashMap.hash('james'))
+console.log(hashMap.hash('harold'))
+console.log(hashMap.hash('rigamaroll'))
+console.log(hashMap.hash('thisisjustatesttoseewhatigetfromthis'))
+console.log(hashMap.hash('nit'))
+console.log(hashMap.hash('fgds'))
+console.log(hashMap.hash('dghgrtrh'))
