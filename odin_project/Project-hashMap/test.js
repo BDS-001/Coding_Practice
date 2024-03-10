@@ -31,3 +31,16 @@ console.log(hash('Blockchain Technology'));
 console.log(hash('Internet of Things'));
 console.log(hash('Quantum Computing'));
 console.log(hash('Augmented Reality'));
+
+
+
+const test = []
+console.log(test)
+test[4] = 'four'
+console.log(test)
+test[0] = 'zero'
+console.log(test)
+for (let i = 0; i < test.length; i++) {
+    console.log(test[i])
+    
+}

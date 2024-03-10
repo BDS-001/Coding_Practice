@@ -31,16 +31,16 @@ const hashMap = (function() {
     function set(key, value) {
         const index = hash(key)
         if (!buckets[index]) {
-            buckets[index] = node(key)
-        }
-
-        const bucket = buckets[index]
-        let pointer = bucket
-        while (true) {
-            if (pointer.nextNode) {
-                pointer = pointer.nextNode
-            } else {
-                pointer.nextNode = node(key, value)
+            buckets[index] = node(key, value)
+        } else {
+            const bucket = buckets[index]
+            let pointer = bucket
+            while (true) {
+                if (pointer.nextNode) {
+                    pointer = pointer.nextNode
+                } else {
+                    pointer.nextNode = node(key, value)
+                }
             }
         }
     }
