@@ -9,6 +9,7 @@ const node = function(key=null, val=null, nextNode=null) {
 const hashMap = (function() {
 
     const buckets = []
+    const bucketSize = 8
 
     function checkIndex(index) {
         if (index < 0 || index >= buckets.length) {
@@ -21,7 +22,7 @@ const hashMap = (function() {
 
         const primeNumber = 31
         for (let i = 0; i < key.length; i++) {
-            hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 10
+            hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % bucketSize
         }
 
         return hashCode
@@ -30,7 +31,7 @@ const hashMap = (function() {
     function set(key, value) {
         const index = hash(key)
         if (!buckets[index]) {
-            buckets[index] = node(index)
+            buckets[index] = node(key)
         }
 
         const bucket = buckets[index]
@@ -39,7 +40,7 @@ const hashMap = (function() {
             if (pointer.nextNode) {
                 pointer = pointer.nextNode
             } else {
-                pointer.nextNode = node(index, value)
+                pointer.nextNode = node(key, value)
             }
         }
     }
