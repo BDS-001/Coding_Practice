@@ -83,5 +83,11 @@ const hashMap = (function() {
         }
     }
 
-    return {hash, buckets, set, get, has, remove}
+    function clear() {
+        for (let i = 0; i < buckets.length; i++) {
+            if (buckets[i]) buckets[i] = null
+        }
+    }
+
+    return {hash, buckets, set, get, has, remove, clear}
 })
