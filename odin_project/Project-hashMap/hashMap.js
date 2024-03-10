@@ -37,7 +37,11 @@ const hashMap = (function() {
         }
 
         let pointer = buckets[index]
-        while (pointer.nextNode) {
+        while (pointer.nextNode || pointer.key === key) {
+            if (pointer.key === key) {
+                pointer.val = value
+                return
+            }
             pointer = pointer.nextNode
         }
         pointer.nextNode = node(key, value)
@@ -55,14 +59,35 @@ const hashMap = (function() {
         return null
     }
 
-    return {hash, buckets, set}
-})();
+    function has(key){
+        const index = hash(key)
+        if (!buckets[index]) return false
 
+        let pointer = buckets[index]
+        while (pointer) {
+            if (pointer.key === key) return true
+            pointer = pointer.nextNode
+        }
+        return false
+    }
 
-console.log(hashMap.hash('james'))
-console.log(hashMap.hash('harold'))
-console.log(hashMap.hash('rigamaroll'))
-console.log(hashMap.hash('thisisjustatesttoseewhatigetfromthis'))
-console.log(hashMap.hash('nit'))
-console.log(hashMap.hash('fgds'))
-console.log(hashMap.hash('dghgrtrh'))
+    function remove(key) {
+        const index = hash(key)
+        if (!buckets[index]) return
+        let pointer = buckets[index]
+        if (pointer.key === key) buckets[index] = pointer.nextNode
+
+        let prevNode = pointer
+        pointer = pointer.nextNode 
+        while (pointer) {
+            if (pointer.key === key) {
+                prevNode.nextNode = pointer.nextNode
+                return
+            }
+        prevNode = pointer
+        pointer = pointer.nextNode
+        }
+    }
+
+    return {hash, buckets, set, get, has, remove}
+})
