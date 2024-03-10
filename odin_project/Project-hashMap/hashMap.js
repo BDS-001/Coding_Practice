@@ -1,3 +1,4 @@
+// nodes used for bucket linked lists
 const node = function(key=null, val=null, nextNode=null) {
     return {
         key: key,
@@ -6,12 +7,13 @@ const node = function(key=null, val=null, nextNode=null) {
     }
 }
 
+// hashMap factory function
 const hashMap = (function() {
-
     const buckets = []
     const bucketSize = 8
     const loadFactor = bucketSize * 0.75
 
+    //return the hash of a key
     function hash(key) {
         let hashCode = 0
 
@@ -23,6 +25,7 @@ const hashMap = (function() {
         return hashCode
     }
 
+    //set a key value pair, if key exists update the value otherwise add it
     function set(key, value) {
         const index = hash(key)
         if (!buckets[index]) {
@@ -41,6 +44,7 @@ const hashMap = (function() {
         pointer.nextNode = node(key, value)
     }
 
+    //returns the value when given the key
     function get(key) {
         const index = hash(key)
         if (!buckets[index]) return null
@@ -53,6 +57,7 @@ const hashMap = (function() {
         return null
     }
 
+    //returns true if the key exists within the hashMap, otherwise return false
     function has(key){
         const index = hash(key)
         if (!buckets[index]) return false
@@ -65,6 +70,7 @@ const hashMap = (function() {
         return false
     }
 
+    //given the key, remove the node from the link lists
     function remove(key) {
         const index = hash(key)
         if (!buckets[index]) return
@@ -83,7 +89,8 @@ const hashMap = (function() {
         }
     }
 
-    function bucketLength(pointer) {
+    //helper function to get the length of a bucket
+    function _bucketLength(pointer) {
         let length = 0
         while(pointer) {
             length += 1
@@ -92,18 +99,25 @@ const hashMap = (function() {
         return length
     }
 
+    //returns the total number of values in the hashMap
     function length() {
         let length = 0
         for (let i = 0; i < buckets.length; i++) {
-            if (buckets[i]) length += bucketLength(buckets[i])
+            if (buckets[i]) length += _bucketLength(buckets[i])
         }
         return length
     }
 
+    //clears the hashMap by removing all values
     function clear() {
         for (let i = 0; i < buckets.length; i++) {
             if (buckets[i]) buckets[i] = null
         }
+    }
+
+    //returns an array of all the keys in the hashMap
+    function keys() {
+
     }
 
     return {hash, buckets, set, get, has, remove, length, clear}
