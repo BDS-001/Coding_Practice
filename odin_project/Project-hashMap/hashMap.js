@@ -83,11 +83,28 @@ const hashMap = (function() {
         }
     }
 
+    function bucketLength(pointer) {
+        let length = 0
+        while(pointer) {
+            length += 1
+            pointer = pointer.nextNode
+        }
+        return length
+    }
+
+    function length() {
+        let length = 0
+        for (let i = 0; i < buckets.length; i++) {
+            if (buckets[i]) length += bucketLength(buckets[i])
+        }
+        return length
+    }
+
     function clear() {
         for (let i = 0; i < buckets.length; i++) {
             if (buckets[i]) buckets[i] = null
         }
     }
 
-    return {hash, buckets, set, get, has, remove, clear}
+    return {hash, buckets, set, get, has, remove, length, clear}
 })
