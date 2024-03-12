@@ -129,7 +129,7 @@ const hashMap = (function() {
     function keys() {
         let keysList = []
         for (let i = 0; i < buckets.length; i++) {
-            if (buckets[i]) keys += _getKeys(buckets[i])
+            if (buckets[i]) keysList = keysList.concat(_getKeys(buckets[i]))
         }
         return keysList
     }
@@ -158,3 +158,5 @@ console.log(test.has('age'))
 test.remove('age')
 
 console.log(test.buckets)
+console.log(test.length())
+console.log(test.keys())
