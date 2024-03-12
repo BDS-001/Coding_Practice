@@ -115,45 +115,50 @@ const hashMap = (function() {
         }
     }
 
-    //returns the keys within a given bucket
-    function _getKeys(pointer) {
-        let keysList = []
-        while(pointer) {
-            keysList.push(pointer.key)
-            pointer = pointer.nextNode
+    //takes a function and returns a concatenated array
+    function _getAllValues(type) {
+        let list = []
+        for (let i = 0; i < buckets.length; i++) {
+            if (buckets[i]) list = list.concat(_getBucketValues(buckets[i], type))
         }
-        return keysList
+        return list
+    }
+
+    function _getBucketValues(pointer, type) {
+        let list = [];
+        while(pointer) {
+            switch(type) {
+                case 'keys':
+                    list.push(pointer.key);
+                    break;
+                case 'values':
+                    list.push(pointer.val);
+                    break;
+                case 'entries':
+                    list.push([pointer.key, pointer.val]);
+                    break;
+            }
+            pointer = pointer.nextNode;
+        }
+        return list;
     }
 
     //returns an array of all the keys in the hashMap
     function keys() {
-        let keysList = []
-        for (let i = 0; i < buckets.length; i++) {
-            if (buckets[i]) keysList = keysList.concat(_getKeys(buckets[i]))
-        }
-        return keysList
+        return _getAllValues('keys')
     }
 
-        //returns the values within a given bucket
-        function _getValues(pointer) {
-            let valuesList = []
-            while(pointer) {
-                valuesList.push(pointer.val)
-                pointer = pointer.nextNode
-            }
-            return valuesList
-        }
-    
-        //returns an array of all the values in the hashMap
-        function values() {
-            let valuesList = []
-            for (let i = 0; i < buckets.length; i++) {
-                if (buckets[i]) valuesList = valuesList.concat(_getValues(buckets[i]))
-            }
-            return valuesList
-        }
+    //returns an array of all the values in the hashMap
+    function values() {
+        return _getAllValues('values')
+    }
 
-    return {hash, buckets, set, get, has, remove, length, clear, keys, values}
+    function entries() {
+        return _getAllValues('entries')
+    }
+    
+
+    return {hash, buckets, set, get, has, remove, length, clear, keys, values, entries}
 })
 
 
@@ -175,8 +180,8 @@ console.log(test.get('age'))
 console.log(test.has('tesfdsf'))
 console.log(test.has('age'))
 test.remove('age')
-
 console.log(test.buckets)
 console.log(test.length())
 console.log(test.keys())
 console.log(test.values())
+console.log(test.entries())
