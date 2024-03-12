@@ -134,7 +134,26 @@ const hashMap = (function() {
         return keysList
     }
 
-    return {hash, buckets, set, get, has, remove, length, clear, keys}
+        //returns the values within a given bucket
+        function _getValues(pointer) {
+            let valuesList = []
+            while(pointer) {
+                valuesList.push(pointer.val)
+                pointer = pointer.nextNode
+            }
+            return valuesList
+        }
+    
+        //returns an array of all the values in the hashMap
+        function values() {
+            let valuesList = []
+            for (let i = 0; i < buckets.length; i++) {
+                if (buckets[i]) valuesList = valuesList.concat(_getValues(buckets[i]))
+            }
+            return valuesList
+        }
+
+    return {hash, buckets, set, get, has, remove, length, clear, keys, values}
 })
 
 
@@ -160,3 +179,4 @@ test.remove('age')
 console.log(test.buckets)
 console.log(test.length())
 console.log(test.keys())
+console.log(test.values())
