@@ -115,9 +115,23 @@ const hashMap = (function() {
         }
     }
 
+    //returns the keys within a given bucket
+    function _getKeys(pointer) {
+        let keysList = []
+        while(pointer) {
+            keysList.push(pointer.key)
+            pointer = pointer.nextNode
+        }
+        return keysList
+    }
+
     //returns an array of all the keys in the hashMap
     function keys() {
-
+        let keysList = []
+        for (let i = 0; i < buckets.length; i++) {
+            if (buckets[i]) keys += _getKeys(buckets[i])
+        }
+        return keysList
     }
 
     return {hash, buckets, set, get, has, remove, length, clear}
