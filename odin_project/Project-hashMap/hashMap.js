@@ -10,8 +10,9 @@ const node = function(key=null, val=null, nextNode=null) {
 // hashMap factory function
 const hashMap = (function() {
     const buckets = []
-    const bucketSize = 8
-    const loadFactor = bucketSize * 0.75
+    let bucketSize = 8
+    let loadFactor = 0.75
+    let maxLoad = bucketSize * loadFactor
 
     //return the hash of a key
     function hash(key) {
@@ -23,25 +24,6 @@ const hashMap = (function() {
         }
 
         return hashCode
-    }
-
-    //set a key value pair, if key exists update the value otherwise add it
-    function set(key, value) {
-        const index = hash(key)
-        if (!buckets[index]) {
-            buckets[index] = node(key, value)
-            return
-        }
-
-        let pointer = buckets[index]
-        while (pointer.nextNode || pointer.key === key) {
-            if (pointer.key === key) {
-                pointer.val = value
-                return
-            }
-            pointer = pointer.nextNode
-        }
-        pointer.nextNode = node(key, value)
     }
 
     //returns the value when given the key
@@ -156,32 +138,48 @@ const hashMap = (function() {
     function entries() {
         return _getAllValues('entries')
     }
+
+    //automatically resize the hashMap and move the curretn entries
+    function _resize() {
+        const entries = _getAllValues('entries')
+        bucketSize *= 2
+        maxLoad = bucketSize * loadFactor
+        clear()
+        console.log(buckets)
+        entries.forEach(entry => {
+            set(entry[0], entry[1])
+        });
+        console.log(buckets)
+
+    }
+
+    //set a key value pair, if key exists update the value otherwise add it
+    function set(key, value) {
+
+        //resize hashMap if entries wil exceed the maxLoad value
+        if (length() + 1 >= maxLoad) {
+            _resize()
+        }
+
+        //if the current key does not exist, add a new node
+        const index = hash(key)
+        if (!buckets[index]) {
+            buckets[index] = node(key, value)
+            return
+        }
+
+        //if the current key exists, update the value
+        let pointer = buckets[index]
+        while (pointer.nextNode || pointer.key === key) {
+            if (pointer.key === key) {
+                pointer.val = value
+                return
+            }
+            pointer = pointer.nextNode
+        }
+        pointer.nextNode = node(key, value)
+    }
     
 
-    return {hash, buckets, set, get, has, remove, length, clear, keys, values, entries}
+    return {hash, set, get, has, remove, length, clear, keys, values, entries}
 })
-
-
-
-//tests
-const test = hashMap()
-test.set('name', 'Alice')
-test.set('age', 30)
-test.set('is_student', true)
-test.set('score', 95.5)
-test.set('score', 100)
-test.set('treteg', 6756)
-test.set('fgtrh', 564)
-
-
-console.log(test.buckets)
-console.log(test.get('tesfdsf'))
-console.log(test.get('age'))
-console.log(test.has('tesfdsf'))
-console.log(test.has('age'))
-test.remove('age')
-console.log(test.buckets)
-console.log(test.length())
-console.log(test.keys())
-console.log(test.values())
-console.log(test.entries())
