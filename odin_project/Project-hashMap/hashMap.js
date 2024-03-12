@@ -134,5 +134,27 @@ const hashMap = (function() {
         return keysList
     }
 
-    return {hash, buckets, set, get, has, remove, length, clear}
+    return {hash, buckets, set, get, has, remove, length, clear, keys}
 })
+
+
+
+//tests
+const test = hashMap()
+test.set('name', 'Alice')
+test.set('age', 30)
+test.set('is_student', true)
+test.set('score', 95.5)
+test.set('score', 100)
+test.set('treteg', 6756)
+test.set('fgtrh', 564)
+
+
+console.log(test.buckets)
+console.log(test.get('tesfdsf'))
+console.log(test.get('age'))
+console.log(test.has('tesfdsf'))
+console.log(test.has('age'))
+test.remove('age')
+
+console.log(test.buckets)
