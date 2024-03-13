@@ -145,11 +145,9 @@ const hashMap = (function() {
         bucketSize *= 2
         maxLoad = bucketSize * loadFactor
         clear()
-        console.log(buckets)
         entries.forEach(entry => {
             set(entry[0], entry[1])
         });
-        console.log(buckets)
 
     }
 
