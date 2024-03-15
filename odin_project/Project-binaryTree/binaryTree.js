@@ -1,6 +1,6 @@
-const node = function(data=null, left=null, right=null) {
+const node = function(val=null, left=null, right=null) {
     return {
-        data: data,
+        val: val,
         left: left,
         right: right,
     }
@@ -8,8 +8,7 @@ const node = function(data=null, left=null, right=null) {
 
 class Tree {
     constructor(array) {
-        this.tree = this.buildTree(array)
-        this.root = null
+        this.root = this.buildTree(array)
     }
 
     _cleanArray(array) {
@@ -19,9 +18,9 @@ class Tree {
 
     buildTree(array) {
         array = this._cleanArray(array)
-        return array
+        
     }
 }
 
 const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
-console.log(test.tree)
+console.log(test.root)
