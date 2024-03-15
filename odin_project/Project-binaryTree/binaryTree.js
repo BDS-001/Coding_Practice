@@ -1,8 +1,8 @@
-const node = function(val=null, left=null, right=null) {
-    return {
-        val: val,
-        left: left,
-        right: right,
+class Node {
+    constructor(val=null, left=null, right=null) {
+        this.val = val
+        this.left = left
+        this.right = right
     }
 }
 
@@ -18,6 +18,8 @@ class Tree {
 
     buildTree(array) {
         array = this._cleanArray(array)
+        const rootIndex = Math.floor(array.length / 2)
+        const head = new Node(array[rootIndex])
         
     }
 }
