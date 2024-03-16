@@ -43,9 +43,26 @@ class Tree {
         this._rootSet = true
         return this._buildBranches(array)
     }
+
+    find(val) {
+        let pointer = this.root
+        while (pointer) {
+            if (pointer.val === val) return pointer
+            if (val < pointer.val){
+                pointer = pointer.left
+            } else if (val > pointer.val)(
+                pointer = pointer.right
+            )
+        }
+        return null
+    }
+
 }
 
 const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
 console.log(test.root)
 prettyPrint(test.root)
 console.log(test._rootSet, test.root)
+prettyPrint(test.find(234))
+prettyPrint(test.find(5))
+console.log(test.find(42))
