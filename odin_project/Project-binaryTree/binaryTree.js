@@ -21,7 +21,6 @@ class Node {
 
 class Tree {
     constructor(array) {
-        this._rootSet = false
         this.root = this.buildTree(array)
     }
 
@@ -40,14 +39,13 @@ class Tree {
     }
 
     buildTree(array) {
-        if (this._rootSet === false) {
-            array = this._cleanArray(array)
-            this._rootSet = true
-            return this._buildBranches(array)
-        }
+        array = this._cleanArray(array)
+        this._rootSet = true
+        return this._buildBranches(array)
     }
 }
 
 const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
 console.log(test.root)
 prettyPrint(test.root)
+console.log(test._rootSet, test.root)
