@@ -42,12 +42,8 @@ class Tree {
     buildTree(array) {
         if (this._rootSet === false) {
             array = this._cleanArray(array)
-            const rootIndex = Math.floor(array.length / 2)
-            const head = new Node(array[rootIndex])
-            head.left = this._buildBranches(array.slice(0, rootIndex))
-            head.right = this._buildBranches(array.slice(rootIndex + 1, array.length))
             this._rootSet = true
-            return head   
+            return this._buildBranches(array)
         }
     }
 }
