@@ -50,13 +50,37 @@ class Tree {
             if (pointer.val === val) return pointer
             if (val < pointer.val){
                 pointer = pointer.left
-            } else if (val > pointer.val)(
+            } else if (val > pointer.val){
                 pointer = pointer.right
-            )
+            }
         }
         return null
     }
 
+    insert(val) {
+        let pointer = this.root
+        while (pointer) {
+            //if value is already in the tree, return null
+            if (pointer.val === val) return null
+
+            //if the value is less than the current node, continue on the left side
+            if (val < pointer.val){
+                if (!pointer.left) {
+                    pointer.left = new Node(val)
+                } else {
+                    pointer = pointer.left
+                }
+            //if the value is greater than the current node, continue on the right side
+            } else if (val > pointer.val){
+                if (!pointer.right) {
+                    pointer.right = new Node(val)
+                } else {
+                    pointer = pointer.right
+                }
+            }
+        }
+        
+    }
 }
 
 const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
