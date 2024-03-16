@@ -16,11 +16,22 @@ class Tree {
         return [...new Set(array)] 
     }
 
+    _buildBranches(array) {
+        if (array.length < 1) return null
+        const center = Math.floor(array.length / 2)
+        const head = new Node(array[center])
+        head.left = this._buildBranches(array.slice(0, center))
+        head.right = this._buildBranches(array.slice(center + 1, array.length))
+        return head
+    }
+
     buildTree(array) {
         array = this._cleanArray(array)
         const rootIndex = Math.floor(array.length / 2)
         const head = new Node(array[rootIndex])
-        
+        head.left = this._buildBranches(array.slice(0, rootIndex))
+        head.right = this._buildBranches(array.slice(rootIndex + 1, array.length))
+        return head
     }
 }
 
