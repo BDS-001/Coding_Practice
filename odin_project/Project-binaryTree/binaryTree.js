@@ -100,6 +100,16 @@ class Tree {
         return[parent, child]
     }
 
+    _getReplacementParentChild(node) {
+        let replacementParent = {node:null}
+        let repalcementChild = node.right
+        while(repalcementChild.left) {
+            replacementParent.node = repalcementChild
+            repalcementChild = repalcementChild.left
+        }
+        return repalcement
+    }
+
     deleteItem(val) {
         const [parent, child] = this._getParentChildPair(val)
         //if the value is not in the tree, return null
@@ -110,13 +120,25 @@ class Tree {
             this.root = null
         } else if(!child.left && !child.right && parent.node) {
             //if the child is not root and the child is a leaf node, remove the leaf node
-            if (parent.direction === 'left') {
-                parent.node.left = null
-            } else {
-                parent.node.right = null
+            parent.direction === 'left' ? parent.node.left = null : parent.node.right = null
+
+        } else if ((!child.left && child.right) || (child.left && !child.right)) {
+            //if the node only has one branch, replace the node wth the branch
+
+            if (child.right) {
+                //set the child equal to the right branch node
+                parent.direction === 'left' ? parent.node.left = child.right : parent.node.right = child.right
+            } else if (child.left) {
+                //set the child equal to the left branch node
+                parent.direction === 'left' ? parent.node.left = child.left : parent.node.right = child.left
             }
+        } else if (child.left && child.right) {
+            //if the node has 2 child nodes, find the next highest value and replace the value then remove the swapped node
+            const repalcementNode = this._getReplacementNode(child)
         }
 
+
+        prettyPrint(this.root)
     }
 }
 
@@ -127,3 +149,5 @@ console.log(test._rootSet, test.root)
 prettyPrint(test.find(234))
 prettyPrint(test.find(5))
 console.log(test.find(42))
+test.deleteItem(2)
+test.deleteItem(3)
