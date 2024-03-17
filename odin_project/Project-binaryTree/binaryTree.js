@@ -79,7 +79,44 @@ class Tree {
                 }
             }
         }
-        
+    }
+
+    //return the parent child pair of nodes with the direction
+    _getParentChildPair(val){
+        let child = this.root
+        let parent = {node:null, direction:null}
+        while (child) {
+            if (child.val === val) break
+
+            parent.node = child
+            if (val < child.val) {
+                parent.direction = 'left'
+                child = child.left
+            } else {
+                parent.direction = 'right'
+                child = child.right
+            }
+        }
+        return[parent, child]
+    }
+
+    deleteItem(val) {
+        const [parent, child] = this._getParentChildPair(val)
+        //if the value is not in the tree, return null
+        if (!child) return null
+
+        if (!child.left && !child.right && this.root.val === val) {
+            //if the tree only has one value, set root to null
+            this.root = null
+        } else if(!child.left && !child.right && parent.node) {
+            //if the child is not root and the child is a leaf node, remove the leaf node
+            if (parent.direction === 'left') {
+                parent.node.left = null
+            } else {
+                parent.node.right = null
+            }
+        }
+
     }
 }
 
