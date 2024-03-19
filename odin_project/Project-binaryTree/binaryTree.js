@@ -144,16 +144,16 @@ class Tree {
     }
 
     height(node) {
-        let stack = [node]
+        let queue = [node]
         let nodeHeight = 0
 
         while (stack.length > 0) {
-            for (let i = 0; i < stack.length; i++) {
-                let currentNode = stack.shift()
-                if (currentNode.left) stack.push(currentNode.left)
-                if (currentNode.right) stack.push(currentNode.right)
+            for (let i = 0; i < queue.length; i++) {
+                let currentNode = queue.shift()
+                if (currentNode.left) queue.push(currentNode.left)
+                if (currentNode.right) queue.push(currentNode.right)
             }
-            if (stack.length > 0) nodeHeight ++;
+            if (queue.length > 0) nodeHeight ++;
         }
         return nodeHeight
     }
