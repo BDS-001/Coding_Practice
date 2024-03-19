@@ -140,9 +140,22 @@ class Tree {
             child.val = repalcementChild.val
             replacementParent.left = repalcementChild.right
         }
-
-
         prettyPrint(this.root)
+    }
+
+    height(node) {
+        let stack = [node]
+        let nodeHeight = 0
+
+        while (stack.length > 0) {
+            for (let i = 0; i < stack.length; i++) {
+                let currentNode = stack.shift()
+                if (currentNode.left) stack.push(currentNode.left)
+                if (currentNode.right) stack.push(currentNode.right)
+            }
+            if (stack.length > 0) nodeHeight ++;
+        }
+        return nodeHeight
     }
 }
 
@@ -156,3 +169,4 @@ console.log(test.find(42))
 test.deleteItem(2)
 test.deleteItem(3)
 test.deleteItem(65)
+console.log(test.height(test.find(5)))
