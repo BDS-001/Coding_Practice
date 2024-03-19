@@ -101,13 +101,14 @@ class Tree {
     }
 
     _getReplacementParentChild(node) {
-        let replacementParent = {node:null}
+        //move one node to the right then find the left most node
+        let replacementParent = node
         let repalcementChild = node.right
         while(repalcementChild.left) {
-            replacementParent.node = repalcementChild
+            replacementParent = repalcementChild
             repalcementChild = repalcementChild.left
         }
-        return repalcement
+        return [replacementParent, repalcementChild]
     }
 
     deleteItem(val) {
@@ -134,7 +135,10 @@ class Tree {
             }
         } else if (child.left && child.right) {
             //if the node has 2 child nodes, find the next highest value and replace the value then remove the swapped node
-            const repalcementNode = this._getReplacementNode(child)
+            const [replacementParent, repalcementChild] = this._getReplacementParentChild(child)
+            console.log(replacementParent.val, repalcementChild.val)
+            child.val = repalcementChild.val
+            replacementParent.left = repalcementChild.right
         }
 
 
@@ -151,3 +155,4 @@ prettyPrint(test.find(5))
 console.log(test.find(42))
 test.deleteItem(2)
 test.deleteItem(3)
+test.deleteItem(65)
