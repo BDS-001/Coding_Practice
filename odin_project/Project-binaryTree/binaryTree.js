@@ -173,6 +173,20 @@ class Tree {
         }
         return -1
     }
+
+    rebalance() {
+        const data = []
+        const queue = [this.root]
+
+        while(queue.length>1) {
+            const currentNode = queue.shift()
+            data.push(currentNode.val)
+            if (currentNode.left) queue.push(currentNode.left)
+            if (currentNode.right) queue.push(currentNode.right)
+        }
+
+        this.root = this.buildTree(data)
+    }
 }
 
 const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
