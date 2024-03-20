@@ -157,6 +157,22 @@ class Tree {
         }
         return nodeHeight
     }
+
+    depth(node) {
+        let queue = [this.root]
+        let nodeDepth = 0
+
+        while (stack.length > 0) {
+            for (let i = 0; i < queue.length; i++) {
+                let currentNode = queue.shift()
+                if (currentNode.val === node.val) return nodeDepth
+                if (currentNode.left) queue.push(currentNode.left)
+                if (currentNode.right) queue.push(currentNode.right)
+            }
+            nodeDepth ++;
+        }
+        return -1
+    }
 }
 
 const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
