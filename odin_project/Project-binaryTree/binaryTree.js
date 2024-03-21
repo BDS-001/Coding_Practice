@@ -143,60 +143,70 @@ class Tree {
         prettyPrint(this.root)
     }
 
-    height(node) {
-        let queue = [node]
-        let nodeHeight = 0
+    levelOrder(callback=null) {
+        if (!this.root) return [];
 
-        while (stack.length > 0) {
-            for (let i = 0; i < queue.length; i++) {
+        let queue = [this.root];
+        let result = [];
+
+        while (queue.length > 0) {
+            let currentNode = queue.shift();
+            if (callback) {
+                callback(currentNode);
+            } else {
+                result.push(currentNode.val);
+            }
+
+            if (currentNode.left) queue.push(currentNode.left);
+            if (currentNode.right) queue.push(currentNode.right);
+        }
+
+        return callback ? null : result;
+    }
+
+    _nodeDistance(start, end=null) {
+        if (!start) return -1
+        let queue = [start]
+        let nodeDistance = 0
+
+        while (queue.length > 0) {
+            let levelSize = queue.length
+            for (let i = 0; i < levelSize; i++) {
                 let currentNode = queue.shift()
+
+                if (end && currentNode.val === end.val) return nodeDistance
                 if (currentNode.left) queue.push(currentNode.left)
                 if (currentNode.right) queue.push(currentNode.right)
             }
-            if (queue.length > 0) nodeHeight ++;
+            nodeDistance ++;
         }
-        return nodeHeight
+        return nodeDistance - 1
+    }
+
+    height(node) {
+        return this._nodeDistance(node)
     }
 
     depth(node) {
-        let queue = [this.root]
-        let nodeDepth = 0
-
-        while (stack.length > 0) {
-            for (let i = 0; i < queue.length; i++) {
-                let currentNode = queue.shift()
-                if (currentNode.val === node.val) return nodeDepth
-                if (currentNode.left) queue.push(currentNode.left)
-                if (currentNode.right) queue.push(currentNode.right)
-            }
-            nodeDepth ++;
-        }
-        return -1
+        return this._nodeDistance(this.root, node)
     }
 
     rebalance() {
-        const data = []
-        const queue = [this.root]
-
-        while(queue.length>1) {
-            const currentNode = queue.shift()
-            data.push(currentNode.val)
-            if (currentNode.left) queue.push(currentNode.left)
-            if (currentNode.right) queue.push(currentNode.right)
-        }
-
-        this.root = this.buildTree(data)
+        this.root = this.buildTree(this.levelOrder())
     }
 }
 
+
 const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
-console.log(test.root)
+// console.log(test.root)
+// prettyPrint(test.root)
+// console.log(test._rootSet, test.root)
+// prettyPrint(test.find(234))
+// prettyPrint(test.find(5))
+// console.log(test.find(42))
+// test.deleteItem(2)
+// test.deleteItem(3)
+// test.deleteItem(65)
 prettyPrint(test.root)
-console.log(test._rootSet, test.root)
-prettyPrint(test.find(234))
-prettyPrint(test.find(5))
-console.log(test.find(42))
-test.deleteItem(2)
-test.deleteItem(3)
-test.deleteItem(65)
-console.log(test.height(test.find(5)))
+console.log(test.height(test.find(65)))
+console.log(test.depth(test.find(3)))
