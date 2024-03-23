@@ -194,6 +194,17 @@ class Tree {
     rebalance() {
         this.root = this.buildTree(this.levelOrder())
     }
+
+    isBalanced() {
+        const queue = [this.root]
+        while(queue.length > 0) {
+            const currentNode = queue.shift()
+            //if the height difference is more than 1 then tree is not balanced
+            if (Math.abs(this.height(currentNode.left) - this.height(currentNode.right)) > 1) {
+                return false
+            }
+        }
+    }
 }
 
 
