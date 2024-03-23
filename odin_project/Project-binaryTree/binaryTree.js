@@ -197,13 +197,16 @@ class Tree {
 
     isBalanced() {
         const queue = [this.root]
+        let levelSize = queue.length
         while(queue.length > 0) {
-            const currentNode = queue.shift()
-            //if the height difference is more than 1 then tree is not balanced
-            if (Math.abs(this.height(currentNode.left) - this.height(currentNode.right)) > 1) {
-                return false
+            for (let i = 0; i < levelSize; i++) {
+                let currentNode = queue.shift()
+                if (Math.abs(this.height(currentNode.left) - this.height(currentNode.right)) > 1) return false
+                if (currentNode.left) queue.push(currentNode.left)
+                if (currentNode.right) queue.push(currentNode.right)
             }
         }
+        return true
     }
 }
 
@@ -221,3 +224,12 @@ const test = new Tree([5,7,8,65,2,67,4,3,234564,56,2342,564,234,654,3])
 prettyPrint(test.root)
 console.log(test.height(test.find(65)))
 console.log(test.depth(test.find(3)))
+prettyPrint(test.root)
+console.log(test.isBalanced())
+test.deleteItem(2)
+test.deleteItem(4)
+prettyPrint(test.root)
+console.log(test.isBalanced())
+test.deleteItem(3)
+prettyPrint(test.root)
+console.log(test.isBalanced())
