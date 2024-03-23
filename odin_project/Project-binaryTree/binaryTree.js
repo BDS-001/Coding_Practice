@@ -210,9 +210,24 @@ class Tree {
     }
 
     isBalancedRecursive() {
+        //recursive function that returns -1 if the tree is not balanced
         function checkBalance(node) {
+            //base case, no more nodes
             if (node === null) return 0
+
+            //recursively call function to check for height differences
+            const leftHeight = checkBalance(node.left)
+            const rightHeight = checkBalance(node.right)
+
+            //if any branch is not balanced return -1, otherwise check if the level difference is greater than one
+            if (leftHeight === -1 || rightHeight === -1 || Math.abs(leftHeight - rightHeight) > 1) return -1
+
+            //the hieght of the parent node is the length of the longest path, add 1 o go to the next level
+            return Math.max(leftHeight, rightHeight) + 1
         }
+
+        //return a boolean value
+        return checkBalance(this.root) != -1
     }
 }
 
