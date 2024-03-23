@@ -208,6 +208,12 @@ class Tree {
         }
         return true
     }
+
+    isBalancedRecursive() {
+        function checkBalance(node) {
+            if (node === null) return 0
+        }
+    }
 }
 
 
