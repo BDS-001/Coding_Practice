@@ -172,7 +172,7 @@ class Tree {
         function traverse(node) {
             if (node === null) return
             traverse(node.left)
-            callback ? callback(node) : result.push(node)
+            callback ? callback(node) : result.push(node.val)
             traverse(node.right)
         }
 
@@ -187,7 +187,7 @@ class Tree {
 
         function traverse(node) {
             if (node === null) return
-            callback ? callback(node) : result.push(node)
+            callback ? callback(node) : result.push(node.val)
             traverse(node.left)
             traverse(node.right)
         }
@@ -205,7 +205,7 @@ class Tree {
             if (node === null) return
             traverse(node.left)
             traverse(node.right)
-            callback ? callback(node) : result.push(node)
+            callback ? callback(node) : result.push(node.val)
         }
 
         traverse(this.root)
@@ -305,3 +305,7 @@ test.deleteItem(3)
 prettyPrint(test.root)
 console.log(test.isBalanced())
 console.log(test.isBalancedRecursive())
+
+console.log(test.preOrder())
+console.log(test.postOrder())
+console.log(test.inOrder())
