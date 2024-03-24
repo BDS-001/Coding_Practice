@@ -164,6 +164,22 @@ class Tree {
         return callback ? null : result;
     }
 
+    inOrder(callback=null) {
+        if (!this.root) return [];
+
+        let result = [];
+
+        function traverse(node) {
+            if (node === null) return
+            traverse(node.left)
+            callback ? callback(node) : result.push(node)
+            traverse(node.right)
+        }
+
+        traverse(this.root)
+        return callback ? null : result;
+    }
+
     _nodeDistance(start, end=null) {
         if (!start) return -1
         let queue = [start]
