@@ -15,11 +15,11 @@ function knightMoves(start, finish) {
     const isValid = function(path, newPosition) {
         //check if the new position goes outside of the board
         if (newPosition[0] > maxCoordinate) return false
-        if (newPosition[0] < minCoordinate ) return false
+        if (newPosition[0] < minCoordinate) return false
         if (newPosition[1] > maxCoordinate) return false
         if (newPosition[1] < minCoordinate) return false
 
-        //check if the postion ha already been visited in the path
+        //check if the postion has already been visited in the path
         for (let i = 0; i < path.length; i++) {
             if(path[i][0] === newPosition[0] && path[i][1] === newPosition[1]) return false
         }
