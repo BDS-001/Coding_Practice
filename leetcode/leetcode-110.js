@@ -11,37 +11,18 @@
  * @return {boolean}
  */
 var isBalanced = function(root) {
-    if (!root) return true
-    function height(start) {
-        if (!start) return 0
-        let queue = [start]
-        let nodeDistance = 0
+    let balanced = true
+    const getHeight = function(node) {
+        if (!node || !balanced) return 0
 
-        while (queue.length > 0) {
-            let levelSize = queue.length
-            for (let i = 0; i < levelSize; i++) {
-                let currentNode = queue.shift()
+        const leftHeight = getHeight(node.left)
+        const rightHeight = getHeight(node.right)
 
-                if (currentNode.left) queue.push(currentNode.left)
-                if (currentNode.right) queue.push(currentNode.right)
-            }
-            nodeDistance ++;
+        if (Math.abs(leftHeight - rightHeight) > 1) {
+            balanced = false
         }
-        return nodeDistance
+        return Math.max(leftHeight, rightHeight) + 1
     }
-
-    const queue = [root]
-    let levelSize = queue.length
-    while(queue.length > 0) {
-        for (let i = 0; i < levelSize; i++) {
-            let currentNode = queue.shift()
-            const leftHeight = height(currentNode.left)
-            const rightHeight = height(currentNode.right)
-            console.log(currentNode.val, leftHeight, rightHeight)
-            if (Math.abs(leftHeight - rightHeight) > 1) return false
-            if (currentNode.left) queue.push(currentNode.left)
-            if (currentNode.right) queue.push(currentNode.right)
-        }
-    }
-    return true
+    getHeight(root, 0)
+    return balanced
 };
