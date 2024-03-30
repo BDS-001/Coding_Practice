@@ -12,6 +12,8 @@
  * @return {boolean}
  */
 var isSameTree = function(p, q) {
+    if (!p && !q) return true
+    if ((!p && q) || (p && !q)) return false
     if ((q.val != p.val)) return false
 
     const pQueue = [p]
