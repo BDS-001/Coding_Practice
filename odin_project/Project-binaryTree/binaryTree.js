@@ -244,17 +244,20 @@ class Tree {
     }
 
     isBalanced() {
-        const queue = [this.root]
-        let levelSize = queue.length
-        while(queue.length > 0) {
-            for (let i = 0; i < levelSize; i++) {
-                let currentNode = queue.shift()
-                if (Math.abs(this.height(currentNode.left) - this.height(currentNode.right)) > 1) return false
-                if (currentNode.left) queue.push(currentNode.left)
-                if (currentNode.right) queue.push(currentNode.right)
+        let balanced = true
+        const getHeight = function(node) {
+            if (!node || !balanced) return 0
+    
+            const leftHeight = getHeight(node.left)
+            const rightHeight = getHeight(node.right)
+    
+            if (Math.abs(leftHeight - rightHeight) > 1) {
+                balanced = false
             }
+            return Math.max(leftHeight, rightHeight) + 1
         }
-        return true
+        getHeight(root, 0)
+        return balanced
     }
 
     isBalancedRecursive() {
