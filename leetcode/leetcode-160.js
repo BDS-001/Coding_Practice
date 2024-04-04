@@ -17,14 +17,14 @@ var getIntersectionNode = function(headA, headB) {
     let pointerA = headA
     let pointerB = headB
     while(pointerA || pointerB) {
-        if (hashMap.has(pointerA)) return pointerA
         if (pointerA) {
+            if (hashMap.has(pointerA)) return pointerA
             hashMap.set(pointerA, 0)
             pointerA = pointerA.next
         }
         
-        if (hashMap.has(pointerB)) return pointerB
         if (pointerB) {
+            if (hashMap.has(pointerB)) return pointerB
             hashMap.set(pointerB, 0)
             pointerB = pointerB.next
         }
