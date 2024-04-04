@@ -31,3 +31,16 @@ var getIntersectionNode = function(headA, headB) {
     }
     return null
 };
+
+var getIntersectionNodeLowMemory = function(headA, headB) {
+    let pointerA = headA
+    while(pointerA) {
+        let pointerB = headB
+        while (pointerB) {
+            if (pointerA === pointerB) return pointerA
+            pointerB = pointerB.next
+        }
+        pointerA = pointerA.next
+    }
+    return null
+};
