@@ -52,4 +52,3 @@ if (orderTotal({
 orderTotal = function(order) {
     return order.items.reduce((prev, cur) => cur.price + prev, 0)
 }
-
