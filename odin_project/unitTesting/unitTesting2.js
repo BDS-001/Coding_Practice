@@ -64,4 +64,4 @@ if (orderTotal({
     //happy path is main path with no edge cases
 }
 
-//all older tests now test qunaity missing
+//all older tests now test quantity missing instead of happy path
