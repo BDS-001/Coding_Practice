@@ -7,7 +7,7 @@ if (orderTotal({
     throw new Error('check fail: quantity')
 }
 
-//should onyl write functions for what the test is testing, returning the value will pass all the tests, one test is not enough
+//should only write functions for what the test is testing, returning the value will pass all the tests, one test is not enough
 let orderTotal = function() {
      return 808
 }
@@ -25,7 +25,7 @@ if (orderTotal({
 
 
 
-//triangulation test first methos is writting multiple tests
+//triangulation test first method is writting multiple tests
 if (orderTotal({
     items: [
         {name: 'Dragon collar', price: 20},
