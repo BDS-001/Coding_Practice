@@ -30,6 +30,32 @@ const analyzeArray = (arr) => {
     }
 }
 
+const _convertChar = (min, max, charCode, shiftFactor) => {
+    if (charCode + shiftFactor <= max) {
+        return charCode + shiftFactor
+    }
+    shiftFactor -= max - charCode
+    charCode = min
+
+    const overDraft = Math.floor(shiftFactor / 26)
+    shiftFactor -= 26 * overDraft
+    return charCode += shiftFactor
+}
+
+const caesarCipher = (str, shiftFactor) => {
+    let cipher = ''
+    for (let i = 0; i < str.length; i++) {
+        if (str.charCodeAt(i) >= 97 && str.charCodeAt(i) <= 122) {
+            cipher += String.fromCharCode(_convertChar(65, 90, str.charCodeAt(i), shiftFactor))
+        }else if (str.charCodeAt(i) >= 65 && str.charCodeAt(i) <= 90) {
+            cipher += String.fromCharCode(_convertChar(65, 90, str.charCodeAt(i), shiftFactor))
+        } else {
+            cipher += str[i]
+        }
+    }
+    return cipher
+}
+
 module.exports = {
     capitalize,
     reverseString,
