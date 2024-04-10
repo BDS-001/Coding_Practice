@@ -21,8 +21,18 @@ const calculator = {
     }
 }
 
+const analyzeArray = (arr) => {
+    return {
+        average: (arr.reduce((total, curr) => total + curr, 0)) / arr.length,
+        max: Math.max(...arr),
+        min: Math.min(...arr),
+        length: arr.length
+    }
+}
+
 module.exports = {
     capitalize,
     reverseString,
-    calculator
+    calculator,
+    analyzeArray
 }

@@ -1,4 +1,4 @@
-const { capitalize,reverseString,calculator } = require('./functions')
+const { capitalize, reverseString, calculator, analyzeArray } = require('./functions')
 
 //test capitalize
 test('happy path', () => {
@@ -47,4 +47,13 @@ test('multiply', () => {
 
 test('divide', () => {
     expect(calculator.divide(90, 10)).toBe(9);
+})
+
+//analyzeArray
+test('happy path', () => {
+    expect(analyzeArray([1,8,3,4,2,6])).toEqual({average: 4, min: 1, max: 8, length: 6});
+})
+
+test('happy path (2)', () => {
+    expect(analyzeArray([76, 9, 33, 35, 73, 74, 36, 31, 98, 10])).toEqual({average: 47.5, min: 9, max: 98, length: 10});
 })
