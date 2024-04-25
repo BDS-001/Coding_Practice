@@ -3,22 +3,27 @@
  * @param {number} target
  * @return {number}
  */
+//2 pointer method
 var threeSumClosest = function(nums, target) {
-    let res = Infinity
-    const recursion = (numsArray, currentSet, count) => {
-        if (res === target) return
-        if (count === 3) {
-            let value = currentSet.reduce((acc, num) => acc + num, 0)
-            if (Math.abs(value - target) < Math.abs(res - target)) res = value
-        }
+    nums.sort((a, b) => a - b)
+    let closestSum = Infinity
+    let smallestDifference = Infinity
 
-        for (let i = 0; i < numsArray.length; i++) {
-            let newCurrentSet = [...currentSet, numsArray[i]];
-            let newNums = [...numsArray]
-            newNums.splice(i, 1)
-            recursion(newNums, newCurrentSet, count+1)
+    for (let i = 0; i < nums.length; i++) {
+        let left = i + 1
+        let right = nums.length - 1
+        
+        while (left < right) {
+            const currentSum = nums[i] + nums[left] + nums[right]
+            const distance = Math.abs(currentSum - target)
+            if (distance === 0) return target
+            if (distance < smallestDifference) {
+                closestSum = currentSum
+                smallestDifference = distance
+            }
+
+            (currentSum < target) ? left++ : right--
         }
     }
-    recursion(nums, [], 0)
-    return res
+    return closestSum
 };
