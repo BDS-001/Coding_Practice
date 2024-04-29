@@ -57,9 +57,10 @@ it('Happy Path', () => {
     }).then(result => expect(result).toBe(715));
 });
 
-it('calls vat api if given country', () => {
+it('calls vat api correctly', () => {
     let isFakeFetchCalled = false
     const fakeFetch = (url) => {
+        expect(url).toBe('https://vatapi.com.v1.country-code-check?code=DE')
         isFakeFetchCalled = true
     }
     orderTotal( fakeFetch, {
@@ -68,4 +69,7 @@ it('calls vat api if given country', () => {
             {name: 'Dragon waffles', price: 20, quantity: 2},
         ]
     }).then(result => expect(isFakeFetchCalled).toBe(true));
+});
+
+it.skip('if country code specified', () => {
 });
