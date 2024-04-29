@@ -1,4 +1,4 @@
-const orderTotal = require('./unitTesting3_function')
+const orderTotal = require('./MOC-UnitTesting.js')
 
 //test if jest is working correctly, file must end in .test.js
 it('works', () => {
