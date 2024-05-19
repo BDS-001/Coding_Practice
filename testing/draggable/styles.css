@@ -1,0 +1,23 @@
+#draggableElement {
+    width: 100px;
+    height: 50px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    cursor: move; /* Change cursor to indicate draggable */
+    margin-bottom: 10px;
+}
+
+.drop-zone {
+    width: 200px;
+    height: 100px;
+    border: 2px dashed #ccc;
+    margin: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.drop-over {
+    border-color: #007bff;
+}
