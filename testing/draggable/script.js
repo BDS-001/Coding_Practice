@@ -1,46 +1,61 @@
-const draggableElement = document.getElementById('draggableElement');
-const dropZones = document.querySelectorAll('.drop-zone');
+// script.js
 
-// Define the dragstart event handler
-draggableElement.addEventListener('dragstart', (event) => {
-    // Set the data and type of the dragged item
-    event.dataTransfer.setData('text/plain', 'Dragged Element');
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const gridContainer = document.getElementById('grid-container');
 
-// Define the dragover event handler to allow a drop
-document.addEventListener('dragover', (event) => {
-    event.preventDefault();
-});
+    // Create 10x10 grid
+    for (let i = 0; i < 100; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('grid-cell');
+        cell.dataset.index = i;
+        cell.addEventListener('dragover', dragOver);
+        cell.addEventListener('drop', drop);
+        gridContainer.appendChild(cell);
+    }
 
-// Define the drop event handler
-document.addEventListener('drop', (event) => {
-    event.preventDefault();
-    // Get the data transferred
-    const data = event.dataTransfer.getData('text/plain');
-    // Create a new element and append it to the drop location
-    const droppedElement = document.createElement('div');
-    droppedElement.textContent = data;
-    event.target.appendChild(droppedElement);
-});
-
-// Define the dragenter and dragleave event handlers for drop zones
-dropZones.forEach(dropZone => {
-    dropZone.addEventListener('dragenter', (event) => {
-        event.preventDefault();
-        dropZone.classList.add('drag-over');
-    });
-
-    dropZone.addEventListener('dragleave', (event) => {
-        dropZone.classList.remove('drag-over');
-    });
-
-    // Define the drop event handler for drop zones
-    dropZone.addEventListener('drop', (event) => {
-        event.preventDefault();
-        const data = event.dataTransfer.getData('text/plain');
-        const droppedElement = document.createElement('div');
-        droppedElement.textContent = data;
-        dropZone.appendChild(droppedElement);
-        dropZone.classList.remove('drag-over');
+    const ships = document.querySelectorAll('.ship');
+    ships.forEach(ship => {
+        ship.addEventListener('dragstart', dragStart);
+        ship.style.width = `${ship.dataset.length * 40}px`;
     });
 });
+
+function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+}
+
+function dragOver(e) {
+    e.preventDefault();
+}
+
+function drop(e) {
+    e.preventDefault();
+    const shipId = e.dataTransfer.getData('text/plain');
+    const ship = document.getElementById(shipId);
+    const dropCell = e.target;
+    const startIndex = parseInt(dropCell.dataset.index);
+
+    // Check if ship can be placed within the grid bounds
+    const shipLength = parseInt(ship.dataset.length);
+    if (startIndex % 10 + shipLength > 10) {
+        return; // Do not allow placement that exceeds grid bounds
+    }
+
+    // Check if ship overlaps with existing ships
+    for (let i = 0; i < shipLength; i++) {
+        const cell = document.querySelector(`.grid-cell[data-index="${startIndex + i}"]`);
+        if (cell.classList.contains('occupied')) {
+            return; // Do not allow placement on occupied cells
+        }
+    }
+
+    // Place ship
+    for (let i = 0; i < shipLength; i++) {
+        const cell = document.querySelector(`.grid-cell[data-index="${startIndex + i}"]`);
+        cell.classList.add('occupied');
+    }
+    ship.style.position = 'absolute';
+    ship.style.left = `${dropCell.getBoundingClientRect().left}px`;
+    ship.style.top = `${dropCell.getBoundingClientRect().top}px`;
+    ship.draggable = false; // Disable further dragging once placed
+}
