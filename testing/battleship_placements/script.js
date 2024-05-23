@@ -89,6 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ship.style.position = 'absolute';
         ship.style.left = `${dropCell.getBoundingClientRect().left}px`;
         ship.style.top = `${dropCell.getBoundingClientRect().top}px`;
-        ship.draggable = false; // Disable further dragging once placed
+        //ship.draggable = false; // Disable further dragging once placed
     }
 });
