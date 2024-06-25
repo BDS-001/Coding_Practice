@@ -1,0 +1,17 @@
+.fixed {
+    background: hotpink;
+    padding: 32px;
+    font-size: 32px;
+    margin: 0 auto;
+    width: 600px;
+    height: 300px;
+  }
+
+  .dynamic {
+    background: hotpink;
+    padding: 32px;
+    font-size: 32px;
+    margin: 0 auto;
+    max-width: 600px;
+    min-height: 300px;
+  }
