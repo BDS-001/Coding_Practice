@@ -10,3 +10,16 @@ var missingNumber = function(nums) {
     }
     return newNums.length
 };
+
+
+var missingNumber = function(nums) {
+    let total = 0
+    let numTotal = 0
+
+    for (let i = 0; i < nums.length; i++) {
+        total += i
+        numTotal += nums[i]
+    }
+    total += nums.length
+    return total - numTotal
+};
