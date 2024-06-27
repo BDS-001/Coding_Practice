@@ -14,7 +14,7 @@ var isPowerOfTwo = function(n) {
     return false
 };
 
-var isPowerOfTwo = function(n) {
+var isPowerOfTwo2 = function(n) {
     if (n === 0) return false
 
     while (n !== 1) {
