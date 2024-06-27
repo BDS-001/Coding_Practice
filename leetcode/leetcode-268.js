@@ -12,7 +12,7 @@ var missingNumber = function(nums) {
 };
 
 
-var missingNumber = function(nums) {
+var missingNumber2 = function(nums) {
     let total = 0
     let numTotal = 0
 
