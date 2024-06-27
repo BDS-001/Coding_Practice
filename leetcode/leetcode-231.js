@@ -3,5 +3,13 @@
  * @return {boolean}
  */
 var isPowerOfTwo = function(n) {
-    
+    if (n === 1) return true
+    if (n % 2 != 0) return false
+
+    let total = 2
+    while (total <= n) {
+        if (total === n) return true
+        total *= 2
+    }
+    return false
 };
