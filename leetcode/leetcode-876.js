@@ -25,3 +25,13 @@ var middleNode = function(head) {
     }
     return p2
 };
+
+var middleNode2 = function(head) {
+    let slow = head;
+    let fast = head;
+    while (fast?.next) {
+        slow = slow.next;
+        fast = fast?.next?.next;
+    }
+    return slow;
+}
