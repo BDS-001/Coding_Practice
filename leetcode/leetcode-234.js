@@ -10,17 +10,17 @@
  * @return {boolean}
  */
 var isPalindrome = function(head) {
-    const reverse = []
+    const vals = []
     let p = head
     while (p) {
-        reverse.unshift(p.val)
+        vals.push(p.val)
         p = p.next
     }
 
-    p = head
-    for (let i = 0; i < reverse.length; i++) {
-        if (reverse[i] != p.val) return false
-        p = p.next
+    let right = vals.length - 1 
+    for (let left = 0; left < vals.length; left++) {
+        if (vals[left] != vals[right]) return false
+        right--;
     }
     return true
 };
