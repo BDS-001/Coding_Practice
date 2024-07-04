@@ -18,4 +18,5 @@ var maxFrequencyElements = function(nums) {
         if (entries[i][1] < max) return total
         total += max
     }
+    return total
 };
