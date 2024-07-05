@@ -4,18 +4,19 @@
  * @return {number}
  */
 var findLeastNumOfUniqueInts = function(arr, k) {
-    const hash = {}
+    if (k >= arr.length) return 0
+    const map = new Map()
     for (let i = 0; i < arr.length; i++) {
-        hash[arr[i]] ? hash[arr[i]] += 1 : hash[arr[i]]
+        map.has(arr[i]) ? map.set(arr[i], map.get(arr[i]) + 1) : map.set(arr[i], 1)
     }
 
-    const sortedArr = Object.entries(hash).sort(([, valueA], [, valueB]) => valueA - valueB)
-    while (true) {
-        if (k > sortedArr[0][1]) {
-            k -= sortedArr[0][1]
-            sortedArr.shift()
+    const sortedArr =  Array.from(map.entries()).sort(([, valueA], [, valueB]) => valueA - valueB);
+    for (let i = 0; i < sortedArr.length; i++) {
+        if (k >= sortedArr[i][1]) {
+            k -= sortedArr[i][1]
+            map.delete(sortedArr[i][0])
         } else {
-            return sortedArr.length
+            return map.size
         }
     }
 };
