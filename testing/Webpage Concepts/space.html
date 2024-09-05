@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Space Themed Webpage</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            cursor: none;
+        }
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+        #cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <div id="cursor"></div>
+    <script>
+        const numStars = 2000;
+        const stars = [];
+        const starContainer = document.createDocumentFragment();
+        const cursor = document.getElementById('cursor');
+        let radius = 150;
+
+        // Create stars
+        for (let i = 0; i < numStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = `${Math.random() * 100}vw`;
+            star.style.top = `${Math.random() * 100}vh`;
+            star.style.width = star.style.height = `${Math.random() * 2 + 1}px`;
+            starContainer.appendChild(star);
+            stars.push(star);
+        }
+        document.body.appendChild(starContainer);
+
+        // Reveal stars around the cursor
+        function updateStars(mouseX, mouseY) {
+            stars.forEach(star => {
+                const rect = star.getBoundingClientRect();
+                const starX = rect.left + rect.width / 2;
+                const starY = rect.top + rect.height / 2;
+                const distance = Math.hypot(mouseX - starX, mouseY - starY);
+                const opacity = Math.max(0, 1 - distance / radius);
+                star.style.opacity = opacity;
+            });
+        }
+
+        // Throttle function to limit update frequency
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
+
+        const throttledUpdateStars = throttle(updateStars, 16); // ~60fps
+
+        document.addEventListener('mousemove', (event) => {
+            cursor.style.left = `${event.clientX - 5}px`;
+            cursor.style.top = `${event.clientY - 5}px`;
+            throttledUpdateStars(event.clientX, event.clientY);
+        });
+
+        // Adjust star reveal radius based on screen size
+        function adjustRadius() {
+            radius = Math.min(window.innerWidth, window.innerHeight) * 0.15;
+        }
+
+        window.addEventListener('resize', adjustRadius);
+        adjustRadius();
+    </script>
+</body>
+</html>
