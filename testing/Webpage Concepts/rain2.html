@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast and Realistic Rainy Background Demo</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+            overflow: hidden;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        #rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .raindrop {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.8);
+            width: 1px;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fast and Realistic Rainy Day Demo</h1>
+    </header>
+    <main>
+        <p>Welcome to the fast and realistic rainy background demo page!</p>
+        <p>Enjoy the invigorating rain animation.</p>
+    </main>
+    <div id="rain"></div>
+
+    <script>
+        const rainContainer = document.getElementById('rain');
+        const raindrops = [];
+        const numDrops = 300;
+
+        function createRaindrop() {
+            const raindrop = document.createElement('div');
+            raindrop.classList.add('raindrop');
+            resetRaindrop(raindrop);
+            rainContainer.appendChild(raindrop);
+            return raindrop;
+        }
+
+        function resetRaindrop(raindrop) {
+            raindrop.style.left = Math.random() * 100 + 'vw';
+            raindrop.style.height = Math.random() * 20 + 10 + 'px';
+            raindrop.speed = Math.random() * 8 + 4;
+            raindrop.y = -20;
+        }
+
+        function initRain() {
+            for (let i = 0; i < numDrops; i++) {
+                const raindrop = createRaindrop();
+                raindrop.y = Math.random() * window.innerHeight;
+                raindrops.push(raindrop);
+            }
+        }
+
+        function updateRain() {
+            raindrops.forEach(raindrop => {
+                raindrop.y += raindrop.speed;
+                if (raindrop.y > window.innerHeight) {
+                    resetRaindrop(raindrop);
+                }
+                raindrop.style.transform = `translateY(${raindrop.y}px)`;
+            });
+
+            requestAnimationFrame(updateRain);
+        }
+
+        initRain();
+        updateRain();
+    </script>
+</body>
+</html>
