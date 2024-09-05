@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Rainy Background Demo</title>
+    <style>
+        :root {
+            --raindrop-width: 1px;
+            --raindrop-height: 15px;
+            --raindrop-color: rgba(255, 255, 255, 0.7);
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #2c3e50, #34495e);
+            color: #fff;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        main {
+            flex-grow: 1;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        #rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .raindrop {
+            position: absolute;
+            width: var(--raindrop-width);
+            height: var(--raindrop-height);
+            background-color: var(--raindrop-color);
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        @media (max-width: 600px) {
+            :root {
+                --raindrop-width: 0.5px;
+                --raindrop-height: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Improved Rainy Day Demo</h1>
+    </header>
+    <main>
+        <p>Welcome to the improved rainy background demo page!</p>
+        <p>Enjoy the optimized and customizable rain animation.</p>
+        <div>
+            <label for="raindrop-color">Raindrop Color:</label>
+            <input type="color" id="raindrop-color" value="#ffffff">
+        </div>
+        <div>
+            <label for="raindrop-opacity">Raindrop Opacity:</label>
+            <input type="range" id="raindrop-opacity" min="0" max="1" step="0.1" value="0.7">
+        </div>
+    </main>
+    <div id="rain"></div>
+    <script>
+        const rainContainer = document.getElementById('rain');
+        const raindrops = [];
+        const maxRaindrops = 300;
+
+        function createRaindrop() {
+            let raindrop;
+            if (raindrops.length < maxRaindrops) {
+                raindrop = document.createElement('div');
+                raindrop.classList.add('raindrop');
+                rainContainer.appendChild(raindrop);
+                raindrops.push(raindrop);
+            } else {
+                raindrop = raindrops[Math.floor(Math.random() * raindrops.length)];
+            }
+            resetRaindrop(raindrop);
+        }
+
+        function resetRaindrop(raindrop) {
+            raindrop.style.left = Math.random() * 100 + 'vw';
+            raindrop.style.top = '-20px';
+            raindrop.style.animationDuration = Math.random() * 1 + 0.5 + 's';
+            raindrop.style.opacity = Math.random() * 0.3 + 0.1;
+        }
+
+        function startRain() {
+            setInterval(createRaindrop, 20);
+        }
+
+        startRain();
+
+        // Customization controls
+        const colorPicker = document.getElementById('raindrop-color');
+        const opacitySlider = document.getElementById('raindrop-opacity');
+
+        function updateRaindropStyle() {
+            const color = colorPicker.value;
+            const opacity = opacitySlider.value;
+            document.documentElement.style.setProperty('--raindrop-color', `${color}${Math.round(opacity * 255).toString(16).padStart(2, '0')}`);
+        }
+
+        colorPicker.addEventListener('input', updateRaindropStyle);
+        opacitySlider.addEventListener('input', updateRaindropStyle);
+    </script>
+</body>
+</html>
