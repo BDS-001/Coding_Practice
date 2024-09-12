@@ -14,6 +14,7 @@ def main(path):
                         old_file_path = os.path.join(root, file)
                         new_file_path = os.path.join(root, updated_filename)
                         os.replace(old_file_path, new_file_path)
+                        print('replaced ', old_file_path, ' with ', new_file_path)
                         print('-' * 50)
     else:
         print(f"Path does not exist: {path}")
