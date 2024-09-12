@@ -13,7 +13,7 @@ class Solution {
         let longest = 0
 
         while(right < s.length) {
-            freq.set(s[right], 1 + (count.get(s[r]) || 0))
+            freq.set(s[right], 1 + (count.get(s[right]) || 0))
         }
 
 
