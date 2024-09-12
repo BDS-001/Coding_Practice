@@ -5,24 +5,17 @@ class Solution {
      * @return {number}
      */
     characterReplacement(s, k) {
-        const groups = []
+        //slide window until string is invalid, sub highest freq from k
+        //if invalid move left until valid again, if valid move right
+        const freq = new Map()
         let right = 0
         let left = 0
-        while(right < s.length) {
-            if (s[right] != s[left]) {
-                groups.push({letter: s[left], pointers:[left, right - 1], length: right - left})
-                left = right
-                continue
-            }
-            if (right === s.length - 1) {
-                console.log(right, s[left], left, right)
-                groups.push({letter: s[left], pointers:[left, right], length: right + 1 - left})
-                break
-            }
-            right ++
-        }
         let longest = 0
-        console.log(groups)
+
+        while(right < s.length) {
+            freq.set(s[right], 1 + (count.get(s[r]) || 0))
+        }
+
 
         return longest
     }
