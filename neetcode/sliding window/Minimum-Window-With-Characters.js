@@ -5,6 +5,7 @@ class Solution {
      * @return {string}
      */
     minWindow(s, t) {
+        if (t.length > s.length || s === '') return ''
         //setup
         let left = 0
         let right = 0
@@ -53,7 +54,7 @@ class Solution {
 
             //else add letter to freq map
             subFreq.set(s[right], subFreq.get(s[right]) + 1)
-            if (subFreq.get(s[right]) > targetFreq.get(s[right])) subTargetCount ++;
+            if (subFreq.get(s[right]) <= targetFreq.get(s[right])) subTargetCount ++;
             right ++;
         }
         return shortest
