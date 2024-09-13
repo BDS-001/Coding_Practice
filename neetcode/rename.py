@@ -8,7 +8,9 @@ def main(path):
                     for file in files:
                         name, ext = os.path.splitext(file)
                         updated_name = name.strip().replace(' ', '-')
-                        if (updated_name == file): 
+                        if (updated_name == name): 
+                            print('skipped')
+                            print('-' * 50)
                             continue
                         updated_filename = updated_name + ext
                         old_file_path = os.path.join(root, file)
