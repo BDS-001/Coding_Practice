@@ -9,7 +9,7 @@ class Solution {
         //setup
         let left = 0
         let right = 0
-        let shortest = ''
+        let shortest = [0] // length, left, right
         let letters = new Set(t)
 
         //freq maps
@@ -22,14 +22,12 @@ class Solution {
         }
 
         //substring tracking
-        let sub = ''
         let subTargetCount = 0
 
         while (left < s.length) {
             //move until left is a valid letter
             if(!letters.has(s[left])) {
                 left ++
-                if (sub.length > 0) sub = sub.slice(0, left) + sub.slice(left + 1);
                 if (right < left) right = left
                 continue
             }
@@ -37,17 +35,15 @@ class Solution {
             //if sub is valid check if it shortest
             if (subTargetCount === targetLength) {
                 //set shortest, move left over
-                shortest = (shortest === '' || shortest.length > sub.length) ? sub : shortest
-                sub = sub.slice(0, left) + sub.slice(left + 1);
+                shortest = shortest[0] === null ? [right - left, left, right] : shortest[0] < right - left ? shortest : [right - left, left, right]
                 subFreq.set(s[left], subFreq.get(s[left]) - 1);
-                subTargetCount - 1
+                if (subFreq.get(s[left]) < targetFreq.get(s[left])) subTargetCount - 1
                 left ++;
                 continue
             }
 
             //if current letter is not in t add to sub and continue
             if (!letters.has(s[right])) {
-                sub = sub + s[right]
                 right ++;
                 continue
             }
@@ -57,6 +53,6 @@ class Solution {
             if (subFreq.get(s[right]) <= targetFreq.get(s[right])) subTargetCount ++;
             right ++;
         }
-        return shortest
+        return shortest[0] === null ? '' : s.slice(shortest[1], shortest[2] + 1);
     }
 }
