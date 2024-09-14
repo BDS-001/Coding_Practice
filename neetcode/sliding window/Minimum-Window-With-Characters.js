@@ -6,53 +6,52 @@ class Solution {
      */
     minWindow(s, t) {
         if (t.length > s.length || s === '') return ''
-        //setup
+        
+        // Setup
         let left = 0
         let right = 0
-        let shortest = [0] // length, left, right
+        let shortest = [Infinity, 0, 0] // [length, left, right]
         let letters = new Set(t)
-
-        //freq maps
+        
+        // Frequency maps
         const targetFreq = new Map()
         const subFreq = new Map()
-        const targetLength = t.length
-        for (let i = 0; i < t.length; i++) {
-            targetFreq.set(t[i], 1 + (targetFreq.get(t[i]) || 0))
-            if (!subFreq.has(t[i])) subFreq.set(t[i], 0)
+        for (let char of t) {
+            targetFreq.set(char, (targetFreq.get(char) || 0) + 1)
+            subFreq.set(char, 0)
         }
-
-        //substring tracking
+        
+        // Substring tracking
         let subTargetCount = 0
-
-        while (left < s.length) {
-            //move until left is a valid letter
-            if(!letters.has(s[left])) {
-                left ++
-                if (right < left) right = left
-                continue
+        
+        while (right < s.length) {
+            // Expand window
+            if (letters.has(s[right])) {
+                subFreq.set(s[right], subFreq.get(s[right]) + 1)
+                if (subFreq.get(s[right]) <= targetFreq.get(s[right])) {
+                    subTargetCount++
+                }
             }
-
-            //if sub is valid check if it shortest
-            if (subTargetCount === targetLength) {
-                //set shortest, move left over
-                shortest = shortest[0] === null ? [right - left, left, right] : shortest[0] < right - left ? shortest : [right - left, left, right]
-                subFreq.set(s[left], subFreq.get(s[left]) - 1);
-                if (subFreq.get(s[left]) < targetFreq.get(s[left])) subTargetCount - 1
-                left ++;
-                continue
+            
+            // Contract window if possible
+            while (subTargetCount === t.length) {
+                // Update shortest if current window is smaller
+                if (right - left + 1 < shortest[0]) {
+                    shortest = [right - left + 1, left, right]
+                }
+                
+                if (letters.has(s[left])) {
+                    subFreq.set(s[left], subFreq.get(s[left]) - 1)
+                    if (subFreq.get(s[left]) < targetFreq.get(s[left])) {
+                        subTargetCount--
+                    }
+                }
+                left++
             }
-
-            //if current letter is not in t add to sub and continue
-            if (!letters.has(s[right])) {
-                right ++;
-                continue
-            }
-
-            //else add letter to freq map
-            subFreq.set(s[right], subFreq.get(s[right]) + 1)
-            if (subFreq.get(s[right]) <= targetFreq.get(s[right])) subTargetCount ++;
-            right ++;
+            
+            right++
         }
-        return shortest[0] === null ? '' : s.slice(shortest[1], shortest[2] + 1);
+        
+        return shortest[0] === Infinity ? '' : s.slice(shortest[1], shortest[2] + 1)
     }
 }
