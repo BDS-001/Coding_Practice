@@ -5,7 +5,7 @@ class Solution {
      */
     largestRectangleArea(heights) {
         let stack = []
-        let max = null
+        let max = 0
         for (let i = 0; i < heights.length; i++) {
             while(stack.length > 0 || stack.height > heights[i]) {
                 const current = stack.shift()
