@@ -13,5 +13,21 @@ class Solution {
      * @param {ListNode} head
      * @return {ListNode}
      */
-    reverseList(head) {}
+    reverseList(head) {
+        let current = head
+        let ahead = current?.next
+        let prev = null
+        if (!ahead) return head
+
+        while(ahead) {
+            current.next = prev
+
+            prev = current
+            current = ahead
+            ahead = ahead.next
+        }
+
+        current.next = prev
+        return current
+    }
 }
