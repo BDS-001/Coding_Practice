@@ -1,0 +1,2 @@
+testing node js filesystem
+This should append to the file isntead of overwrite it
