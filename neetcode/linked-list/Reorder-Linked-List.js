@@ -14,36 +14,59 @@ class Solution {
      * @return {void}
      */
     reorderList(head) {
-        //get the length and find the stopping point
-        let length = 0
-        let p = head
-        while(p) {
-            length ++;
-            p = p.next
-        }
-        const half = Math.ceil(length / 2)
-        let startP = head
-        let startAhead = startP?.next
-
-        console.log('here')
-        for (let i = half; i > 0; i--) {
-            let curr = startP
+        if (!head || !head.next) return head
+        const reverseList = (head) => {
+            let current = head
+            let ahead = current?.next
             let prev = null
-            
-            while(curr.next) {
-                prev = curr
-                curr = curr.next
+            if (!ahead) return head
+    
+            while(ahead) {
+                current.next = prev
+    
+                prev = current
+                current = ahead
+                ahead = ahead.next
             }
-            console.log(curr)
-
-            startP.next = curr
-            curr.next = startAhead
-            if (i != 1) prev.next = null
-
-            startP = startAhead
-            startAhead = startAhead?.next
+    
+            current.next = prev
+            return current
         }
-        
-        return head
+
+        const newHead = new ListNode()
+        let slow = head
+        let fast = head?.next
+
+        //get the mid point
+        while(fast.next) {
+            slow = slow.next
+            fast = fast.next
+            if (fast.next) fast = fast.next
+        }
+
+        //set fast and slow at thier heads and seperate
+        fast = slow.next
+        slow.next = null
+        slow = head
+
+        //reverse fast
+        fast = reverseList(fast)
+
+
+        //merge the list
+        let pointer = newHead
+        while(slow || fast) {
+            if (slow) {
+                pointer.next = slow
+                slow = slow.next
+                pointer = pointer.next
+            }
+
+            if (fast) {
+                pointer.next = fast
+                fast = fast.next
+                pointer = pointer.next
+            }
+        }
     }
 }
