@@ -5,8 +5,10 @@ const http = require('http')
 http.createServer(function (req, res) {
     const q = url.parse(req.url, true)
     const filename = '.' + q.pathname
-    fs.reafFile(filename, function (err, data) {
+    fs.readFile(filename, function (err, data) {
         if (err) {
+            console.log(err)
+            console.log(filename)
             res.writeHead(404, {'Content-Type': 'text/html'})
             return res.end('404 Not Found')
         }
