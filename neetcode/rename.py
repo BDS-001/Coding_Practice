@@ -42,5 +42,5 @@ def main(path):
                 print('-' * 50)
 
 if __name__ == "__main__":
-    path = './'
+    path = './neetcode'
     main(path)
