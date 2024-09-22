@@ -4,7 +4,10 @@ const app = express();
 
 app.get("/", (req, res) => res.send("Hello, world!"));
 app.get("/about", (req, res) => res.send("This is an app to test out express with node!"));
-
+app.get('/:user/messages', (req, res) => {
+    console.log(req.params)
+    res.send(`${req.params.user}'s list of messages`)
+})
 //app.all() used for all requests not just get
 //'*' used to match everything
 app.all('*', (req, res) => {
