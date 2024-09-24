@@ -13,5 +13,16 @@ class Solution {
      * @param {ListNode} head
      * @return {boolean}
      */
-    hasCycle(head) {}
+    hasCycle(head) {
+        let slow = head
+        let fast = head?.next
+
+        while (fast && slow) {
+            if (slow === fast) return true
+            fast = fast?.next?.next
+            slow = slow?.next
+
+        }
+        return false
+    }
 }
