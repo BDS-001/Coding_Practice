@@ -1,8 +1,17 @@
 const asyncHandler = require('express-async-handler')
 
 async function someDBQueryToGetUser(userId) {
-    return {id: userId, name: 'bob'}
+    return userId === '08' ? {id: userId, name: 'bob'} : null
 }
+
+class CustomNotFoundError extends Error {
+    constructor(message) {
+      super(message);
+      this.statusCode = 404;
+      // So the error is neat when stringified. NotFoundError: message instead of Error: message
+      this.name = "NotFoundError";
+    }
+  }
 
 // Any errors that is thrown in this function will automatically be caught and call the `next` function
 const getUserById = asyncHandler(async (req, res) => {
@@ -11,8 +20,7 @@ const getUserById = asyncHandler(async (req, res) => {
     const user = await someDBQueryToGetUser(userId);
   
     if (!user) {
-      res.status(404).send("User not found");
-      return;
+      throw new CustomNotFoundError("User not found");
     }
   
     res.send(`User found: ${user.name}`);
