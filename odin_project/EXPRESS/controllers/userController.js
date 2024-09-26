@@ -25,7 +25,13 @@ const getUserById = asyncHandler(async (req, res) => {
   
     res.send(`User found: ${user.name}`);
   });
-
-  module.exports = {
-    getUserById
-  }
+  
+  const getUsers = asyncHandler(async (req, res) => {
+    // code
+  });
+  
+  const createUser = asyncHandler(async (req, res) => {
+    // code
+  });
+  
+  module.exports = { getUserById, getUsers, createUser };
