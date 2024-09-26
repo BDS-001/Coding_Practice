@@ -4,6 +4,6 @@ const { getUserById } = require('../controllers/userController.js')
 
 const userRouter = Router();
 
-router.get("/user/:id", getUserById)
+userRouter.get("/:id", getUserById)
 
 module.exports = userRouter;

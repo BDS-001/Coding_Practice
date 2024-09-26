@@ -1,5 +1,9 @@
 // user controller file - controllers/userController.js
 
+async function someDBQueryToGetUser(userId) {
+    return {id: userId, name: 'bob'}
+}
+
 const getUserById = async (req, res) => {
     const userId = req.params.id;
   
