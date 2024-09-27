@@ -6,5 +6,9 @@ const path = require("node:path");
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+app.get("/", (req, res) => {
+    res.render("index", { message: "EJS rocks!" });
+  });  
+
 const PORT = parseInt(process.env.USE_PORT, 10) || 3000;
 app.listen(PORT, () => console.log(`listening on port ${PORT}!\nVisit: http://localhost:3000/`));
