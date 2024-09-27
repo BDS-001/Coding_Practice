@@ -5,6 +5,7 @@
   </head>
   <body>
     <%- include('navbar', {links: links}) %>
+    <h1>Homepage</h1>
     <ul>
         <% users.forEach((user) => { %>
             <%- include('users/user', {user: user}) %>

@@ -19,6 +19,9 @@ const users = ["Rose", "Cake", "Biff"];
 app.get("/", (req, res) => {
     res.render("index", { links: links, users: users });
 });
+app.get('/about', (req, res) => {
+    res.render('about', { links: links})
+})
 
 const PORT = parseInt(process.env.USE_PORT, 10) || 3000;
 app.listen(PORT, () => console.log(`listening on port ${PORT}!\nVisit: http://localhost:3000/`));
