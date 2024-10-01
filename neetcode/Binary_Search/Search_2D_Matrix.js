@@ -15,9 +15,9 @@ class Solution {
                 row = matrix[mid]
                 break
             } else if (matrix[top][0] > target) {
-                end = center - 1
+                bottom = mid - 1
             } else {
-                start = center + 1
+                top = mid + 1
             }
         }
 
