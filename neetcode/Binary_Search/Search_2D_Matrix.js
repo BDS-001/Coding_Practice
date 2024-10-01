@@ -5,16 +5,16 @@ class Solution {
      * @return {boolean}
      */
     searchMatrix(matrix, target) {
-        let start = 0
-        let end = matrix.length - 1
-        let nums = null
+        let top = 0
+        let bottom = matrix.length - 1
+        const row = null
 
         while(start <= end) {
-            const center = Math.floor( (start + end) / 2)
-            if (matrix[center] === target) {
-                nums = matrix[center]
-            }
-            if (matrix[center] > target) {
+            const mid = Math.floor( (top + bottom) / 2)
+            if (top === bottom || matrix[top][0] === target) {
+                row = matrix[mid]
+                break
+            } else if (matrix[top][0] > target) {
                 end = center - 1
             } else {
                 start = center + 1
