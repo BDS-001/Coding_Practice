@@ -7,7 +7,7 @@ class Solution {
     searchMatrix(matrix, target) {
         let top = 0
         let bottom = matrix.length - 1
-        const row = null
+        let row = null
 
         while(top <= bottom) {
             const mid = Math.floor( (top + bottom) / 2)
