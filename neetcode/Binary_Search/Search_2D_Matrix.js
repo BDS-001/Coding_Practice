@@ -9,7 +9,7 @@ class Solution {
         let bottom = matrix.length - 1
         const row = null
 
-        while(start <= end) {
+        while(top <= bottom) {
             const mid = Math.floor( (top + bottom) / 2)
             if (top === bottom || matrix[top][0] === target) {
                 row = matrix[mid]
@@ -21,12 +21,12 @@ class Solution {
             }
         }
 
-        start = 0
-        end = matrix.length - 1
+        let start = 0
+        let end = matrix.length - 1
         while (start <= end) {
             const center = Math.floor( (start + end) / 2)
-            if (nums[center] === target) return center
-            if (nums[center] > target) {
+            if (row[center] === target) return center
+            if (row[center] > target) {
                 end = center - 1
             } else {
                 start = center + 1
