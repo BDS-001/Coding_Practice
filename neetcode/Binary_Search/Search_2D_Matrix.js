@@ -27,11 +27,11 @@ class Solution {
             }
         }
 
+        console.log(row)
         if (row === null) return false;
 
         let start = 0
-        let end = matrix.length - 1
-        console.log(row)
+        let end = row.length - 1
         while (start <= end) {
             const center = Math.floor( (start + end) / 2)
             if (row[center] === target) return true
