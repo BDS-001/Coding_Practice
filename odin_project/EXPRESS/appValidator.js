@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("node:path");
+const { validateForm, submitForm } = require("./controllers/formController");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -16,27 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
     res.render('validation-form', {})
 })
-app.post('/submit-form',[
-    body("birthdate", "Must be a valid date.")
-      .optional({ values: "falsy" })
-      .isISO8601(), // Enforce a YYYY-MM-DD format.
-      body("name")
-      .trim()
-      .notEmpty()
-      .withMessage("Name can not be empty.")
-      .isAlpha()
-      .withMessage("Name must only contain alphabet letters."),
-  ],(req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.render('validation-form', { errors: errors.array() });
-    }
-    
-    // If validation passes, process the form data
-    console.log('Form submitted successfully!');
-    console.log('Form data:', JSON.stringify(req.body, null, 2));
-    res.status(301).redirect('/');
-});
+app.post('/submit-form', validateForm, submitForm);
 
 const PORT = parseInt(process.env.USE_PORT, 10) || 3000;
 app.listen(PORT, () => console.log(`listening on port ${PORT}!\nVisit: http://localhost:3000/`));
