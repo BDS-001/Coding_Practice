@@ -19,7 +19,13 @@ app.get('/', (req, res) => {
 app.post('/submit-form',[
     body("birthdate", "Must be a valid date.")
       .optional({ values: "falsy" })
-      .isISO8601() // Enforce a YYYY-MM-DD format.
+      .isISO8601(), // Enforce a YYYY-MM-DD format.
+      body("name")
+      .trim()
+      .notEmpty()
+      .withMessage("Name can not be empty.")
+      .isAlpha()
+      .withMessage("Name must only contain alphabet letters."),
   ],(req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
