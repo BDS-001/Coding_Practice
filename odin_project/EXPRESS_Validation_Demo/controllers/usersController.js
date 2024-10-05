@@ -37,8 +37,8 @@ exports.usersCreatePost = [
         errors: errors.array(),
       });
     }
-    const { firstName, lastName } = req.body;
-    usersStorage.addUser({ firstName, lastName });
+    const { firstName, lastName, age, email, bio } = req.body;
+    usersStorage.addUser({ firstName, lastName, age, email, bio });
     res.redirect("/");
   }
 ];
@@ -63,8 +63,8 @@ exports.usersUpdatePost = [
         errors: errors.array(),
       });
     }
-    const { firstName, lastName } = req.body;
-    usersStorage.updateUser(req.params.id, { firstName, lastName });
+    const { firstName, lastName, age, email, bio } = req.body;
+    usersStorage.updateUser(req.params.id, { firstName, lastName, age, email, bio });
     res.redirect("/");
   }
 ];
