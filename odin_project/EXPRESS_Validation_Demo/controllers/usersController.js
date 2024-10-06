@@ -15,9 +15,15 @@ const validateUser = [
 ];
 
 exports.usersListGet = (req, res) => {
+  const search = req.query.search?.trim() ?? null;
+  
+  if (search === '') {
+    return res.redirect(req.path);
+  }
+
   res.render("index", {
     title: "User list",
-    users: usersStorage.getUsers(),
+    users: search !== null ? usersStorage.getFilteredUsers(search) : usersStorage.getUsers(),
   });
 };
 

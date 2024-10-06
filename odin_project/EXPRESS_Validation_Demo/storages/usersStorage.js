@@ -15,6 +15,18 @@ class UsersStorage {
     getUsers() {
       return Object.values(this.storage);
     }
+
+    getFilteredUsers(search) {
+      const lowercasedSearch = search.toLowerCase();
+      
+      return Object.values(this.storage).filter(user => {
+        const { firstName, lastName, email } = user;
+        
+        return [firstName, lastName, email].some(field => 
+          field.toLowerCase().includes(lowercasedSearch)
+        );
+      });
+    }
   
     getUser(id) {
       return this.storage[id];
