@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 const usersStorage = require("../storages/usersStorage");
 
 const alphaErr = 'must only contain letters.'
+const numErr = 'must only contain numbers.'
 const lengthErr = 'must be between 1 and 10 characters.'
 
 const validateUser = [
@@ -12,6 +13,16 @@ const validateUser = [
   body("lastName").trim()
     .isAlpha().withMessage(`Last name ${alphaErr}`)
     .isLength({ min: 1, max: 10 }).withMessage(`Last name ${lengthErr}`),
+  body("age").trim()
+    .optional({ checkFalsy: true })
+    .isInt().withMessage(`Age ${numErr}`)
+    .isInt({ min: 18, max: 100 }).withMessage('Age must be between 18 and 100.'),
+  body("email").trim()
+    .isEmail().withMessage('Must be a valid email address.')
+    .normalizeEmail(),
+  body("bio").trim()
+    .optional({ checkFalsy: true })
+    .isLength({max: 200}).withMessage(`Bio must be a maximum of 200 characters`),
 ];
 
 exports.usersListGet = (req, res) => {
