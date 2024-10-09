@@ -1,19 +1,10 @@
 const { Router } = require("express");
 const router = Router();
+const usersController = require("../controllers/usersController");
 
-router.get("/", (req, res) => {
-    console.log("usernames will be logged here - wip")
-    res.status(200).send("router is working");
-});
-
-router.get('/new', (req, res) => {
-    res.render('new', {})
-});
-
-router.post('/new', (req, res) => {
-    console.log("username to be saved: ", req.body.username)
-    res.redirect(303, '/new');
-});
+router.get("/", usersController.getUsernames);
+router.get('/new', usersController.createUsernameGet);
+router.post('/new', usersController.createUsernamePost);
 
 
 module.exports = router;
