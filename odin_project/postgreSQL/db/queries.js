@@ -5,6 +5,10 @@ async function getAllUsernames() {
   return rows;
 }
 
+async function deleteAllUsernames() {
+  await pool.query("DELETE FROM usernames");
+}
+
 async function getQueriedUsernames(q) {
   const { rows } = await pool.query("SELECT * FROM usernames WHERE username ILIKE $1", [`%${q}%`]);
   return rows;
@@ -17,5 +21,6 @@ async function insertUsername(username) {
 module.exports = {
   getAllUsernames,
   insertUsername,
-  getQueriedUsernames
+  getQueriedUsernames,
+  deleteAllUsernames
 };
