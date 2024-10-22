@@ -12,16 +12,26 @@ class Solution {
      * @return {Node}
      */
     copyRandomList(head) {
-        const newHead = new Node()
-        let oldP = head;
-        let newP = newHead
+        //setup node map
+        const nodeMap = new Map()
 
-        while(oldP) {
-            newP.next = new Node(oldP.val, null, null)
-
-            newP = newP.next
-            oldP = oldP.next
+        //first pass, map old nodes to copy nodes
+        let curr = head
+        nodeMap.set(null, null)
+        while(curr) {
+            nodeMap.set(curr, new Node(curr.val))
+            curr = curr.next
         }
-        return newHead.next
+
+        //second pass, connect nodes
+        curr = head
+        while(curr) {
+            const nodeCopy = nodeMap.get(curr)
+            nodeCopy.next = nodeMap.get(curr.next)
+            nodeCopy.random = nodeMap.get(curr.random)
+            curr = curr.next
+        }
+        return nodeMap.get(head)
     }
 }
+
