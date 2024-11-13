@@ -34,5 +34,5 @@ app.post("/sign-up", async (req, res, next) => {
     }
   });
   
-
-app.listen(3000, () => console.log("app listening on port 3000!"));
+  const PORT = 3000
+  app.listen(PORT, () => console.log(`Listening on port ${PORT}!\nVisit: http://localhost:${PORT}/`));
