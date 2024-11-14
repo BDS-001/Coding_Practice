@@ -30,7 +30,8 @@ app.use(session({
 }));
 
 app.get("/", (req, res, next) => {
-    res.send('<h1>Hello World (Sessions)</h1>')
+    (req.session.viewCount) ? req.session.viewCount++ : req.session.viewCount = 1
+    res.send(`<h1>You have visited this page ${req.session.viewCount}</h1>`)
 });
 
 const PORT = 3000
