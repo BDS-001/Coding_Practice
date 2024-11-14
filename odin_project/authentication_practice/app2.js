@@ -1,9 +1,7 @@
-const path = require("node:path");
 const { Pool } = require("pg");
 const express = require("express");
 const session = require("express-session");
 const pgSession = require('connect-pg-simple')(session);
-const passport = require("passport");
 require('dotenv').config()
 
 const username = process.env.DATABASE_USERNAME
@@ -18,13 +16,14 @@ app.use(express.urlencoded({ extended: false }));
 
 sessionStore = new pgSession({
     pool: pool,
-    tableName: 'sesssions'
+    tableName: 'sesssions',
+    createTableIfMissing: true
 })
 app.use(session({ 
     secret: "some secret", 
     resave: false, 
     saveUninitialized: true,
-    store: sessionStorage,
+    store: sessionStore,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24
     }
