@@ -29,7 +29,6 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24
     }
 }));
-app.use(passport.session());
 
 app.get("/", (req, res, next) => {
     res.send('<h1>Hello World (Sessions)</h1>')
