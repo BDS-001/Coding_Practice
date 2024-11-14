@@ -38,7 +38,7 @@ passport.use(
       }
     })
   );
-  
+
   passport.serializeUser((user, done) => {
     done(null, user.id);
   });
@@ -55,7 +55,7 @@ passport.use(
   });
   
 
-app.get("/", (req, res) => res.render("index"));
+app.get("/", (req, res) => res.render("index",  { user: req.user }));
 app.get('/sign-up', (req, res) => res.render('sign-up-form'))
 app.post("/sign-up", async (req, res, next) => {
     try {
@@ -68,6 +68,14 @@ app.post("/sign-up", async (req, res, next) => {
       return next(err);
     }
   });
+  app.post(
+    "/log-in",
+    passport.authenticate("local", {
+      successRedirect: "/",
+      failureRedirect: "/"
+    })
+  );
+  
   
   const PORT = 3000
   app.listen(PORT, () => console.log(`Listening on port ${PORT}!\nVisit: http://localhost:${PORT}/`));
