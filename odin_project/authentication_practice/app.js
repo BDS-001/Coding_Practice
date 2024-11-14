@@ -5,6 +5,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config()
+const bcrypt = require('bcryptjs')
 
 const username = process.env.DATABASE_USERNAME
 const pass = process.env.DATABASE_PASS
@@ -63,16 +64,19 @@ passport.use(
 app.get("/", (req, res) => res.render("index"));
 app.get('/sign-up', (req, res) => res.render('sign-up-form'))
 app.post("/sign-up", async (req, res, next) => {
+  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+    if (err) return next(err)
     try {
       await pool.query("INSERT INTO users (username, password) VALUES ($1, $2)", [
         req.body.username,
-        req.body.password,
+        hashedPassword,
       ]);
       res.redirect("/");
     } catch(err) {
       return next(err);
     }
   });
+});
   app.post(
     "/log-in",
     passport.authenticate("local", {
