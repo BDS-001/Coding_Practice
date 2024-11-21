@@ -14,9 +14,9 @@ class Solution {
      * @return {ListNode}
      */
     reverseKGroup(head, k) {
+        if (!head) return
         const nodeSets = []
         this.collectPointers(head, k, nodeSets)
-        console.log(nodeSets)
         this.reorderSets(nodeSets, k)
         this.connectSets(nodeSets, k)
         return nodeSets[0][0]
@@ -28,7 +28,7 @@ class Solution {
             const kNodes = []
             for (let i = 0; i < k; i++) {
                 if (!p) break
-                kNodes.unshift(p)
+                kNodes.push(p)
                 p = p.next
             }
             nodeSets.push(kNodes)
@@ -37,29 +37,30 @@ class Solution {
 
     reorderSets(nodeSets, k) {
         nodeSets.forEach(kNodes => {
+        if (kNodes.length === k) { 
+            kNodes.reverse();
             for (let i = 0; i < kNodes.length; i++) {
-                if (kNodes.length != k) {
-                    break
-                }
                 if (i === kNodes.length - 1) {
-                    kNodes[i].next === null
-                    break
+                    kNodes[i].next = null;
+                } else {
+                    kNodes[i].next = kNodes[i + 1];
                 }
-                kNodes[i].next = kNodes[i+1]
             }
-        })
+        }
+    });
     }
 
     connectSets(nodeSets, k) {
-        for (let i = 0; i < nodeSets.length-2; i++) {
-            nodeSets[i][nodeSets[i].length - 1].next = nodeSets[i+1][0]
-        }
+        if (nodeSets.length <= 1) return;
 
-        if(nodeSets[nodeSets.length - 1].length != k) {
-            const secondLast = nodeSets[nodeSets.length - 2]
-            const last = nodeSets[nodeSets.length - 1]
+        for (let i = 0; i < nodeSets.length-1; i++) {
+            const currentSet = nodeSets[i]
+            const nextSet = nodeSets[i+1]
 
-            secondLast[secondLast.length - 1].next = last[last.length - 1]
+           currentSet[currentSet.length - 1].next = nextSet[0]
         }
+        
+        const lastSet = nodeSets[nodeSets.length - 1];
+        lastSet[lastSet.length - 1].next = null;
     }
 }
