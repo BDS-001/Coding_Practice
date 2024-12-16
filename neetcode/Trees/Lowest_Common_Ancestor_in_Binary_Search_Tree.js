@@ -25,7 +25,7 @@ class Solution {
         while(stack.length > 0) {
             const node = stack.shift()
             if (node.val === pVal || node.val === qVal) return node;
-            
+
             const existsLeft = this.checkExists(node.left, pVal, qVal)
             const existsRight = this.checkExists(node.right, pVal, qVal)
 
@@ -33,7 +33,7 @@ class Solution {
             if (existsLeft) stack.push(node.left)
             if (existsRight) stack.push(node.right)
         }
-    return root
+        return root
 
     }
 
