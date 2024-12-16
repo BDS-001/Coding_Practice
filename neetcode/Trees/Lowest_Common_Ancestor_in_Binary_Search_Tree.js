@@ -18,24 +18,29 @@ class Solution {
      */
     lowestCommonAncestor(root, p, q) {
         if (!root) return
-        let left = false
-        let right = false
+        const pVal = p.val
+        const qVal = q.val
+
         let stack = [root]
-        while(!(left && right) && stack.length > 0) {
+        while(stack.length > 0) {
             const node = stack.shift()
-            const existsLeft = this.checkExists(node.left, p.val, q.val)
-            const existsRight = this.checkExists(node.right, p.val, q.val)
+            if (node.val === pVal || node.val === qVal) return node;
+            
+            const existsLeft = this.checkExists(node.left, pVal, qVal)
+            const existsRight = this.checkExists(node.right, pVal, qVal)
 
             if (existsLeft && existsRight) return node
-            if (existsLeft) stack.push(root.left)
-            if (existsRight) stack.push(root.right)
+            if (existsLeft) stack.push(node.left)
+            if (existsRight) stack.push(node.right)
         }
+    return root
 
     }
 
-    checkExists(root, p, q) {
+    checkExists(root, pVal, qVal) {
         if (!root) return false
-        if (root.val === p || root.val === q) return true
-        return false || this.checkExists(root.left, p, q) || this.checkExists(root.right, p, q)
+        console.log(root.val)
+        if (root.val === pVal || root.val === qVal) return true
+        return false || this.checkExists(root.left, pVal, qVal) || this.checkExists(root.right, pVal, qVal)
     }
 }
