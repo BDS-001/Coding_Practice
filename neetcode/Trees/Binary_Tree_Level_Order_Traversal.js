@@ -15,21 +15,24 @@ class Solution {
      * @return {number[][]}
      */
     levelOrder(root) {
-        const stack = [[root]]
-        let prev = -1
-        let current = stack.length - 1
-        while(prev !== current) {
-            prev = current
+        if(!root) return []
+        const stack = [root]
+        const res = []
+        while(stack.length > 0) {
+            const stackLength = stack.length
             const level = []
-            const currLevel = stack[current]
-            for (let i = 0; i < currLevel.length; i++) {
-                const node = currLevel[i]
-                if (node.left) level.push(node.left)
-                if (node.right) level.push(node.right)
+            for (let i = 0; i < stackLength; i++) {
+                const node = stack.shift()
+                level.push(node.val)
+                if (node.left) {
+                    stack.push(node.left)
+                }
+                if (node.right) {
+                    stack.push(node.right)
+                }
             }
-            if(level.length > 0) stack.push(level)
-            current = stack.length - 1
-            
+            res.push(level)
         }
+        return res
     }
 }
