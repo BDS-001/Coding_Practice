@@ -62,7 +62,8 @@ router.post('/messages', (req, res) => {
   const id = uuidv4();
   const message = {
     id,
-    text: req.body.text
+    text: req.body.text,
+    userId: req.me.id,
   };
 
   messages[id] = message;
