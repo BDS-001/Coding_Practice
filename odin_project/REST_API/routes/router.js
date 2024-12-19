@@ -48,6 +48,9 @@ router.delete('/users/:userId', (req, res) => {
   return res.send(`DELETE HTTP method on user/${req.params.userId} resource\n`);
 });
 
+app.get('/session', (req, res) => {
+  return res.send(users[req.me.id]);
+});
 
 //messages
 router.get('/messages', (req, res) => {
@@ -67,6 +70,17 @@ router.post('/messages', (req, res) => {
   };
 
   messages[id] = message;
+
+  return res.send(message);
+});
+
+app.delete('/messages/:messageId', (req, res) => {
+  const {
+    [req.params.messageId]: message,
+    ...otherMessages
+  } = messages;
+
+  messages = otherMessages;
 
   return res.send(message);
 });
