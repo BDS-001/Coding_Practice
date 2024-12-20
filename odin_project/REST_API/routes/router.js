@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 const { v4: uuidv4 } = require('uuid');
 const jwt = require('jsonwebtoken')
+const { verifyToken } = require('../middleware/middleware')
 
 
 let users = {
@@ -38,15 +39,15 @@ router.get('/users/:userId', (req, res) => {
   return res.send(users[req.params.userId]);
 });
 
-router.post('/users', (req, res) => {
+router.post('/users', verifyToken, (req, res) => {
   return res.send('POST HTTP method on user resource\n');
 });
   
-router.put('/users/:userId', (req, res) => {
+router.put('/users/:userId', verifyToken, (req, res) => {
   return res.send(`PUT HTTP method on user/${req.params.userId} resource\n`);
 });
   
-router.delete('/users/:userId', (req, res) => {
+router.delete('/users/:userId', verifyToken, (req, res) => {
   return res.send(`DELETE HTTP method on user/${req.params.userId} resource\n`);
 });
 
@@ -63,7 +64,7 @@ router.get('/messages/:messageId', (req, res) => {
   return res.send(messages[req.params.messageId]);
 });
 
-router.post('/messages', (req, res) => {
+router.post('/messages', verifyToken, (req, res) => {
   const id = uuidv4();
   const message = {
     id,
@@ -76,7 +77,7 @@ router.post('/messages', (req, res) => {
   return res.send(message);
 });
 
-router.delete('/messages/:messageId', (req, res) => {
+router.delete('/messages/:messageId', verifyToken, (req, res) => {
   const {
     [req.params.messageId]: message,
     ...otherMessages
@@ -88,12 +89,26 @@ router.delete('/messages/:messageId', (req, res) => {
 });
 
 //jwt security
+const secretkey = 'envSecretKey'
 router.post('/api/login', (req, res) => {
   const user = req.me
-  jwt.sign({user}, 'secretkey', (err, token) => {
+  jwt.sign({user}, secretkey, (err, token) => {
     res.json({
       token
     })
+  })
+})
+
+router.post('/api/posts', verifyToken, (req, res) => {
+  jwt.verify(req.token, secretkey, (err, authData) => {
+    if (err) {
+      res.sendStatus(403)
+    } else {
+      res.json({
+        message: 'Post created',
+        authData,
+      })
+    }
   })
 })
 

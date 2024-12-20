@@ -2,17 +2,12 @@ const express = require('express')
 require('dotenv').config()
 const router = require('./routes/router')
 const app = express()
+const middleware = require('./middleware/middleware')
 
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-    req.me = {
-        id: '1',
-        username: 'Robin Wieruch',
-    };
-    next();
-});
+app.use(middleware.addMockUser);
 
 app.use("/", router);
 
