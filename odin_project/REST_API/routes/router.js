@@ -1,6 +1,8 @@
 const { Router } = require("express");
 const router = Router();
 const { v4: uuidv4 } = require('uuid');
+const jwt = require('jsonwebtoken')
+
 
 let users = {
     1: {
@@ -48,7 +50,7 @@ router.delete('/users/:userId', (req, res) => {
   return res.send(`DELETE HTTP method on user/${req.params.userId} resource\n`);
 });
 
-app.get('/session', (req, res) => {
+router.get('/session', (req, res) => {
   return res.send(users[req.me.id]);
 });
 
@@ -74,7 +76,7 @@ router.post('/messages', (req, res) => {
   return res.send(message);
 });
 
-app.delete('/messages/:messageId', (req, res) => {
+router.delete('/messages/:messageId', (req, res) => {
   const {
     [req.params.messageId]: message,
     ...otherMessages
@@ -84,5 +86,15 @@ app.delete('/messages/:messageId', (req, res) => {
 
   return res.send(message);
 });
+
+//jwt security
+router.post('/api/login', (req, res) => {
+  const user = req.me
+  jwt.sign({user}, 'secretkey', (err, token) => {
+    res.json({
+      token
+    })
+  })
+})
 
 module.exports = router;

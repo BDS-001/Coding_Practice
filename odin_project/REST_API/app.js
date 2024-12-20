@@ -7,7 +7,10 @@ const app = express()
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
-    req.me = users[1];
+    req.me = {
+        id: '1',
+        username: 'Robin Wieruch',
+    };
     next();
 });
 
