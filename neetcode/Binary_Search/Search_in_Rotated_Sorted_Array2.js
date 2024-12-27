@@ -4,5 +4,14 @@ class Solution {
      * @param {number} target
      * @return {number}
      */
-    search(nums, target) {}
+    search(nums, target) {
+        const left = 0
+        const right = nums.length
+
+        while(left < right) {
+            break
+        }
+
+        return
+    }
 }
