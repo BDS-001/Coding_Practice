@@ -4,5 +4,20 @@ class Solution {
      * @param {number} target
      * @return {number}
      */
-    search(nums, target) {}
+    search(nums, target) {
+        const left = 0
+        const right = nums.length
+
+        while(left <=  right) {
+            const mid = Math.floor((left + right) / 2)
+
+            if (nums[mid] === target) return mid
+            if (nums[right] > nums[mid] && target > mid) {
+                left = mid + 1
+            }
+            break
+        }
+
+        return -1
+    }
 }
