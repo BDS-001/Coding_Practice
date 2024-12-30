@@ -14,6 +14,8 @@ class Solution {
             if (nums[mid] === target) return mid
             if (nums[right] > nums[mid] && target > mid) {
                 left = mid + 1
+            } else {
+                right = mid
             }
             break
         }
