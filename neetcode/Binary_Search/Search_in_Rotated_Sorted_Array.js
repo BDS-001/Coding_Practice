@@ -19,6 +19,9 @@ class Solution {
             //right side out of order
             } else if (nums[right] < nums[mid] && target <= nums[right]) {
                 left = mid + 1
+            //left could not contain target
+            } else if (nums[left] < nums[mid] && target > nums[mid]) {
+                left = mid + 1
             } else {
                 right = mid - 1
             }
