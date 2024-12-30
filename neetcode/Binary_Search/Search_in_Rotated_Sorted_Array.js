@@ -5,19 +5,23 @@ class Solution {
      * @return {number}
      */
     search(nums, target) {
-        const left = 0
-        const right = nums.length
+        let left = 0
+        let right = nums.length - 1
 
         while(left <=  right) {
+            //center
             const mid = Math.floor((left + right) / 2)
 
             if (nums[mid] === target) return mid
-            if (nums[right] > nums[mid] && target > mid) {
+            //right side is in order
+            if (nums[right] > nums[mid] && target > nums[mid] && target <= nums[right]) {
+                left = mid + 1
+            //right side out of order
+            } else if (nums[right] < nums[mid] && target <= nums[right]) {
                 left = mid + 1
             } else {
-                right = mid
+                right = mid - 1
             }
-            break
         }
 
         return -1
