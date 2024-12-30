@@ -13,10 +13,10 @@ class Solution {
             const mid = Math.floor((left + right) / 2)
 
             if (nums[mid] === target) return mid
-            //right side is in order
+            //right side is in order and target is possible
             if (nums[right] > nums[mid] && target > nums[mid] && target <= nums[right]) {
                 left = mid + 1
-            //right side out of order
+            //right side out of order and target possible
             } else if (nums[right] < nums[mid] && target <= nums[right]) {
                 left = mid + 1
             //left could not contain target
