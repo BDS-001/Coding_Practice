@@ -14,5 +14,17 @@ class Solution {
      * @param {TreeNode} root
      * @return {boolean}
      */
-    isValidBST(root) {}
+    isValidBST(root) {
+        return this.validNode(root, -Infinity, Infinity)
+    }
+
+    validNode(node, min, max) {
+        if (!node) return true
+
+        if (node.val <= min || node.val >= max) {
+            return false
+        }
+
+        return this.validNode(node.left, min, node.val) && this.validNode(node.right, node.val, max)
+    }
 }
