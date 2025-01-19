@@ -15,5 +15,13 @@ class Solution {
      * @param {number} k
      * @return {number}
      */
-    kthSmallest(root, k) {}
+    kthSmallest(root, k) {
+        if (!root) return root
+        return this.treeToArray(root)[k - 1]
+    }
+
+    treeToArray(node) {
+        if (!node) return []
+        return [...this.treeToArray(node.left), node.val, ...this.treeToArray(node.right)]
+    }
 }
