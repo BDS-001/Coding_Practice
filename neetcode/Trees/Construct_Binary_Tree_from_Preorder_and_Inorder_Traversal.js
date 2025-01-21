@@ -15,5 +15,15 @@ class Solution {
      * @param {number[]} inorder
      * @return {TreeNode}
      */
-    buildTree(preorder, inorder) {}
+    buildTree(preorder, inorder) {
+        if (!preorder.length || !inorder.length) {
+            return null;
+        }
+        
+        const root = new TreeNode(preorder[0])
+        const mid = inorder.indexOf(preorder[0])
+        root.left = this.buildTree(preorder.slice(1, mid + 1), inorder.slice(0, mid))
+        root.right = this.buildTree(preorder.slice(mid+1, preorder.length), inorder.slice(mid+1, inorder.length))
+        return root
+    }
 }
