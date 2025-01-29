@@ -3,6 +3,10 @@
     "express": "^4.21.2"
   },
   "devDependencies": {
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "vitest": "^3.0.4"
+  },
+  "scripts": {
+    "test": "vitest"
   }
 }
