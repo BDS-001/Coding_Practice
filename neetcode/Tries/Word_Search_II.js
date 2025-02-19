@@ -19,6 +19,20 @@ class Solution {
         return word.charCodeAt(index) - 97
     }
 
+    validateMoves(moves) {
+        const index = 0
+        while(i < moves.length) {
+            const [i, j] = moves[index]
+            let valid = true
+
+            if(i < 0 || j < 0) {
+                valid = false
+            } else if (i >= this.board.length, j >= this.board[0].length) {
+                valid = false
+            }
+        }
+    }
+
     /**
      * @param {character[][]} board
      * @param {string[]} words
@@ -47,7 +61,13 @@ class Solution {
     wordSearch(pointer, prev) {
         //words can contain smaller words, check for a valid word and continue checking
         if (pointer.finalChar) this.wordBank.push(pointer.word)
-        
+        const [i, j] = prev;
+        const validMoves = this.validateMoves([
+            [i + 1, j],
+            [i - 1, j],
+            [i, j + 1],
+            [i, j - 1]
+        ]);
         
         
     }
