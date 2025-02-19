@@ -36,15 +36,20 @@ class Solution {
             for (let j = 0; j < row.length; j++) {
                 const index = this.getTrieIndex(row[j])
                 if (!this.root.next[index]) continue
-                this.wordSearch(this.root.next[index])
+                this.visited[i][j] = true
+                this.wordSearch(this.root.next[index], [i, j])
+                this.visited[i][j] = false
             }
         }
         return this.wordBank
     }
 
-    wordSearch(pointer) {
+    wordSearch(pointer, prev) {
         //words can contain smaller words, check for a valid word and continue checking
         if (pointer.finalChar) this.wordBank.push(pointer.word)
+        
+        
+        
     }
 
     //create a trie with given words
