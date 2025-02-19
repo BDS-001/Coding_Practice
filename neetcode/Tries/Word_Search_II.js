@@ -1,7 +1,8 @@
 class Node {
-    constructor(letter, finalChar=false) {
+    constructor(letter, finalChar=false, word='') {
         this.letter = letter;
         this.finalChar = finalChar;
+        this.word = word
         this.next = new Array(26).fill(null);
     }
 }
@@ -18,10 +19,20 @@ class Solution {
      * @return {string[]}
      */
     findWords(board, words) {
-        this.generateWordBank(words)
+        this.generateTrie(words)
+        for (let i = 0; i < board.length; i++) {
+            const row = board[i]
+            for (let j = 0; j < row.length; j++) {
+                
+            }
+        }
     }
 
-    generateWordBank(words) {
+    setWordBank(words) {
+
+    }
+
+    generateTrie(words) {
         words.forEach(word => {
             let pointer = this.root
             for (let i = 0; i < word.length; i++) {
@@ -35,6 +46,7 @@ class Solution {
     
                 if (finalChar) {
                     letterPosition.finalChar = true
+                    letterPosition.word = word
                     return
                 }
                 
