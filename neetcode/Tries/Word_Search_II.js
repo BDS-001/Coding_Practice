@@ -10,8 +10,14 @@ class Node {
 class Solution {
     constructor() {
         this.root = new Node(null)
+        this.wordBank = []
+        this.board = null
+        this.visited = null
     }
 
+    getTrieIndex(word, index = 0) {
+        return word.charCodeAt(index) - 97
+    }
 
     /**
      * @param {character[][]} board
@@ -19,24 +25,34 @@ class Solution {
      * @return {string[]}
      */
     findWords(board, words) {
+        //setup varaibles
         this.generateTrie(words)
+        this.board = board
+        this.visited = Array.from({ length: board.length }, () => Array(board[0].length).fill(false));
+
+        //check each cell if a word starts with the letter, if it does find the word
         for (let i = 0; i < board.length; i++) {
             const row = board[i]
             for (let j = 0; j < row.length; j++) {
-                
+                const index = this.getTrieIndex(row[j])
+                if (!this.root.next[index]) continue
+                this.wordSearch(this.root.next[index])
             }
         }
+        return this.wordBank
     }
 
-    setWordBank(words) {
-
+    wordSearch(pointer) {
+        //words can contain smaller words, check for a valid word and continue checking
+        if (pointer.finalChar) this.wordBank.push(pointer.word)
     }
 
+    //create a trie with given words
     generateTrie(words) {
         words.forEach(word => {
             let pointer = this.root
             for (let i = 0; i < word.length; i++) {
-                const index = word.charCodeAt(i) - 97
+                const index = this.getTrieIndex(word, i)
                 const finalChar = i === word.length - 1
                 let letterPosition = pointer.next[index]
                 if (!letterPosition) {
