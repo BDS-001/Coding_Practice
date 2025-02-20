@@ -58,6 +58,8 @@ class Solution {
         //words can contain smaller words, check for a valid word and continue checking
         if (pointer.finalChar) this.wordBank.push(pointer.word)
         const [i, j] = prev;
+
+        this.visited[i][j] = true
         const validMoves = this.validateMoves([
             [i + 1, j],
             [i - 1, j],
@@ -65,7 +67,11 @@ class Solution {
             [i, j - 1]
         ]);
         
-        
+        validMoves.forEach(([i, j]) => {
+            const charIndex = this.getTrieIndex(this.board[i][j])
+            if(pointer.next[charIndex]) this.wordSearch(pointer.next[charIndex], [i,j])
+        });
+        this.visited[i][j] = false
     }
 
     //create a trie with given words
