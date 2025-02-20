@@ -10,7 +10,7 @@ class Node {
 class Solution {
     constructor() {
         this.root = new Node(null)
-        this.wordBank = []
+        this.wordBank = new Set
         this.board = null
         this.visited = null
     }
@@ -25,7 +25,7 @@ class Solution {
           j >= 0 && 
           i < this.board.length && 
           j < this.board[0].length && 
-          !visited[i][j]
+          !this.visited[i][j]
         );
       }
 
@@ -51,12 +51,12 @@ class Solution {
                 this.visited[i][j] = false
             }
         }
-        return this.wordBank
+        return [...this.wordBank]
     }
 
     wordSearch(pointer, prev) {
         //words can contain smaller words, check for a valid word and continue checking
-        if (pointer.finalChar) this.wordBank.push(pointer.word)
+        if (pointer.finalChar) this.wordBank.add(pointer.word)
         const [i, j] = prev;
 
         this.visited[i][j] = true
