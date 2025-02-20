@@ -20,18 +20,14 @@ class Solution {
     }
 
     validateMoves(moves) {
-        const index = 0
-        while(i < moves.length) {
-            const [i, j] = moves[index]
-            let valid = true
-
-            if(i < 0 || j < 0) {
-                valid = false
-            } else if (i >= this.board.length, j >= this.board[0].length) {
-                valid = false
-            }
-        }
-    }
+        return moves.filter(([i, j]) => 
+          i >= 0 && 
+          j >= 0 && 
+          i < this.board.length && 
+          j < this.board[0].length && 
+          !visited[i][j]
+        );
+      }
 
     /**
      * @param {character[][]} board
