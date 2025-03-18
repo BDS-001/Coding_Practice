@@ -6,17 +6,14 @@ class Solution {
      */
     combinationSum(nums, target) {
         const res = [];
-        function combine(curr) {
-            let total = curr.reduce((acc, current) => acc + current, 0)
-            if (total > target) return
+        function combine(curr, index, total=0) {
+            if (total > target || index >= nums.length) return
             if (total === target) {
                 res.push(curr)
                 return
             }
-            
-            for (let i = 0; i < nums.length; i++) {
-                combine([...curr, nums[i]])
-            }
+            combine([...curr, nums[index]], index, total + nums[index])
+            combine([...curr], index + 1, total)
         }
         combine([], 0)
         return res
