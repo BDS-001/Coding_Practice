@@ -8,16 +8,8 @@ class Solution {
         const res = []
         const backtrack = (curr = [], index = 0) => {
             res.push(curr)
-            if (index >= sortedNums.length) return
-            backtrack([...curr, sortedNums[index]], index + 1)
-
-            let newIndex = index
-            while(sortedNums[index] === sortedNums[newIndex]) {
-                newIndex++;
-                if (newIndex >= sortedNums.length) break
-            }
-            if(newIndex < sortedNums.length) {
-                backtrack([...curr, sortedNums[newIndex]], newIndex + 1)
+            for (let i = index; i < sortedNums.length; i++) {
+                backtrack([...curr, sortedNums[i]], i + 1)
             }
         }
         backtrack()
