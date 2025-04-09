@@ -9,7 +9,7 @@ class Solution {
         const backtrack = (curr = [], index = 0) => {
             res.push([...curr])
             for (let i = index; i < sortedNums.length; i++) {
-                if (i < index && sortedNums[i] === sortedNums[index]) continue
+                if (i > index && sortedNums[i] === sortedNums[index]) continue
                 curr.push(sortedNums[i])
                 backtrack(curr, i + 1)
                 curr.pop()
