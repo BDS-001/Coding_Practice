@@ -7,9 +7,12 @@ class Solution {
         const sortedNums = nums.sort((a, b) => a - b)
         const res = []
         const backtrack = (curr = [], index = 0) => {
-            res.push(curr)
+            res.push([...curr])
             for (let i = index; i < sortedNums.length; i++) {
-                backtrack([...curr, sortedNums[i]], i + 1)
+                if (i < index && sortedNums[i] === sortedNums[index]) continue
+                curr.push(sortedNums[i])
+                backtrack(curr, i + 1)
+                curr.pop()
             }
         }
         backtrack()
