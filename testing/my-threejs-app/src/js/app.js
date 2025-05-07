@@ -1,54 +1,48 @@
 import '.././styles/style.css'
-import * as THREE from 'three'
 import StatsManager from './stats/stats'
 import Camera from './camera/camera'
+import Scene from './scene/scene'
+import Objects from './objects/Objects'
+import Renderer from './renderer/renderer'
+import Clock from './utils/clock'
 
 export default function app() {
+    // Initialize core components
     const stats = new StatsManager()
     const camera = new Camera()
-
-    // create the scene, where objects get stored
-    const scene = new THREE.Scene()
-
-    // renderer, displays everything will take a scene and camera later
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.getElementById('app').appendChild(renderer.domElement);
-
-    // render a cube as example
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    //setup deltatime clocl
-    let clock = new THREE.Clock()
-    let lastTime = 0
+    const scene = new Scene()
+    const objects = new Objects(scene.scene)
+    const renderer = new Renderer()
+    const clock = new Clock()
+    
+    // Set up resize handler to update camera aspect ratio
+    renderer.setResizeCallback(() => {
+        camera.camera.aspect = window.innerWidth / window.innerHeight
+        camera.camera.updateProjectionMatrix()
+    })
 
     function animate() {
-    //begin stats measuring for each frame render
-    stats.begin()
-    requestAnimationFrame(animate)
+        // Begin stats measuring for each frame render
+        stats.begin()
+        requestAnimationFrame(animate)
 
-    //get delta time so that animation are not dependant on framerate
-    const currentTime = clock.getElapsedTime()
-    const deltatime = currentTime - lastTime
-    lastTime = currentTime
+        // Get delta time so that animations are not dependent on framerate
+        const deltaTime = clock.getDeltaTime()
 
-    camera.update(deltatime)
-    const rotationSpeed = 1
-    cube.rotation.x += rotationSpeed * deltatime;
-    cube.rotation.y += rotationSpeed * deltatime;
+        // Update all components
+        camera.update(deltaTime)
+        objects.update(deltaTime)
 
-    renderer.render(scene, camera.camera)
+        // Render the scene
+        renderer.render(scene.scene, camera.camera)
 
-    //end stats measureing for this frame
-    stats.end()
+        // End stats measuring for this frame
+        stats.end()
     }
 
     function start() {
         animate()
     }
 
-    return {start}
+    return { start }
 }
