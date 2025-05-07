@@ -1,5 +1,11 @@
 import './style.css'
 import * as THREE from 'three'
+import Stats from 'stats.js'
+
+// initialize stats
+const stats = new Stats()
+stats.showPanel(0) // panel 0 is the fps counter
+document.body.appendChild(stats.dom)
 
 // create the scene, where objects get stored
 const scene = new THREE.Scene()
@@ -26,6 +32,8 @@ let clock = new THREE.Clock()
 let lastTime = 0
 
 function animate() {
+  //begin stats measuring for each frame render
+  stats.begin()
   requestAnimationFrame(animate)
 
   //get delta time so that animation are not dependant on framerate
@@ -38,6 +46,9 @@ function animate() {
   cube.rotation.y += rotationSpeed * deltatime;
 
   renderer.render(scene, camera)
+
+  //end stats measureing for this frame
+  stats.end()
 }
 
 animate()
