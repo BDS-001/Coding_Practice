@@ -1,13 +1,10 @@
 import '.././styles/style.css'
 import * as THREE from 'three'
-import Stats from 'stats.js'
+import StatsManager from './stats/stats'
 
 export default function app() {
-    // initialize stats
-    const stats = new Stats()
-    stats.showPanel(0) // panel 0 is the fps counter
-    document.body.appendChild(stats.dom)
-
+    const stats = new StatsManager()
+    
     // create the scene, where objects get stored
     const scene = new THREE.Scene()
 
