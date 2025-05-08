@@ -9,11 +9,11 @@ import Clock from './utils/clock'
 export default function app() {
     // Initialize core components
     const stats = new StatsManager()
-    const camera = new Camera()
     const scene = new Scene()
     const objects = new Objects(scene.scene)
     const renderer = new Renderer()
     const clock = new Clock()
+    const camera = new Camera(renderer.domElement)
     
     // Set up resize handler to update camera aspect ratio
     renderer.setResizeCallback(() => {

@@ -3,6 +3,7 @@ import * as THREE from 'three'
 export default class Renderer {
     constructor() {
         this.renderer = this.#initialize()
+        this.domElement = this.renderer.domElement
     }
 
     #initialize() {
