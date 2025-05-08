@@ -10,6 +10,7 @@ export default class Camera {
             s: false,
             d: false,
         };
+        this.moveSpeed = 4
     }
 
     #initialize() {
@@ -39,16 +40,13 @@ export default class Camera {
 
     update(deltaTime) {
         // Handle camera movement based on keys
-        const moveSpeed = 2.0 // Units per second
-        const scrollSpeed = 10.0
-        const moveDistance = moveSpeed * deltaTime
-        const scrollDistance = scrollSpeed * deltaTime
+        const moveDistance = this.moveSpeed * deltaTime
 
         if (this.keys.w) {
-            this.camera.position.z -= moveDistance // Move up
+            this.camera.position.z -= moveDistance // Move forward
         }
         if (this.keys.s) {
-            this.camera.position.z += moveDistance // Move down
+            this.camera.position.z += moveDistance // Move back
         }
         if (this.keys.a) {
             this.camera.position.x -= moveDistance // Move left
