@@ -1,12 +1,16 @@
+// create a bibliography application
 interface document {
     String getAuthorFirst();
     String getAuthorLast();
     String getTitle();
+    document getBibliography();
+    document getNextEntry();
 }
 
 class noDocument implements document {
     noDocument() {
     }
+
     public String getAuthorFirst() {
         return "";
     }
@@ -18,6 +22,14 @@ class noDocument implements document {
     public String getTitle() {
         return "";
     }
+
+    public document getBibliography() {
+        return new noDocument();
+    }
+
+    public document getNextEntry() {
+        return new noDocument();
+    }
 }
 
 class article implements document {
@@ -25,12 +37,16 @@ class article implements document {
     String authorLast;
     String title;
     String url;
+    document bibliography;
+    document nextEntry;
 
-    article(String first, String last, String title, String url) {
+    article(String first, String last, String title, String url, document bibliography, document nextEntry) {
         this.authorFirst = first;
         this.authorLast = last;
         this.title = title;
         this.url = url;
+        this.bibliography = bibliography;
+        this.nextEntry = nextEntry;
     }
 
     public String getAuthorFirst() {
@@ -48,6 +64,14 @@ class article implements document {
     public String getUrl() {
         return url;
     }
+
+    public document getBibliography() {
+        return bibliography;
+    }
+
+    public document getNextEntry() {
+        return nextEntry;
+    }
 }
 
 class book implements document {
@@ -55,12 +79,16 @@ class book implements document {
     String authorLast;
     String title;
     String publisher;
+    document bibliography;
+    document nextEntry;
 
-    book(String first, String last, String title, String publisher) {
+    book(String first, String last, String title, String publisher, document bibliography, document nextEntry) {
         this.authorFirst = first;
         this.authorLast = last;
         this.title = title;
         this.publisher = publisher;
+        this.bibliography = bibliography;
+        this.nextEntry = nextEntry;
     }
 
     public String getAuthorFirst() {
@@ -77,5 +105,13 @@ class book implements document {
 
     public String getPublisher() {
         return publisher;
+    }
+
+    public document getBibliography() {
+        return bibliography;
+    }
+
+    public document getNextEntry() {
+        return nextEntry;
     }
 }
