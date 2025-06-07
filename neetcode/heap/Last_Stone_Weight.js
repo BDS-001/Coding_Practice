@@ -12,15 +12,27 @@ class Solution {
      * @return {number}
      */
     lastStoneWeight(stones) {
-        let heap = generateHeap(stones)
+        stones.sort((a,b) => a - b)
+        let heap = generateMaxHeap(stones)
     }
 
-    generateHeap(stones) {
-        if (stones.length < 1) return null
-        const head = new Node(stones[0])
-        stones.shift()
-        const center = Math.floor(stones.length / 2)
-        head.left = this.generateHeap(stones.splice(0, center))
-        head.right = this.generateHeap(stones[splice(center)])
+    generateMaxHeap(stones) {
+        const head = new Node(stones.pop())
+        const q = [head]
+
+        while(stones.length > 0) {
+            const node = q.shift()
+
+            const left = new Node(stones.pop())
+            node.left = left
+            q.push(left)
+
+            if (stones.length === 0) break
+
+            const right = new Node(stones.pop())
+            node.right = right
+            q.push(right)
+        }
+        return head
     }
 }
