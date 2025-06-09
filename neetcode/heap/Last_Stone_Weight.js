@@ -40,10 +40,23 @@ class Solution {
 
     smash(head) {
         const stone1 = head
-        const stone2 = !head.right ? head.left : head.left.val > head.right.val ? head.left : head.right
+        let stone2
+    
+        if (!head.right) {
+            stone2 = head.left
+        } else if (!head.left) {
+            stone2 = head.right
+        } else {
+            stone2 = head.left.val > head.right.val ? head.left : head.right
+        }
+        console.log(head, stone1, stone2)
+        if (!stone2) return
 
-        stone1.val -= stone2.val
-        stone2.val -= stone1.val
+        const stone1val = stone1.val
+        const stone2val = stone2.val
+
+        stone1.val -= stone2val
+        stone2.val -= stone1val
     }
 
     organize(head, parent, direction) {
