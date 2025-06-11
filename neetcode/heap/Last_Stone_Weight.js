@@ -5,79 +5,41 @@ class Solution {
      */
 
     constructor() {
-        this.heap = [0]
-    }
-
-    getHeapSize() {
-        return this.heap.length - 1
+        this.heap = null
     }
 
     lastStoneWeight(stones) {
-        this.generateMaxHeap(stones)
-        return this.simulate()
+        this.heap = [...stones]
+        this.buildMaxHeap()
     }
 
-    generateMaxHeap(stones) {
-        //sort stones in descending order
-        stones.sort((a,b) => b - a)
-
-        //return an array starting at index 1 to follow heap logic
-        //left: 2*i
-        //right: 2*i + 1
-        this.heap = [0, ...stones]
-    }
-
-    getSecondStone() {
-        if (this.getHeapSize() === 2) {
-            return { value: this.heap[2], index: 2 }
+    buildMaxHeap() {
+        const start = Math.floor(this.heap.length / 2) - 1
+        for (let i = start; i >= 0; i--) {
+            this.heapifyDown(i)
         }
-        return this.heap[2] > this.heap[3] 
-            ? { value: this.heap[2], index: 2 } 
-            : { value: this.heap[3], index: 3 }
     }
 
-    simulate() {
-        while(this.getHeapSize() > 1) {
-            const stone1 = this.heap[1]
-            const stone2 = this.getSecondStone()
-
-            this.heap[1] = Math.abs(stone1 - stone2.value)
-            this.heap[stone2.index] = 0
-
-            this.heapify(1)
-            this.removeLeaves()
-        }
-        return this.heap[this.getHeapSize()]
-    }
-
-    removeLeaves() {
-        this.heap = this.heap.filter((stone, i) => {
-            if (i < 1) return true
-            return stone > 0 ? true : false
-        })
-    }
-
-    heapify(i) {
-        const left = i*2
-        const right = i*2 + 1
+    heapifyDown(i) {
+        const left = (2 * i) + 1
+        const right = (2 * i) + 2
 
         let largest = i
 
-        if (left < this.getHeapSize() && this.heap[left] > this.heap[i]) {
+        if (left < this.heap.length && this.heap[largest] < this.heap[left]) {
             largest = left
         }
 
-        if (right < this.getHeapSize() && this.heap[right] > this.heap[i]) {
+        if (right < this.heap.length && this.heap[largest] < this.heap[right]) {
             largest = right
         }
 
         if (largest !== i) {
-            const tmp = this.heap[i]
+            const temp = this.heap[i]
             this.heap[i] = this.heap[largest]
-            this.heap[largest] = tmp
+            this.heap[largest] = temp
 
-            this.heapify(left)
-            if (right < this.getHeapSize()) this.heapify(right)
+            this.heapifyDown(largest)
         }
     }
 }
