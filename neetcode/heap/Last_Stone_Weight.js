@@ -51,9 +51,8 @@ class Solution {
     }
 
     removeLeaves() {
-        const start = Math.floor((this.getHeapSize() / 2) + 1)
         this.heap = this.heap.filter((stone, i) => {
-            if (i < start) return true
+            if (i < 1) return true
             return stone > 0 ? true : false
         })
     }
