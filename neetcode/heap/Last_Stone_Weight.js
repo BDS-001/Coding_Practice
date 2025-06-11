@@ -81,3 +81,24 @@ class Solution {
         }
     }
 }
+
+
+
+
+//simple solution
+class Solution {
+    /**
+     * @param {number[]} stones
+     * @return {number}
+     */
+    lastStoneWeight(stones) {
+        while(stones.length > 1) {
+            stones.sort((a, b) => a - b)
+            const stone1 = stones.pop()
+            const stone2 = stones.pop()
+            const remainder = Math.abs(stone1 - stone2)
+            if (remainder > 0) stones.push(remainder)
+        }
+        return stones.length === 0 ? 0 : stones[0]
+    }
+}
