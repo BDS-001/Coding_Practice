@@ -34,8 +34,11 @@ class Solution {
     dequeue() {
         if (!this.heap.length) return null
         const value = this.heap[0]
-        this.heap[0] = this.heap.pop()
-        if (this.heap.length) this.heapifyDown(0)
+        const lastElement = this.heap.pop() 
+        if (this.heap.length) {
+            this.heap[0] = lastElement
+            this.heapifyDown(0)
+        }
         return value
     }
 
