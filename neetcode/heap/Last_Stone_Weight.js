@@ -1,7 +1,7 @@
 /*
 ╔══════════════════════════════════════════════════════════════════════════════════════════╗
 ║ Heap Solution                                                                            ║
-║ tests passed: 0/28                                                                       ║
+║ tests passed: 3/28                                                                       ║
 ╚══════════════════════════════════════════════════════════════════════════════════════════╝
 */
 class Solution {
@@ -17,6 +17,31 @@ class Solution {
     lastStoneWeight(stones) {
         this.heap = [...stones]
         this.buildMaxHeap()
+        return this.simulate()
+    }
+
+    simulate() {
+        while(this.heap.length > 1) {
+            const stone1 = this.dequeue()
+            const stone2 = this.dequeue()
+
+            const val = Math.abs(stone1 - stone2)
+            if (val > 0) this.enqueue(val)
+        }
+        return this.heap.length > 0 ? this.heap[0] : 0
+    }
+
+    dequeue() {
+        if (!this.heap.length) return null
+        const value = this.heap[0]
+        this.heap[0] = this.heap.pop()
+        if (this.heap.length) this.heapifyDown(0)
+        return value
+    }
+
+    enqueue(value) {
+        this.heap.push(value);
+        this.heapifyUp(this.heap.length - 1);
     }
 
     buildMaxHeap() {
@@ -46,6 +71,19 @@ class Solution {
             this.heap[largest] = temp
 
             this.heapifyDown(largest)
+        }
+    }
+
+    heapifyUp(i) {
+        if (i === 0) return
+        const parent = Math.floor((i - 1) / 2)
+
+        if (this.heap[parent] < this.heap[i]) {
+            const tmp = this.heap[parent]
+            this.heap[parent] = this.heap[i]
+            this.heap[i] = tmp
+
+            this.heapifyUp(parent)
         }
     }
 }
