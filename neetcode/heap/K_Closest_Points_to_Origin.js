@@ -34,8 +34,8 @@ class Solution {
 
     formatData(points) {
         return points.map((point) => {
-            return {distance: Math.sqrt((point[0] - point[1])^2), coordinates: point}
-        }).sort((a, b) => a.distance - b.distance).sort()
+            return {distance: Math.sqrt((point[0]**2) + (point[1]**2)), coordinates: point}
+        }).sort((a, b) => a.distance - b.distance)
     }
 
     buildMinHeap() {
