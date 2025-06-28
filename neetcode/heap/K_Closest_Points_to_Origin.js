@@ -5,13 +5,36 @@ class Solution {
      * @return {number[][]}
      */
     kClosest(points, k) {
-        this.heap = formatData(points)
+        this.heap = this.formatData(points)
         this.buildMinHeap()
+
+        for (let i = 0; i < k; i++) {
+            const point = this.dequeue()
+            this.res.push(point.coordinates)
+        }
+        return this.res
+    }
+
+    dequeue() {
+        //save the head
+        const res = this.heap[0]
+
+        //remove and save the last element
+        const lastVal = this.heap.pop()
+
+        //replace head with the last element
+        this.heap[0] = lastVal
+
+        //fix the heap
+        this.heapifyDown(0)
+
+        //return the head
+        return res
     }
 
     formatData(points) {
         return points.map((point) => {
-            return {distance: sqrt((point[0] - point[1])^2), coordinates: point}
+            return {distance: Math.sqrt((point[0] - point[1])^2), coordinates: point}
         }).sort((a, b) => a.distance - b.distance).sort()
     }
 
@@ -28,8 +51,8 @@ class Solution {
 
         let smallest = i
 
-        if (left < this.heap.length && this.heap[smallest] > this.heap[left]) smallest = left
-        if (right < this.heap.length && this.heap[smallest] > this.heap[right]) smallest = right
+        if (left < this.heap.length && this.heap[smallest].distance > this.heap[left].distance) smallest = left
+        if (right < this.heap.length && this.heap[smallest].distance > this.heap[right].distance) smallest = right
 
         if (smallest !== i) {
             const tmp = this.heap[i]
@@ -42,5 +65,6 @@ class Solution {
 
     constructor() {
         this.heap = []
+        this.res = []
     }
 }
