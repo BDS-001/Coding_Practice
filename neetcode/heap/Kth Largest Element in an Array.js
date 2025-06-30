@@ -4,5 +4,8 @@ class Solution {
      * @param {number} k
      * @return {number}
      */
-    findKthLargest(nums, k) {}
+    findKthLargest(nums, k) {
+        nums = nums.sort((a,b) => b-a)
+        return nums[k - 1]
+    }
 }
