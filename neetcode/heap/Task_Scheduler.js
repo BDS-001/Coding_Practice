@@ -10,7 +10,7 @@ class Solution {
 
     leastInterval(tasks, n) {
         this.setupTaskHeap(tasks)
-        return this.simulateCycles(n)
+        return this.taskHeap.length > 0 ? this.simulateCycles(n) : 0
     }
 
     setupTaskHeap(tasks) {
@@ -18,7 +18,7 @@ class Solution {
             return map.set(curr, (map.get(curr) || 0) + 1)
         }, new Map())
 
-        const formattedTasks = Object.entries(countMap).map(([key, val]) => {
+        const formattedTasks = [...countMap.entries()].map(([key, val]) => {
             return {val: key, count: val, nextCycle: 0}
         })
 
@@ -27,12 +27,18 @@ class Solution {
 
     simulateCycles(n) {
         let cycles = 0
-        while(this.taskHeap.length) {
-            const task = this.dequeue
-            if (task.nextCycle > n) cycles += task.nextCycle - cycles
+
+        while(this.taskHeap.length > 0) {
+            cycles += 1 // pass the check we are performing one cycle
+
+            const task = this.dequeue() //get the next task in heap
+
+            if (task.nextCycle > cycles) cycles += task.nextCycle - cycles //calculate idle amount
+
             task.count -= 1
             if (task.count > 0) {
-                task.nextCycle += n
+                //if this task is not complete update next valid cycle and add back to heap
+                task.nextCycle += cycles + n + 1
                 this.enqueue(task)
             }
         }
