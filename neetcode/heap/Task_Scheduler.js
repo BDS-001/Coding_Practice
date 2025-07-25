@@ -29,18 +29,20 @@ class Solution {
         let cycles = 0
 
         while(this.taskHeap.length > 0) {
-            cycles += 1 // pass the check we are performing one cycle
-
             const task = this.dequeue() //get the next task in heap
+            console.log(cycles, task, 'start')
 
             if (task.nextCycle > cycles) cycles += task.nextCycle - cycles //calculate idle amount
 
             task.count -= 1
             if (task.count > 0) {
                 //if this task is not complete update next valid cycle and add back to heap
-                task.nextCycle += cycles + n + 1
+                task.nextCycle = cycles + n + 1
                 this.enqueue(task)
             }
+
+            cycles += 1 // pass the check we are performing one cycle
+            console.log(cycles, task, 'end')
         }
         return cycles
     }
