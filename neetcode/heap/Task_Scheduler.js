@@ -5,15 +5,15 @@ class Solution {
      * @return {number}
      */
     constructor() {
-        this.tasks = []
+        this.taskHeap = []
     }
 
     leastInterval(tasks, n) {
-        this.setupTasks(tasks)
+        this.setupTaskHeap(tasks)
         return this.simulateCycles(n)
     }
 
-    setupTasks(tasks) {
+    setupTaskHeap(tasks) {
         const countMap = tasks.reduce((map, curr) => {
             map.set(curr, (map.get(curr) || 0) + 1)
         }, new Map())
@@ -22,13 +22,13 @@ class Solution {
             return {val: key, count: val, nextCycle: 0}
         })
 
-        this.tasks = formattedTasks
+        this.taskHeap = formattedTasks
     }
 
     simulateCycles(n) {
         let cycles = 0
-        while(this.tasks.length) {
-            const task = this.tasks[0]
+        while(this.taskHeap.length) {
+            const task = this.taskHeap[0]
             if (task.nextCycle > n) cycles += task.nextCycle - cycles
             task.count -= 1
             this.heapifyDown(0)
@@ -42,18 +42,18 @@ class Solution {
 
         let smallest = i
 
-        if (left < this.tasks.length && this.tasks[smallest].nextCycle > this.tasks[left].nextCycle) {
+        if (left < this.taskHeap.length && this.taskHeap[smallest].nextCycle > this.taskHeap[left].nextCycle) {
             smallest = left
         }
 
-        if (right < this.tasks.length && this.tasks[smallest].nextCycle > this.tasks[right].nextCycle) {
+        if (right < this.taskHeap.length && this.taskHeap[smallest].nextCycle > this.taskHeap[right].nextCycle) {
             smallest = right
         }
 
         if (smallest !== i) {
-            const tmp = this.tasks[i]
-            this.tasks[i] = this.tasks[smallest]
-            this.tasks[smallest] = tmp
+            const tmp = this.taskHeap[i]
+            this.taskHeap[i] = this.taskHeap[smallest]
+            this.taskHeap[smallest] = tmp
             this.heapifyDown(smallest)
         }
     }
@@ -62,11 +62,16 @@ class Solution {
         if (i === 0) return
         const parent = Math.floor((i - 1) / 2)
 
-        if (this.tasks[i].nextCycle < this.tasks[parent].nextCycle) {
-            const tmp = this.tasks[i]
-            this.tasks[i] = this.tasks[parent]
-            this.tasks[parent] = tmp
+        if (this.taskHeap[i].nextCycle < this.taskHeap[parent].nextCycle) {
+            const tmp = this.taskHeap[i]
+            this.taskHeap[i] = this.taskHeap[parent]
+            this.taskHeap[parent] = tmp
             this.heapifyUp(parent)
         }
+    }
+
+    enqueue(value) {
+        this.taskHeap.push(value);
+        this.heapifyUp(this.taskHeap.length - 1);
     }
 }
