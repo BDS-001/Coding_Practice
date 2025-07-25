@@ -15,10 +15,10 @@ class Solution {
 
     setupTaskHeap(tasks) {
         const countMap = tasks.reduce((map, curr) => {
-            map.set(curr, (map.get(curr) || 0) + 1)
+            return map.set(curr, (map.get(curr) || 0) + 1)
         }, new Map())
 
-        formattedTasks = Object.entries(countMap).map(([key, val]) => {
+        const formattedTasks = Object.entries(countMap).map(([key, val]) => {
             return {val: key, count: val, nextCycle: 0}
         })
 
