@@ -14,15 +14,30 @@ class Solution {
     }
 
     setupTaskHeap(tasks) {
+        //count occurrence of each task
         const countMap = tasks.reduce((map, curr) => {
             return map.set(curr, (map.get(curr) || 0) + 1)
         }, new Map())
 
+        //convert into object that stores required data
         const formattedTasks = [...countMap.entries()].map(([key, val]) => {
             return {val: key, count: val, nextCycle: 0}
         })
 
-        this.taskHeap = formattedTasks
+        //sort for largest to smallest task count
+        const processTasks = formattedTasks.sort((a, b) => b.count - a.count)
+        processTasks.forEach((task, i) => task.nextCycle = i) //larger task count run first to optimize cycles
+
+        //set task heap to sorted array and call heapify
+        this.taskHeap = processTasks
+        this.heapify()
+    }
+
+    heapify() {
+        const start = Math.floor(this.taskHeap.length / 2) - 1
+        for (let i = start; i >= 0; i--) {
+            this.heapifyDown(i)
+        }
     }
 
     simulateCycles(n) {
@@ -30,7 +45,8 @@ class Solution {
 
         while(this.taskHeap.length > 0) {
             const task = this.dequeue() //get the next task in heap
-            console.log(cycles, task, 'start')
+            console.log(`\n=== CYCLE ${cycles} START ===`)
+            console.log(`Task: ${task.val}, Count: ${task.count}, NextCycle: ${task.nextCycle}`)
 
             if (task.nextCycle > cycles) cycles += task.nextCycle - cycles //calculate idle amount
 
@@ -42,7 +58,9 @@ class Solution {
             }
 
             cycles += 1 // pass the check we are performing one cycle
-            console.log(cycles, task, 'end')
+            console.log(`--- CYCLE ${cycles - 1} END ---`)
+            console.log(`Task: ${task.val}, Remaining: ${task.count}, NextAvailable: ${task.nextCycle}`)
+            console.log(`Heap size: ${this.taskHeap.length}`)
         }
         return cycles
     }
