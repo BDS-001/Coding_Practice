@@ -57,4 +57,16 @@ class Solution {
             this.heapifyDown(smallest)
         }
     }
+
+    heapifyUp(i) {
+        if (i === 0) return
+        const parent = Math.floor((i - 1) / 2)
+
+        if (this.tasks[i].nextCycle < this.tasks[parent].nextCycle) {
+            const tmp = this.tasks[i]
+            this.tasks[i] = this.tasks[parent]
+            this.tasks[parent] = tmp
+            this.heapifyUp(parent)
+        }
+    }
 }
