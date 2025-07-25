@@ -28,10 +28,13 @@ class Solution {
     simulateCycles(n) {
         let cycles = 0
         while(this.taskHeap.length) {
-            const task = this.taskHeap[0]
+            const task = this.dequeue
             if (task.nextCycle > n) cycles += task.nextCycle - cycles
             task.count -= 1
-            this.heapifyDown(0)
+            if (task.count > 0) {
+                task.nextCycle += n
+                this.enqueue(task)
+            }
         }
         return cycles
     }
@@ -73,5 +76,16 @@ class Solution {
     enqueue(value) {
         this.taskHeap.push(value);
         this.heapifyUp(this.taskHeap.length - 1);
+    }
+
+    dequeue() {
+        if (!this.taskHeap.length) return null
+        const value = this.taskHeap[0]
+        const lastElement = this.taskHeap.pop() 
+        if (this.taskHeap.length) {
+            this.taskHeap[0] = lastElement
+            this.heapifyDown(0)
+        }
+        return value
     }
 }
