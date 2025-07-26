@@ -39,14 +39,18 @@ class Solution {
         let queue = []
 
         while(queue.length > 0 || this.taskHeap.length > 0) {
+            //check for queue timing
+            if (queue.length > 0 && queue[0].time <= cycles) {
+                const waitingTask = queue.shift()
+                this.enqueue(waitingTask.task)
+            
+            }
+
+            //check for available tasks
             const task = this.dequeue()
             if (task) {
                 task.count -= 1
-                if (task.count > 0) queue.push({task, time:cycles + n})
-            }
-            if (queue.length > 0 && queue[0].time >= cycles) {
-                const waitingTask = queue.shift()
-                this.enqueue(waitingTask.task)
+                if (task.count > 0) queue.push({task, time:cycles + n + 1})
             }
             cycles++
         }
