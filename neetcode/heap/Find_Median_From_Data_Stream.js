@@ -15,12 +15,11 @@ class MedianFinder {
      * @return {void}
      */
     addNum(num) {
-        this.maxHeap.push(num)
-        this.heapifyUp(this.maxHeap, this.maxHeap.length - 1, this.compare.max)
+        this.enqueue(this.maxHeap, num, 'max')
 
         if(this.maxHeap.length - this.minHeap.length > 1) {
-            this.minHeap.push(this.maxHeap.shift())
-            this.heapifyUp(this.minHeap, this.minHeap.length - 1, this.compare.min)
+            const value = this.dequeue(this.maxHeap, 'max')
+            this.enqueue(this.minHeap, value, 'min')
         }
 
     }
@@ -28,7 +27,10 @@ class MedianFinder {
     /**
      * @return {number}
      */
-    findMedian() {}
+    findMedian() {
+        const length = this.minHeap.length + this.maxHeap.length
+        return length % 2 === 0 ? (this.minHeap[0] + this.maxHeap[0]) / 2 : this.maxHeap[0]
+    }
 
     heapifyUp(heap, i, compare) {
         while(i > 0) {
@@ -40,7 +42,23 @@ class MedianFinder {
     }
 
     heapifyDown(heap, i, compare) {
+        const left = (2 * i) + 1
+        const right = (2 * i) + 2
 
+        let significantVal = i
+
+        if (left < heap.length && compare(heap[left], heap[significantVal])) {
+            significantVal = left
+        }
+
+        if (right < heap.length && compare(heap[right], heap[significantVal])) {
+            significantVal = right
+        }
+
+        if (significantVal !== i) {
+            [heap[i], heap[significantVal]] = [heap[significantVal], heap[i]]
+            this.heapifyDown(heap, significantVal, compare)
+        }
     }
 
     dequeue(heap, heapType) {
