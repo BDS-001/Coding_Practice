@@ -16,12 +16,12 @@ class MedianFinder {
      */
     addNum(num) {
         this.enqueue(this.maxHeap, num, 'max')
+        this.enqueue(this.minHeap, this.dequeue(this.maxHeap, 'max'), 'min')
 
-        if(this.maxHeap.length - this.minHeap.length > 1) {
-            const value = this.dequeue(this.maxHeap, 'max')
-            this.enqueue(this.minHeap, value, 'min')
+        if(this.maxHeap.length < this.minHeap.length) {
+            const value = this.dequeue(this.minHeap, 'min')
+            this.enqueue(this.maxHeap, value, 'max')
         }
-
     }
 
     /**
@@ -33,15 +33,18 @@ class MedianFinder {
     }
 
     heapifyUp(heap, i, compare) {
-        while(i > 0) {
-            const parentIndex = Math.floor((i - 1) / 2);
-            if (!compare(heap[i], heap[parentIndex])) break
-            [heap[i], heap[parentIndex]] = [heap[parentIndex], heap[i]]
-            i = parentIndex
+        if (i === 0) return
+        const parent = Math.floor((i - 1) / 2)
+
+        if (compare(heap[i], heap[parent])) {
+            [heap[i], heap[parent]] = [heap[parent], heap[i]]
+            this.heapifyUp(heap, parent, compare)
         }
     }
 
     heapifyDown(heap, i, compare) {
+        if (heap.length <= 1) return
+        
         const left = (2 * i) + 1
         const right = (2 * i) + 2
 
@@ -63,9 +66,12 @@ class MedianFinder {
 
     dequeue(heap, heapType) {
         if (!heap.length) return null
-        [heap[0], heap[heap.length - 1]] = [heap[heap.length - 1], heap[0]]
-        const value = heap.pop()
+        
+        const value = heap[0]
+        heap[0] = heap[heap.length - 1]
+        heap.pop()
         this.heapifyDown(heap, 0, this.compare[heapType])
+        
         return value
     }
 
@@ -74,3 +80,4 @@ class MedianFinder {
         this.heapifyUp(heap, heap.length - 1, this.compare[heapType]);
     }
 }
+
