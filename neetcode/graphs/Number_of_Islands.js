@@ -10,6 +10,7 @@ class Solution {
      * @return {number}
      */
     numIslands(grid) {
+        if (grid.length < 1) return
         this.grid = grid
 
         for (let row = 0; row < grid.length; row++) {
@@ -27,8 +28,8 @@ class Solution {
     }
 
     exploreIsland(row, col) {
-        if (row < 0 || row > this.grid.length) return
-        if (col < 0 || col > this.grid[0].length) return
+        if (row < 0 || row >= this.grid.length) return
+        if (col < 0 || col >= this.grid[0].length) return
         if (this.used.has(`${row}-${col}`)) return
         if (this.grid[row][col] !== "1") return
 
