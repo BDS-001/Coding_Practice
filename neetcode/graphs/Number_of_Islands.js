@@ -2,7 +2,7 @@ class Solution {
     
     constructor() {
         this.grid = []
-        this.used = []
+        this.used = new Set()
         this.islandCount = 0
     }
     /**
@@ -15,8 +15,8 @@ class Solution {
         for (let row = 0; row < grid.length; row++) {
             for (let col = 0; col < grid[row].length; col++) {
                 const tile = grid[row][col]
-                if (tile === 1 && !used.includes(`${row}-${col}`)) {
-                    exploreIsland()
+                if (tile === "1" && !this.used.has(`${row}-${col}`)) {
+                    this.exploreIsland(row, col)
                     this.islandCount++;
                 }
             }
@@ -26,7 +26,16 @@ class Solution {
         return this.islandCount
     }
 
-    exploreIsland() {
-        // traverse grid for adjacent tiles, add each coordinate key to used
+    exploreIsland(row, col) {
+        if (row < 0 || row > this.grid.length) return
+        if (col < 0 || col > this.grid[0].length) return
+        if (this.used.has(`${row}-${col}`)) return
+        if (this.grid[row][col] !== "1") return
+
+        this.used.add(`${row}-${col}`)
+        this.exploreIsland(row + 1, col)
+        this.exploreIsland(row-1, col)
+        this.exploreIsland(row, col+1)
+        this.exploreIsland(row, col-1)
     }
 }
