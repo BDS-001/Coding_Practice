@@ -11,6 +11,7 @@
 class Solution {
     constructor() {
         this.map = new Map()
+        this.clonedGraph = null
     }
 
     /**
@@ -18,10 +19,14 @@ class Solution {
      * @return {Node}
      */
     cloneGraph(node) {
-        this.mapNode(node)
+        if (!node) return node
+        
+        this.mapNodes(node)
+        this.generateNewGraph(node)
+        return this.clonedGraph   
     }
 
-    mapNode(node) {
+    mapNodes(node) {
         const queued = new Set()
         const q = [node]
 
@@ -42,5 +47,27 @@ class Solution {
 
             this.map.set(currentNode.val, neighborsNums)
         }
+    }
+
+    generateNodes() {
+        const nodeList = []
+        for (let i = 1; i <= this.map.size; i++) {
+            const node = {val: i, neighbors: []}
+            nodeList.push(node)
+        }
+        return nodeList
+    }
+
+    generateNewGraph() {
+        const nodeList = this.generateNodes()
+        for (let i = 0; i < nodeList.length; i++) {
+            const currentNode = nodeList[i]
+            const nodeNeighbors = this.map.get(currentNode.val)
+            nodeNeighbors.forEach(num => {
+                const neighborNode = nodeList[num - 1]
+                currentNode.neighbors.push(neighborNode)
+            });        
+        }
+        this.clonedGraph = nodeList[0]
     }
 }
