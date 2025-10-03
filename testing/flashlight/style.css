@@ -1,0 +1,6 @@
+#flashlight {
+    position: absolute;
+    width: 2rem;
+    height: 2rem;
+    box-shadow: 100px 100px 5px rgba(0, 0, 0, 0);
+}
