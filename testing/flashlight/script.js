@@ -11,9 +11,9 @@ function setupFlashlight() {
 }
 
 function setupBlacklight() {
-    const toggle = document.querySelector('.blacklightToggle')
     const body = document.querySelector('body')
-    toggle.addEventListener('click', () => {
+    document.addEventListener('contextmenu', (event) => {
+        event.preventDefault()
         body.classList.toggle('blacklightActive')
     })
 }
