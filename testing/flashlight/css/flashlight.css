@@ -1,11 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    overflow: hidden;
-    min-height: 100vh;
-}
-
 #flashlight {
     position: absolute;
     width: 30rem;
@@ -13,6 +5,7 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 1px 5000px rgba(0, 0, 0, 1);
     pointer-events: none;
+    z-index: 100;
 }
 
 #flashlight::after {
