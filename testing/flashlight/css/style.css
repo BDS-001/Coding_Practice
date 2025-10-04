@@ -4,3 +4,13 @@ body, html {
     box-sizing: border-box;
     min-height: 100vh;
 }
+
+.page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex-grow: 1;
+}

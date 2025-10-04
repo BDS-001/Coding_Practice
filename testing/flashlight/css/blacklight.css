@@ -20,3 +20,20 @@
     position: relative;
     z-index: 50;
 }
+
+.blacklightElement {
+    display: none;
+    position: fixed;
+    z-index: 50;
+}
+
+.blacklightActive .blacklightElement {
+    display: block;
+}
+
+.secretFloat {
+    top: 20%;
+    right: 10%;
+    font-size: 2rem;
+    font-weight: bold;
+}
