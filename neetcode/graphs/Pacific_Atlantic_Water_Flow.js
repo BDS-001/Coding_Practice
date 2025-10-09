@@ -11,28 +11,23 @@ class Solution {
      */
     pacificAtlantic(heights) {
         this.heights = heights;
-        this.checkPacific();
-        this.checkAtlantic();
+        const maxRow = this.heights.length - 1;
+        const maxCol = this.heights[0].length - 1;
+        const pacificBorders = [0, 0];
+        const atlanticBorders = [maxRow, maxCol];
+
+        this.checkBorders(pacificBorders, this.pacificCells);
+        this.checkBorders(atlanticBorders, this.atlanticCells);
         return this.processResult();
     }
 
-    checkPacific() {
+    checkBorders(edges, cellsSet) {
+        const [rowEdge, colEdge] = edges;
         for (let row = 0; row < this.heights.length; row++) {
-            this.traceFlow([row, 0], this.pacificCells);
+            this.traceFlow([row, colEdge], cellsSet);
         }
         for (let col = 0; col < this.heights[0].length; col++) {
-            this.traceFlow([0, col], this.pacificCells);
-        }
-    }
-
-    checkAtlantic() {
-        const maxRow = this.heights.length - 1;
-        const maxCol = this.heights[0].length - 1;
-        for (let row = 0; row < this.heights.length; row++) {
-            this.traceFlow([row, maxCol], this.atlanticCells);
-        }
-        for (let col = 0; col < this.heights[0].length; col++) {
-            this.traceFlow([maxRow, col], this.atlanticCells);
+            this.traceFlow([rowEdge, col], cellsSet);
         }
     }
 
@@ -53,7 +48,8 @@ class Solution {
             if (newRow >= 0 && newRow < this.heights.length &&
                 newCol >= 0 && newCol < this.heights[0].length &&
                 !visited.has(newKey) &&
-                !cellsSet.has(newKey)) {
+                !cellsSet.has(newKey) &&
+                this.heights[newRow][newCol] >= this.heights[row][col]) {
                 this.traceFlow([newRow, newCol], cellsSet, visited);
             }
         }
