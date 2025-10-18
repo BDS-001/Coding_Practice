@@ -10,7 +10,10 @@ class Solution {
     canFinish(numCourses, prerequisites) {
         if (!prerequisites || prerequisites.length === 0) return true
         this.processPrereq(prerequisites)
-        return numCourses === this.countComplete()
+        for (const [key, _val] of this.map) {
+            if (!this.canComplete(key)) return false
+        }
+        return true
     }
 
     processPrereq(prerequisites) {
@@ -22,14 +25,6 @@ class Solution {
         }
     }
 
-    countComplete() {
-        let complete = 0
-        this.map.forEach((val, key) => {
-            if (this.canComplete(key)) complete++
-        })
-        return complete
-    }
-
     canComplete(key, visited = new Set()) {
         if (visited.has(key)) return false
         visited.add(key)
@@ -37,7 +32,7 @@ class Solution {
         const pre = this.map.get(key)
 
         for (const val of pre) {
-            if (!this.canComplete(val, visited)) return false
+            if (!this.canComplete(val, new Set(visited))) return false
         }
         return true
     }
@@ -45,4 +40,6 @@ class Solution {
 
 const test = new Solution()
 //fails should be true
-test.canFinish(5,[[1,4],[2,4],[3,1],[3,2]])
+const res = test.canFinish(5,[[1,4],[2,4],[3,1],[3,2]])
+
+console.log(res == true ? 'pass' : 'fails')
