@@ -1,11 +1,16 @@
 import { useEffect, useRef } from "react"
-import {Application, Graphics} from 'pixi.js';
+import {Application, Graphics, Assets, Sprite} from 'pixi.js';
 
 async function setupBg() {
     const bg = new Application()
     await bg.init({ background: '#1a2332', resizeTo: window})
 
-    // Create more intense rain
+    const texture = await Assets.load('/bg.webp')
+    const bgImage = new Sprite(texture)
+    bgImage.width = window.innerWidth
+    bgImage.height = window.innerHeight
+    bg.stage.addChild(bgImage)
+
     const raindrops = []
     for (let i = 0; i < 50; i++) {
         const drop = new Graphics()
