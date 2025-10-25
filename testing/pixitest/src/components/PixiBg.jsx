@@ -1,9 +1,35 @@
 import { useEffect, useRef } from "react"
-import {Application} from 'pixi.js';
+import {Application, Graphics} from 'pixi.js';
 
 async function setupBg() {
     const bg = new Application()
-    await bg.init({ background: '#1099bb', resizeTo: window})
+    await bg.init({ background: '#1a2332', resizeTo: window})
+
+    // Create more intense rain
+    const raindrops = []
+    for (let i = 0; i < 50; i++) {
+        const drop = new Graphics()
+        drop.fill({ color: '#6b8b9e', alpha: 0.6 })
+        drop.rect(0, 0, 1, 30)
+        drop.fill()
+        drop.x = Math.random() * window.innerWidth
+        drop.y = Math.random() * window.innerHeight
+        drop.speed = Math.random() * 16 + 10
+        drop.angle = -15
+        raindrops.push(drop)
+        bg.stage.addChild(drop)
+    }
+
+    bg.ticker.add(() => {
+        raindrops.forEach(drop => {
+            drop.y += drop.speed
+            drop.x += drop.speed * 0.15
+            if (drop.y > window.innerHeight) {
+                drop.y = -30
+                drop.x = Math.random() * window.innerWidth
+            }
+        })
+    })
 
     return bg
 }
