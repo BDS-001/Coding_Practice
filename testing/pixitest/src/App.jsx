@@ -1,6 +1,6 @@
 import './App.css'
 import PixiBg from "./components/PixiBg"
-import Content from "./components/Content"
+import Content from "./tmp/Content"
 
 function App() {
   return (
