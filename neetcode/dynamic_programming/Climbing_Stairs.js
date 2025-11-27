@@ -4,13 +4,13 @@ class Solution {
      * @return {number}
      */
     climbStairs(n) {
-        return this.climb(0, n);
-    }
-
-    climb(curr, target) {
-        if (curr > target) return 0;
-        if (curr === target) return 1;
-
-        return this.climb(curr + 1, target) + this.climb(curr + 2, target);
+        let a = 1
+        let b = 1
+        for (let i = 1; i < n; i++) {
+            const tmp = a
+            a = a + b
+            b = tmp
+        }
+        return a
     }
 }
