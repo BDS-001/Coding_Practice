@@ -7,9 +7,7 @@ class Solution {
         let a = 1
         let b = 1
         for (let i = 1; i < n; i++) {
-            const tmp = a
-            a = a + b
-            b = tmp
+            [a, b] = [a + b, a]
         }
         return a
     }
