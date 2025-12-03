@@ -29,3 +29,5 @@ class Solution {
         return maxAmount
     }
 }
+
+const testFail = [5,1,2,6,12,7,9,3,4,10]
