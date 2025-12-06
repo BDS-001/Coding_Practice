@@ -1,6 +1,6 @@
 class Solution {
     constructor () {
-        //this.cache = new Map()
+        this.cache = new Map()
         this.houses
     }
     /**
@@ -10,16 +10,18 @@ class Solution {
     rob(nums) {
         if (nums.length <= 3) return Math.max(...nums)
         this.houses = nums
-        const startFirstHouse = this.getMaxVal(0, true)
-        const startSecondHouse = this.getMaxVal(1)
-        return Math.max(startFirstHouse, startSecondHouse)
+        return this.getMaxVal(0, true)
     }
 
     getMaxVal(i, start=false) {
         if (i >= this.houses.length || (start && i === this.houses.length - 1)) return 0
+        if (this.cache.has(`${i}-${start}`)) return this.cache.get(`${i}-${start}`)
+            
         const pair = this.houses[i] + this.getMaxVal(i+2, start)
+        if (i === 0) start = false
         const nextHouse = this.getMaxVal(i+1, start)
-        return Math.max(pair, nextHouse)
+        this.cache.set(`${i}-${start}`, Math.max(pair, nextHouse))
+        return this.cache.get(`${i}-${start}`)
     }
 }
 
