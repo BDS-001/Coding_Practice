@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import Menu from './pages/menu'
+import Menu from './pages/Menu'
+import Game from './pages/Game'
 import './App.css'
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
   return (
     <>
       {game ?
-      <div>game</div> :
+      <Game/> :
       <Menu playButtonFunc={setGame} />
       }
     </>
