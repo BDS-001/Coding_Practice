@@ -29,7 +29,7 @@
   }
 
   70% {
-    transform: scale(1.7) rotate(40deg);
+    transform: scale(1.7) rotate(var(--peak));
   }
 
   100% {
