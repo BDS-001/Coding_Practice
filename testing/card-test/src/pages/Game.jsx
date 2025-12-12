@@ -1,9 +1,13 @@
+import { useState } from 'react';
+
 export default function Game() {
+    const [tilts] = useState(() => [...Array(5)].map(() => Math.random() * 20 - 10));
+
     return (
         <div className="gameGrid">
-            {[...Array(5)].map((_, key) => {
-                return <div className="gameCard" key={key}></div>
-            })}
+            {tilts.map((tilt, key) => (
+                <div className="gameCard" key={key} style={{ '--tilt': `${tilt}deg` }}></div>
+            ))}
         </div>
     )
 }
