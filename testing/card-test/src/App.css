@@ -19,7 +19,9 @@
 
 .gameCard:hover {
   cursor: pointer;
-  animation: cardHover 0.2s ease-out forwards
+  animation: cardHover 0.2s ease-out forwards;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  z-index: 10;
 }
 
 @keyframes cardHover {
