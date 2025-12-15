@@ -15,6 +15,43 @@
   width: 100px;
   height: 150px;
   border-radius: 8px;
+  animation: var(--slide-animation) 0.6s ease-out forwards;
+}
+
+@keyframes slideFromTop {
+  from {
+    transform: translateY(calc(-50vh - 75px));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFromBottom {
+  from {
+    transform: translateY(calc(50vh + 75px));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(calc(-50vw - 50px));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(calc(50vw + 50px));
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .gameCard:hover {
