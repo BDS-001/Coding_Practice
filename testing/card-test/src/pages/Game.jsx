@@ -5,18 +5,17 @@ export default function Game() {
 
     const animations = ['slideFromTop', 'slideFromBottom', 'slideFromLeft', 'slideFromRight'];
 
-    const [tilts] = useState(() => [...Array(20)].map(() => {
+    const [cards] = useState(() => [...Array(20)].map(() => {
         const tilt = Math.floor(Math.random() * 20 - 10)
-        const peak = tilt > 0 ? 40 : -40
         const bgColor = colors[Math.floor(Math.random() * colors.length)]
         const slideAnimation = animations[Math.floor(Math.random() * animations.length)]
-        return {tilt, peak, bgColor, slideAnimation}
+        return {tilt, bgColor, slideAnimation}
     }));
 
     return (
         <div className="gameGrid">
-            {tilts.map((card, key) => (
-                <div className="gameCard" key={key} style={{ '--tilt': `${card.tilt}deg`, '--peak': `${card.peak}deg`, '--slide-animation': card.slideAnimation, backgroundColor: card.bgColor }}></div>
+            {cards.map((card, key) => (
+                <div className="gameCard" key={key} style={{ '--tilt': `${card.tilt}deg`, '--slide-animation': card.slideAnimation, backgroundColor: card.bgColor }}></div>
             ))}
         </div>
     )
