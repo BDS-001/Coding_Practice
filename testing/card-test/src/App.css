@@ -9,6 +9,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+  padding: 40px;
 }
 
 @keyframes slideFromTop {
@@ -55,13 +56,21 @@
   }
 }
 
+.gameCardWrapper {
+  animation: var(--slide-animation) 1s cubic-bezier(0.4, 0, 0.2, 1);
+  animation-delay: var(--animation-delay);
+  animation-fill-mode: both;
+  position: relative;
+}
+
+.gameCardWrapper:hover {
+  z-index: 10;
+}
+
 .gameCard {
   width: 100px;
   height: 150px;
   border-radius: 8px;
-  animation: var(--slide-animation) 1s cubic-bezier(0.4, 0, 0.2, 1);
-  animation-delay: var(--animation-delay);
-  animation-fill-mode: both;
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease-out;
 }
 
@@ -69,5 +78,4 @@
   cursor: pointer;
   transform: scale(1.5) rotate(var(--tilt));
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  z-index: 10;
 }

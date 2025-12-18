@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Game() {
     const colors = ['#FFB6C1', '#FFD1DC', '#FFDAB9', '#E0BBE4', '#D4A5A5', '#AEC6CF', '#B39EB5', '#C1E1C1', '#FDFD96', '#FFE4B5', '#F0E68C', '#DDA0DD', '#F5DEB3', '#E6E6FA', '#FFC8DD', '#BDB2FF'];
@@ -13,10 +13,21 @@ export default function Game() {
         return {tilt, bgColor, slideAnimation, animationDelay}
     }));
 
+    useEffect(() => {
+        document.body.classList.add('loading');
+        const maxDelay = cards.length * 0.1 + 1;
+        const timer = setTimeout(() => {
+            document.body.classList.remove('loading');
+        }, maxDelay * 1000);
+        return () => clearTimeout(timer);
+    }, [cards.length]);
+
     return (
         <div className="gameGrid">
             {cards.map((card, key) => (
-                <div className="gameCard" key={key} style={{ '--tilt': `${card.tilt}deg`, '--slide-animation': card.slideAnimation, '--animation-delay': `${card.animationDelay}s`, backgroundColor: card.bgColor }}></div>
+                <div className="gameCardWrapper" key={key} style={{ '--slide-animation': card.slideAnimation, '--animation-delay': `${card.animationDelay}s` }}>
+                    <div className="gameCard" style={{ '--tilt': `${card.tilt}deg`, backgroundColor: card.bgColor }}></div>
+                </div>
             ))}
         </div>
     )
