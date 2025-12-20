@@ -8,6 +8,7 @@ class Solution {
      */
     numDecodings(s) {
         if (!this.process(s)) return 0
+        return this.count()
     }
 
     process(s) {
@@ -26,6 +27,11 @@ class Solution {
         }
 
         return true
+    }
+
+    count(i=0) {
+        if (i >= this.strArr.length - 1) return 1
+        return (Number(this.strArr[i] + this.strArr[i+1]) <= 26) ? this.count(i+1) + this.count(i+2) : this.count(i+1)
     }
 }
 
