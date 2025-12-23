@@ -30,3 +30,6 @@ class Solution {
         }
     }
 }
+
+coins=[357,239,73,52]
+amount=9832
