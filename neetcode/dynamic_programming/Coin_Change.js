@@ -1,7 +1,7 @@
 class Solution {
     constructor() {
         this.coins = []
-        this.smallest = null
+        this.cache = new Map()
     }
     /**
      * @param {number[]} coins
@@ -13,21 +13,23 @@ class Solution {
         if (!coins || coins.length === 0) return -1
         this.coins = coins.sort((a, b) => b-a)
         if (this.coins[coins.length - 1] > amount) return -1
-        this.check(amount)
-        return this.smallest !== null ? this.smallest : -1
+        const small = this.check(amount)
+        return small === Infinity ? -1 : small
     }
 
-    check(amount, i=0, total=0, count=0) {
-        console.log(amount, i, total, count)
-        if (i >= this.coins.length || this.smallest !== null || total > amount) return
-        if (total === amount) {
-            this.smallest = count
-            return
-        }
+    check(remainder, total=0) {
+        if (remainder < 0) return Infinity
+        if (remainder === 0) return 0
 
-        for (let index = i; index < this.coins.length; index++) {           
-            this.check(amount, index, total+this.coins[index], count+1)
+        let small = Infinity
+        if (this.cache.has(remainder)) return this.cache.get(remainder)
+        for (let i = 0; i < this.coins.length; i++) {
+            const val = this.coins[i]
+            if (val > remainder) continue 
+            small = Math.min(small, 1 + this.check(remainder - val, total+this.coins[i]))
         }
+        this.cache.set(remainder, small)
+        return small
     }
 }
 
