@@ -1,6 +1,5 @@
 class Solution {
     constructor() {
-        this.map = new Map()
         this.max = -Infinity
     }
     /**
@@ -13,7 +12,6 @@ class Solution {
     }
 
     getMax(nums, index=0) {
-        if (this.map.has(index)) return this.map.get(index)
         if (index >= nums.length) return {min: 1, max: 1}
 
         const vals = {}
@@ -23,7 +21,6 @@ class Solution {
         vals.min = Math.min(curr, curr * next.min, curr * next.max)
         vals.max = Math.max(curr, curr * next.min, curr * next.max)
         this.max = Math.max(this.max, vals.max)
-        this.map.set(index, vals)
         
         return vals
     }
