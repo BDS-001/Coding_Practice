@@ -1,17 +1,31 @@
 class Solution {
+    constructor() {
+        this.map = new Map()
+        this.max = -Infinity
+    }
     /**
      * @param {number[]} nums
      * @return {number}
      */
     maxProduct(nums) {
-        let max = -Infinity
-        for (let start = 0; start < nums.length; start++) {
-            for (let end = start+1; end <= nums.length; end++) {
-                const val = nums.slice(start, end).reduce((acc, num) => acc * num, 1)
-                max = Math.max(val, max)
-            }
-        }    
-        return max    
+        this.getMax(nums)
+        return this.max
+    }
+
+    getMax(nums, index=0) {
+        if (this.map.has(index)) return this.map.get(index)
+        if (index >= nums.length) return {min: 1, max: 1}
+
+        const vals = {}
+        const curr = nums[index]
+        const next = this.getMax(nums, index+1)
+
+        vals.min = Math.min(curr, curr * next.min, curr * next.max)
+        vals.max = Math.max(curr, curr * next.min, curr * next.max)
+        this.max = Math.max(this.max, vals.max)
+        this.map.set(index, vals)
+        
+        return vals
     }
 
     
