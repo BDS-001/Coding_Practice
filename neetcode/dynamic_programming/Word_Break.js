@@ -1,20 +1,22 @@
 class Solution {
+    constructor() {
+        this.map = new Map()
+    }
     /**
      * @param {string} s
      * @param {string[]} wordDict
      * @return {boolean}
      */
     wordBreak(s, wordDict) {
-        const q = [s]
-        while (q.length > 0) {
-            const currentString = q.pop()
-            for (const word of wordDict) {
-                const sub = currentString.slice(0, word.length)
-                if (sub !== word) continue
-                const remaining = currentString.slice(word.length)
-                if (remaining === '') return true
-                q.push(remaining)
-            }
+        if (s.length === 0) return true
+        if (this.map.has(s)) return this.map.get(s)
+        for (const word of wordDict) {
+                const sub = s.slice(0, word.length)
+                if (sub !== word || !this.wordBreak(s.slice(word.length), wordDict)) continue
+                this.map.set(s, true)
+                return true
         }
+        this.map.set(s, false)
+        return false
     }
 }
