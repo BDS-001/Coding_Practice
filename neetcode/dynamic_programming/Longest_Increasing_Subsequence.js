@@ -7,11 +7,14 @@ class Solution {
      * @param {number[]} nums
      * @return {number}
      */
-    lengthOfLIS(nums, index=0) {
-
+    lengthOfLIS(nums) {
+        for (let i = 0; i < nums.length; i++) {
+            this.DP(nums, i)
+        }
+        return this.globalMax
     }
 
-    DP(nums, index=0) {
+    DP(nums, index) {
         if (index === nums.length-1) return 1
         if (this.map.has(index)) return this.map.get(index)
         let max = 1
