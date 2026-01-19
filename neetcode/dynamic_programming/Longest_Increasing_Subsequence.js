@@ -1,13 +1,14 @@
 class Solution {
     constructor() {
         this.map = new Map()
-        this.globalMax = -Infinity
+        this.globalMax = 1
     }
     /**
      * @param {number[]} nums
      * @return {number}
      */
     lengthOfLIS(nums) {
+        if (!nums.length) return 0
         for (let i = 0; i < nums.length; i++) {
             this.DP(nums, i)
         }
@@ -19,7 +20,7 @@ class Solution {
         if (this.map.has(index)) return this.map.get(index)
         let max = 1
         for (let i = index+1; i < nums.length; i++) {
-            if (nums[index] > nums[i]) continue
+            if (nums[index] >= nums[i]) continue
             max = Math.max(max, 1 + this.DP(nums, i))
         }
         this.globalMax = Math.max(max, this.globalMax)
