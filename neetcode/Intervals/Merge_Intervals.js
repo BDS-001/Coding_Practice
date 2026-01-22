@@ -4,6 +4,7 @@ class Solution {
      * @return {number[][]}
      */
     merge(intervals) {
+        intervals = intervals.sort((a, b) => a[0] - b[0])
         const newIntervals = []
         let newRange = intervals[0]
 
@@ -22,5 +23,3 @@ class Solution {
         return newIntervals
     }
 }
-//intervals are not sorted
-//fail: intervals=[[1,4],[0,4]]
