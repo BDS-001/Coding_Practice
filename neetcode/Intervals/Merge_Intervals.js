@@ -22,3 +22,5 @@ class Solution {
         return newIntervals
     }
 }
+//intervals are not sorted
+//fail: intervals=[[1,4],[0,4]]
