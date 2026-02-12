@@ -11,19 +11,14 @@ class Solution {
     bruteForce(intervals) {
         if (intervals.length === 1) return 1
 
-        let overlap = false
+        let intervalsLength = -1
         for (let i = 1; i < intervals.length; i++) {
             if (intervals[i][0] < intervals[i-1][1]) {
-                overlap = true
-                break
+                const remove = intervals[i][1] < intervals[i-1][1] ? i-1 : i
+                intervalsLength = Math.max(intervalsLength, this.bruteForce([...intervals.slice(0, remove), ...intervals.slice(remove+1)]))
             }
         }
-        if (overlap === false) return intervals.length
 
-        let leastRemoved = -1
-        for (let i = 0; i < intervals.length; i++) {
-            leastRemoved = Math.max(leastRemoved, this.bruteForce([...intervals.slice(0, i), ...intervals.slice(i+1)]))
-        }
-        return leastRemoved
+        return intervalsLength === -1 ? intervals.length : intervalsLength
     }
 }
