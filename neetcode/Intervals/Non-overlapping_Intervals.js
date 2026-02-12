@@ -5,7 +5,21 @@ class Solution {
      */
     eraseOverlapIntervals(intervals) {
         intervals.sort((a, b) => a[0] - b[0])
-        return intervals.length - this.bruteForce(intervals)
+        return this.greedy(intervals)
+    }
+
+    greedy(intervals) {
+        let prev = intervals[0][1]
+        let remove = 0
+        for (let i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] >= prev) {
+                prev = intervals[i][1]
+                continue
+            }
+            prev = intervals[i][1] < prev ? intervals[i][1] : prev
+            remove++
+        }
+        return remove
     }
 
     bruteForce(intervals) {
