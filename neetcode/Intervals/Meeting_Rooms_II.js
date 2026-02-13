@@ -21,9 +21,18 @@ class Solution {
         while(remaining.length > 0) {
             const toCheck = remaining
             remaining = []
+            let prev = 0
             for (let i = 1; i < toCheck.length; i++) {
-                if (toCheck[i].start >= toCheck[i-1].end) continue
-                toCheck[i].end < toCheck[i-1].end ? remaining.push(toCheck[i-1]) : remaining.push(toCheck[i])
+                if (toCheck[i].start >= toCheck[prev].end) {
+                    prev = i
+                    continue
+                }
+                if (toCheck[i].end < toCheck[prev].end) {
+                    remaining.push(toCheck[prev])
+                    prev = i
+                } else {
+                    remaining.push(toCheck[i])
+                }
             }
             days++
         }
