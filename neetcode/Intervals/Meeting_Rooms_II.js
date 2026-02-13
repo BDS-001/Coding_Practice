@@ -15,13 +15,20 @@ class Solution {
      */
     minMeetingRooms(intervals) {
         intervals.sort((a, b) => a.start - b.start)
-        const remaining = []
-        let days = 1
+        let remaining = intervals
+        let days = 0
 
-        let prev = intervals[0].end
-        for (let i = 1; i < array.length; i++) {
-            if (intervals[i].start >= intervals[i-1].end) continue
-            intervals[i].end < intervals[i-1].end ? remaining.push(intervals[i-1]) : remaining.push(intervals[i])
+        while(remaining.length > 0) {
+            const toCheck = remaining
+            remaining = []
+            for (let i = 1; i < toCheck.length; i++) {
+                if (toCheck[i].start >= toCheck[i-1].end) continue
+                toCheck[i].end < toCheck[i-1].end ? remaining.push(toCheck[i-1]) : remaining.push(toCheck[i])
+            }
+            days++
         }
+        return days
     }
 }
+
+// fails intervals=[(1,5),(2,6),(3,7),(4,8),(5,9)]
