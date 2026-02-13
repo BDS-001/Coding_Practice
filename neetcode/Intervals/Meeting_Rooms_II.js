@@ -31,4 +31,4 @@ class Solution {
     }
 }
 
-// fails intervals=[(1,5),(2,6),(3,7),(4,8),(5,9)]
+// fails intervals=[(1,5),(2,6),(3,7),(4,8),(5,9)], expected 4
