@@ -14,30 +14,29 @@ class Solution {
      * @returns {number}
      */
     minMeetingRooms(intervals) {
-        intervals.sort((a, b) => a.start - b.start)
-        let remaining = intervals
-        let days = 0
-
-        while(remaining.length > 0) {
-            const toCheck = remaining
-            remaining = []
-            let prev = 0
-            for (let i = 1; i < toCheck.length; i++) {
-                if (toCheck[i].start >= toCheck[prev].end) {
-                    prev = i
-                    continue
-                }
-                if (toCheck[i].end < toCheck[prev].end) {
-                    remaining.push(toCheck[prev])
-                    prev = i
-                } else {
-                    remaining.push(toCheck[i])
-                }
-            }
-            days++
+        const start = []
+        const end = []
+        for (let i = 0; i < intervals.length; i++) {
+            start.push(intervals[i].start)
+            end.push(intervals[i].end)
         }
-        return days
+
+        start.sort((a, b) => a - b)
+        end.sort((a, b) => a - b)
+
+        let maxCount = 0
+        let curr = 0
+        while(start.length > 0) {
+            if (end[0] <= start[0]) {
+                end.shift()
+                curr--
+                continue
+            }
+
+            start.shift()
+            curr++
+            maxCount = Math.max(maxCount, curr)
+        }
+        return maxCount
     }
 }
-
-// fails intervals=[(1,5),(2,6),(3,7),(4,8),(5,9)], expected 4
