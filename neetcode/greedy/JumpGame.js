@@ -17,7 +17,7 @@ class Solution {
         if (index >= this.nums.length -1) return true
         if (this.cache.has(index)) return this.cache.get(index)
         let valid = false
-        for (let i = 1; i <= this.nums[index] ; i++) {
+        for (let i = this.nums[index]; i > 0; i--) {
             valid = valid || this.dp(index+i)
         }
         this.cache.set(index, valid)
