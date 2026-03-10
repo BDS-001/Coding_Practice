@@ -19,6 +19,7 @@ class Solution {
         let valid = false
         for (let i = this.nums[index]; i > 0; i--) {
             valid = valid || this.dp(index+i)
+            if (valid) break
         }
         this.cache.set(index, valid)
         return valid
