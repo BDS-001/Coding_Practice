@@ -4,7 +4,7 @@ class Solution {
      * @return {number}
      */
     maxSubArray(nums) {
-        return this.bruteForce(nums)
+        return this.greedy(nums)
     }
 
     bruteForce(nums) {
@@ -18,7 +18,16 @@ class Solution {
         return max
     }
 
-    greedy() {
+    greedy(nums) {
+        let max = nums[0]
+        let current = nums[0]
+        let p = 1
 
+        while(p < nums.length) {
+            current = current < 0 ? nums[p] : current + nums[p]
+            max = Math.max(max, current)
+            p++
+        }
+        return max
     }
 }
