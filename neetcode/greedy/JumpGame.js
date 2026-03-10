@@ -10,7 +10,7 @@ class Solution {
      */
     canJump(nums) {
         this.nums = nums
-        return this.dp(0) 
+        return this.greedy() 
     }
 
     dp(index) {
@@ -23,5 +23,13 @@ class Solution {
         }
         this.cache.set(index, valid)
         return valid
+    }
+
+    greedy() {
+        let goal = this.nums.length - 1
+        for (let i = goal-1; i >= 0; i--) {
+            if (i + this.nums[i] >= goal) goal = i
+        }
+        return goal == 0
     }
 }
